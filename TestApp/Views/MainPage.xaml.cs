@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestApp.Views;
+using TestApp.views;
 using Xamarin.Forms;
 namespace TestApp
 {
@@ -13,7 +13,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushAsync(new Test());
+            Navigation.PushAsync(new ListViewPage1());
         }
     }
 }

@@ -1,36 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
+using Newtonsoft.Json;
 using TestApp.models;
 namespace TestApp.services
 {
-    class FirebaseMethods
+    public class FirebaseMethods
     {
-        FirebaseClient firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
-
-
+        FirebaseClient firebase;
+        //public static string FrebaseSecret = "3EoKVuslXqTif6tEv7DeUW7O0vbGUFYiu8U848aW";
+        public FirebaseMethods()
+        {
+            firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
+        }
         public async Task<List<Exercise>> GetAllExercises()
         {
             try
             {
                 return (await firebase
-             .Child("exercises").Child("Exercise1")
-             .OnceAsync<Exercise>()).Select(item => new Exercise
-             {
-                 exerciseName = item.Object.exerciseName,
-                 exerciseDescription = item.Object.exerciseDescription
-
-             }).ToList();
+                .Child("exercise")
+                .OnceAsync<Exercise>()).Select(item => new Exercise
+                {
+                    exerciseName = item.Object.exerciseName,
+                    exerciseDescription = item.Object.exerciseDescription,
+                }).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new List<Exercise>();
-            }
-           
+                Console.WriteLine(e.Message);
+                return null; } 
+        }
+        public async Task<Exercise> GetExercise()
+        {
+            var allPersons = await GetAllExercises();
+            await firebase
+              .Child("exercise")
+              .OnceAsync<Exercise>();
+            return allPersons.Where(a => a.exerciseName == "pushup").FirstOrDefault();
         }
     }
 
