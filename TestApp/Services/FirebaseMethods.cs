@@ -13,7 +13,6 @@ namespace TestApp.services
     public class FirebaseMethods
     {
         FirebaseClient firebase;
-        //public static string FrebaseSecret = "3EoKVuslXqTif6tEv7DeUW7O0vbGUFYiu8U848aW";
         public FirebaseMethods()
         {
             firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -28,6 +27,7 @@ namespace TestApp.services
                 {
                     exerciseName = item.Object.exerciseName,
                     exerciseDescription = item.Object.exerciseDescription,
+                    exerciseListKey = item.Key,
                 }).ToList();
             }
             catch (Exception e)
@@ -37,11 +37,11 @@ namespace TestApp.services
         }
         public async Task<Exercise> GetExercise()
         {
-            var allPersons = await GetAllExercises();
+            var allExercises = await GetAllExercises();
             await firebase
               .Child("exercise")
               .OnceAsync<Exercise>();
-            return allPersons.Where(a => a.exerciseName == "pushup").FirstOrDefault();
+            return allExercises.Where(a => a.exerciseName == "pushup").FirstOrDefault();
         }
     }
 

@@ -3,16 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
              xmlns:viewmodels="clr-namespace:TestApp.ViewModels"
              x:Class="TestApp.views.ListViewPage1">
-    <ContentPage.BindingContext>
-        <viewmodels:ListViewModel/>
-    </ContentPage.BindingContext>
-    <ListView x:Name="MyListView" ItemsSource="{Binding exercises}">
+    <ListView x:Name="MyListView" ItemsSource="{Binding exercises}" BackgroundColor="White" SeparatorColor="black" HasUnevenRows="true">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Label Text="{Binding exerciseName}"/>
+                        <Label Text="{Binding exerciseListKey}"/>
                         <Label Text="{Binding exerciseDescription}"/>
+                        <Label Text="{Binding exerciseName}"/>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

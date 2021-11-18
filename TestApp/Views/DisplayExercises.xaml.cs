@@ -16,14 +16,16 @@ namespace TestApp.views
     public partial class ListViewPage1 : ContentPage
     {
         private FirebaseMethods fire;
-    
         public ListViewPage1()
         {
-            InitializeComponent();
             fire = new FirebaseMethods();
+            InitializeComponent();
+            
         }
         protected async override void OnAppearing()
         {
+            base.OnAppearing();
+            MyListView.ItemsSource = null;
             var exercises = await fire.GetAllExercises();
             MyListView.ItemsSource = exercises;
         }

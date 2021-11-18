@@ -11,6 +11,7 @@ namespace TestApp.models
         public string exerciseName { get; set; }
         [JsonProperty("desc")]
         public string exerciseDescription { get; set; }
+        public string exerciseListKey { get; set; }
         //public string exerciseKey { get; set; }
     }
     
