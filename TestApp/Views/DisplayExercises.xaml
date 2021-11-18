@@ -8,6 +8,7 @@
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
+                        <Image Source="{Binding Image}"/>
                         <Label Text="{Binding exerciseListKey}"/>
                         <Label Text="{Binding exerciseDescription}"/>
                         <Label Text="{Binding exerciseName}"/>

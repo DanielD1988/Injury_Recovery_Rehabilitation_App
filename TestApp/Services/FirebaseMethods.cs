@@ -27,6 +27,7 @@ namespace TestApp.services
                 {
                     exerciseName = item.Object.exerciseName,
                     exerciseDescription = item.Object.exerciseDescription,
+                    ImageBase64 = item.Object.ImageBase64,
                     exerciseListKey = item.Key,
                 }).ToList();
             }
