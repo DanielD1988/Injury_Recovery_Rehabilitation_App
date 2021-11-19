@@ -8,10 +8,11 @@
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Image Source="{Binding Image}"/>
-                        <Label Text="{Binding exerciseListKey}"/>
-                        <Label Text="{Binding exerciseDescription}"/>
-                        <Label Text="{Binding exerciseName}"/>
+                        <!--<Image Source="{Binding Image}"/>-->
+                        <!--<Label Text="{Binding exerciseListKey}"/>-->
+                        <Label FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
+                        <!--<Label Text="{Binding exerciseDescription}"/>-->
+                        <Button Text="View Details" BackgroundColor="DodgerBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
