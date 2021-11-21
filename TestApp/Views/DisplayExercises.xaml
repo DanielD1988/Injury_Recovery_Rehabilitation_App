@@ -7,8 +7,8 @@
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Label FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
-                        <Button Text="View Details" BackgroundColor="DodgerBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
+                        <Label TextColor="Black" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
+                        <Button TextColor="Black" Text="View Details" BackgroundColor="DodgerBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
