@@ -10,12 +10,19 @@ namespace TestApp.ViewModels
     {
         private FirebaseMethods fire;
         public DisplayExercisesViewModel() {
-            fire = new FirebaseMethods();
+            fire = FirebaseMethods.GetInstance();
         }
 
         public async Task<List<Exercise>> GetExerciseList()
         {
             return await fire.GetAllExercises();
+        }
+
+        public async Task<Exercise> sendExerciseKey(string key)
+        {
+            Exercise exercise = await fire.GetExercise(key);
+
+            return exercise;
         }
        
 

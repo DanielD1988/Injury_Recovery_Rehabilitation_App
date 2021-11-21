@@ -12,10 +12,15 @@ namespace TestApp.services
 {
     public class FirebaseMethods
     {
-        FirebaseClient firebase;
-        public FirebaseMethods()
+        private static FirebaseClient firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
+        private static FirebaseMethods fire = new FirebaseMethods();
+        private FirebaseMethods()
         {
-            firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
+            
+        }
+        public static FirebaseMethods GetInstance()
+        {
+            return fire;
         }
         public async Task<List<Exercise>> GetAllExercises()
         {
@@ -36,13 +41,14 @@ namespace TestApp.services
                 Console.WriteLine(e.Message);
                 return null; } 
         }
-        public async Task<Exercise> GetExercise()
+
+        public async Task<Exercise> GetExercise(String exerciseKey)
         {
             var allExercises = await GetAllExercises();
             await firebase
               .Child("exercise")
               .OnceAsync<Exercise>();
-            return allExercises.Where(a => a.exerciseName == "pushup").FirstOrDefault();
+            return allExercises.Where(a => a.exerciseListKey == exerciseKey).FirstOrDefault();
         }
     }
 

@@ -9,12 +9,10 @@ namespace TestApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListViewPage1 : ContentPage
     {
-        //private FirebaseMethods fire;
         private DisplayExercisesViewModel viewModel;
 
         public ListViewPage1()
         {
-            //fire = new FirebaseMethods();
             viewModel = new DisplayExercisesViewModel();
             InitializeComponent();
             
