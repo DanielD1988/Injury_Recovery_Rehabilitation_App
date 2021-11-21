@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestApp.views;
+﻿using TestApp.views;
 using Xamarin.Forms;
 namespace TestApp
 {
@@ -13,7 +7,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushAsync(new ListViewPage1());
+            Navigation.PushAsync(new DisplayExercises());
         }
     }
 }

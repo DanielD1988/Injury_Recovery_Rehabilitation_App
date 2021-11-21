@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json.Converters;
 using System.IO;
 
 namespace TestApp.models
@@ -15,6 +12,8 @@ namespace TestApp.models
         public string exerciseName { get; set; }
         [JsonProperty("desc")]
         public string exerciseDescription { get; set; }
+        [JsonProperty("exerciseInfo")]
+        public string exerciseInfo { get; set; }
         public string exerciseListKey { get; set; }
         [JsonProperty("exerciseImage")]
         public string ImageBase64

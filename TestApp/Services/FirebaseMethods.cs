@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Firebase.Database;
-using Firebase.Database.Query;
-using Newtonsoft.Json;
 using TestApp.models;
 namespace TestApp.services
 {
@@ -33,6 +29,7 @@ namespace TestApp.services
                     exerciseName = item.Object.exerciseName,
                     exerciseDescription = item.Object.exerciseDescription,
                     ImageBase64 = item.Object.ImageBase64,
+                    exerciseInfo = item.Object.exerciseInfo,
                     exerciseListKey = item.Key,
                 }).ToList();
             }

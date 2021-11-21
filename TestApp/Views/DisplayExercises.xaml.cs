@@ -7,11 +7,11 @@ using Xamarin.Forms.Xaml;
 namespace TestApp.views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ListViewPage1 : ContentPage
+    public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisesViewModel viewModel;
 
-        public ListViewPage1()
+        public DisplayExercises()
         {
             viewModel = new DisplayExercisesViewModel();
             InitializeComponent();

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.models;
 using TestApp.ViewModels;
 using Xamarin.Forms;
@@ -24,10 +20,14 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            //BindingContext = new DisplayExercisesViewModel();
             Exercise currentExercise = await viewModel.sendExerciseKey(exerciseKey);
             BindingContext = currentExercise;
-
+        }
+        public void AddToPatient(Object Sender, EventArgs args)
+        {
+            Button button = (Button)Sender;
+            string exerciseKey = button.CommandParameter.ToString();
+            //Navigation.PushModalAsync(new ExerciseDetail(exerciseKey));
         }
     }
 }
