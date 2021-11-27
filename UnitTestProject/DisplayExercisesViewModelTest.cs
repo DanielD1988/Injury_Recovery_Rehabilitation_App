@@ -1,4 +1,3 @@
-using System;
 using TestApp.ViewModels;
 using Xunit;
 /// <summary>
@@ -6,6 +5,7 @@ using Xunit;
 /// </summary>
 namespace UnitTestProject
 {
+    //https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
     public class DisplayExercisesViewModelTest
     {
         DisplayExercisesViewModel model = new DisplayExercisesViewModel();
