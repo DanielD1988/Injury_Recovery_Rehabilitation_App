@@ -5,9 +5,9 @@
     <ContentPage.Content>
         <StackLayout>
             <Image Source="{Binding Image}"/>
-            <Label BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
+            <Label TextColor="Black" BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
             <Label Margin="15" FontSize = "18" Text="{Binding exerciseDescription}"/>
-            <Label BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Description"/>
+            <Label TextColor="Black" BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Description"/>
             <Label Margin="15" FontSize = "18" Text="{Binding exerciseInfo}"/>
             <Button Text="Add to Patient" BackgroundColor="DodgerBlue" Clicked="AddToPatient" />
         </StackLayout>
