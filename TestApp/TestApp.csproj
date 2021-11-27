@@ -31,5 +31,14 @@
     <EmbeddedResource Update="Views\DisplayExercises.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+<<<<<<< newBranch
+    <EmbeddedResource Update="Views\ExerciseDetail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\sendEmailToPatient.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+
+>>>>>>> master
   </ItemGroup>
 </Project>

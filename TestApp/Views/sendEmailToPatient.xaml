@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestApp.Views.sendEmailToPatient">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Margin="0,0,0,10" Text="Enter Patient Email" FontAttributes="Bold" FontSize="Large" TextColor="DodgerBlue" HorizontalTextAlignment="Center" ></Label>
+            <Entry x:Name="txtTo" Placeholder="example@email.com"></Entry>
+            <Button x:Name="btnSend"  BackgroundColor="DodgerBlue" Text="Send" Clicked="btnSend_Clicked" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

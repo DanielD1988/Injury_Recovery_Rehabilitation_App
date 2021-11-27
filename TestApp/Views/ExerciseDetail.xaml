@@ -9,7 +9,7 @@
             <Label Margin="15" FontSize = "18" Text="{Binding exerciseDescription}"/>
             <Label TextColor="Black" BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Description"/>
             <Label Margin="15" FontSize = "18" Text="{Binding exerciseInfo}"/>
-            <Button TextColor="Black" Text="Add to Patient" BackgroundColor="DodgerBlue" Clicked="AddToPatient" CommandParameter="{Binding exerciseListKey}" />
+            <Button Text="Add to Patient" BackgroundColor="DodgerBlue" Clicked="AddToPatient" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

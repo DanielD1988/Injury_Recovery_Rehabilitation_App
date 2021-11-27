@@ -4,7 +4,12 @@ using System.IO;
 
 namespace TestApp.models
 {
-    public class Exercise
+    /// <summary>
+    /// This Exercise class sets data comming from the FirebaseMethods. The [JsonProperty()] decorator is used to
+    /// deserialize key value pair JSON structure so the value can be extracted to the variable.
+    /// There is also a base64 string to image conversion
+    /// </summary>
+    public class Exercise // https://stackoverflow.com/questions/38743280/deserialize-json-object-xamarin-android-c-sharp
     {
         private string base64stringToImage;
         private Xamarin.Forms.ImageSource image;
@@ -16,6 +21,7 @@ namespace TestApp.models
         public string exerciseInfo { get; set; }
         public string exerciseListKey { get; set; }
         [JsonProperty("exerciseImage")]
+        //https://blog.mzikmund.com/2018/01/displaying-base64-encoded-image-in-xamarin-forms/
         public string ImageBase64
         {
             get { return base64stringToImage; }
@@ -33,6 +39,6 @@ namespace TestApp.models
             {
                 image = value; 
             }
-        }
+        }///////////////////////////////////////////////////////////////////
     }
 }
