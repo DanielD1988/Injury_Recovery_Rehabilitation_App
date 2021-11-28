@@ -4,7 +4,7 @@
              x:Class="TestApp.Views.sendEmailToPatient">
     <ContentPage.Content>
         <StackLayout>
-            <Label Margin="0,0,0,10" Text="Enter Patient Email" FontAttributes="Bold" FontSize="Large" TextColor="DodgerBlue" HorizontalTextAlignment="Center" ></Label>
+            <Label Margin="0,0,0,10" Text="Network connection not working press button to return to previous page" FontAttributes="Bold" FontSize="Large" TextColor="DodgerBlue" HorizontalTextAlignment="Center" ></Label>
             <Entry x:Name="txtTo" Placeholder="example@email.com"></Entry>
             <Button x:Name="btnSend"  BackgroundColor="DodgerBlue" Text="Send" Clicked="btnSend_Clicked" />
         </StackLayout>
