@@ -9,6 +9,7 @@ namespace TestApp.ViewModels
     public interface IFirebaseAuthenticator
     {
         Task<string> LoginWithEmailPassword(string email, string password);
+        Task<string> SignupWithEmailPassword(string email, string password);
     }
     /////////////////////////////////////////////////////////////////////////
 }

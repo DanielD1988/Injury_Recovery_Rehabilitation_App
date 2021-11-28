@@ -9,7 +9,7 @@ using Xamarin.Forms;
 namespace TestApp.Droid
 {
     /// <summary>
-    /// This class inherts LoginWithEmailPassword method from IFirebaseAuthenticator
+    /// This class inherts LoginWithEmailPassword and SignInWithEmailAndPasswordAsync methods from IFirebaseAuthenticator
     /// which is used to check if a user is authorised to login
     /// </summary>
     public class AndroidoginCheck : IFirebaseAuthenticator
@@ -30,7 +30,10 @@ namespace TestApp.Droid
                             SignInWithEmailAndPasswordAsync(email, password);
                 //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
                 var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
-                return token.Token;
+                var value = user.User.Uid;
+                string newUid = value.ToString();
+                //return token.Token;
+                return newUid;
             }
             catch (FirebaseAuthInvalidUserException e)
             {
@@ -38,5 +41,21 @@ namespace TestApp.Droid
                 return "";
             }
         }////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// This method allows a user to register with the application through firebase Auth
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        //https://www.py4u.net/discuss/1541967
+        public async Task<string> SignupWithEmailPassword(string email, string password)
+        {
+            var user = await FirebaseAuth.Instance.CreateUserWithEmailAndPasswordAsync(email, password);
+            var value = user.User.Uid;
+            string newUid = value.ToString();
+            var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
+            //return token.Token;
+            return newUid;
+        }
     }
 }
