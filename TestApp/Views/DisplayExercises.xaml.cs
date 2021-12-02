@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using TestApp.models;
 using TestApp.ViewModels;
 using TestApp.Views;
 using Xamarin.Forms;
@@ -12,6 +15,7 @@ namespace TestApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayExercises : ContentPage
     {
+        private List<Exercise> exercises;
         private DisplayExercisesViewModel viewModel;
         /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
@@ -25,12 +29,15 @@ namespace TestApp.views
         /// <summary>
         /// This OnAppearing method is used to populate a list view with a list of exercises by calling 
         /// the FirebaseMethods methods through DisplayExercisesViewModel
+        /// Linq groupby is used to group exercises togather
         /// </summary>
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             MyListView.ItemsSource = null;
-            MyListView.ItemsSource = await viewModel.GetExerciseList();
+            List<Exercise> exercises = await viewModel.GetExerciseList();
+            var sortedByCategorys = exercises.GroupBy(val => val.Category);
+            MyListView.ItemsSource = sortedByCategorys;
         }
         /// <summary>
         /// This Details button press method returns with an exercise key and opens a new page called ExerciseDetail

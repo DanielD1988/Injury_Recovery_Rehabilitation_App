@@ -37,7 +37,5 @@ namespace TestApp.ViewModels
 
             return exercise;
         }
-       
-
     }
 }

@@ -19,6 +19,9 @@ namespace TestApp.models
         public string exerciseDescription { get; set; }
         [JsonProperty("exerciseInfo")]
         public string exerciseInfo { get; set; }
+        [JsonProperty("category")]
+        public string Category { get; set; }
+
         public string exerciseListKey { get; set; }
         [JsonProperty("exerciseImage")]
         //https://blog.mzikmund.com/2018/01/displaying-base64-encoded-image-in-xamarin-forms/

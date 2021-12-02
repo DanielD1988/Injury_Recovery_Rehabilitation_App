@@ -5,14 +5,14 @@ using TestApp.Droid;
 using TestApp.ViewModels;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(AndroidoginCheck))]
+[assembly: Dependency(typeof(AndroidLoginCheck))]
 namespace TestApp.Droid
 {
     /// <summary>
     /// This class inherts LoginWithEmailPassword and SignInWithEmailAndPasswordAsync methods from IFirebaseAuthenticator
     /// which is used to check if a user is authorised to login
     /// </summary>
-    public class AndroidoginCheck : IFirebaseAuthenticator
+    public class AndroidLoginCheck : IFirebaseAuthenticator
     {
         /// <summary>
         /// This method takes the users login and password uses FirebaseAuth to check if the user is verified

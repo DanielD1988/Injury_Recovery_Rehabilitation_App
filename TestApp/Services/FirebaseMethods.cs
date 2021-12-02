@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Database;
+using Firebase.Database.Query;
 using TestApp.models;
 namespace TestApp.services
 {
@@ -38,13 +39,14 @@ namespace TestApp.services
             try
             {
                 return (await firebase
-                .Child("exercise")
+                .Child("exercisePlans")
                 .OnceAsync<Exercise>()).Select(item => new Exercise
                 {
                     exerciseName = item.Object.exerciseName,
                     exerciseDescription = item.Object.exerciseDescription,
                     ImageBase64 = item.Object.ImageBase64,
                     exerciseInfo = item.Object.exerciseInfo,
+                    Category = item.Object.Category,
                     exerciseListKey = item.Key,
                 }).ToList();
             }
@@ -62,7 +64,7 @@ namespace TestApp.services
         {
             var allExercises = await GetAllExercises();
             await firebase
-              .Child("exercise")
+              .Child("exercisePlans")
               .OnceAsync<Exercise>();
             return allExercises.Where(a => a.exerciseListKey == exerciseKey).FirstOrDefault();
         }///////////////////////////////////////////////////////////////////////////
