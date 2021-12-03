@@ -30,7 +30,7 @@ namespace TestApp.services
             return fire;
         }
         /// <summary>
-        /// This method returns all exercises of a JSON list called exercise
+        /// This method returns all exercises of a JSON list called exercisePlans
         /// </summary>
         /// <returns></returns>
         //https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
@@ -47,6 +47,9 @@ namespace TestApp.services
                     ImageBase64 = item.Object.ImageBase64,
                     exerciseInfo = item.Object.exerciseInfo,
                     Category = item.Object.Category,
+                    Exercise1 = item.Object.Exercise1,
+                    Exercise2 = item.Object.Exercise2,
+                    Exercise3 = item.Object.Exercise3,
                     exerciseListKey = item.Key,
                 }).ToList();
             }

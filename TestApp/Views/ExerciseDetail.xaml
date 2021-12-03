@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TestApp.Views.ExerciseDetail">
     <ContentPage.Content>
-        <StackLayout>
-            <Image Source="{Binding Image}"/>
-            <Label TextColor="Black" BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
+        <StackLayout BackgroundColor="AliceBlue">
+            <Frame BorderColor="Navy" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,10,40,10"        >
+                <Image Source="{Binding Image}" BackgroundColor="white"/>
+
+            </Frame>
+            <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Injury Description"/>
             <Label Margin="15" FontSize = "18" Text="{Binding exerciseDescription}"/>
-            <Label TextColor="Black" BackgroundColor="DodgerBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Description"/>
-            <Label Margin="15" FontSize = "18" Text="{Binding exerciseInfo}"/>
-            <Button Text="Add to Patient" BackgroundColor="DodgerBlue" Clicked="AddToPatient" />
+            <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Plan List"/>
+            <Label TextColor="Black" FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise1}"/>
+            <Label TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise2}"/>
+            <Label TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise3}"/>
+            <Button Text="Add to Patient" TextColor="White"  BackgroundColor="SteelBlue" CornerRadius="10" Margin="90, 15" Clicked="AddToPatient" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

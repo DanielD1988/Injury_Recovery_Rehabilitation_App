@@ -1,17 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--GroupDisplayBinding="{Binding Key}"-->
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
              x:Class="TestApp.views.DisplayExercises">
-    <ListView x:Name="MyListView" ItemsSource="{Binding sortedByCategorys}" BackgroundColor="White" 
-              SeparatorColor="black" HasUnevenRows="true"
-              GroupDisplayBinding="{Binding Key}"
+    <ListView x:Name="MyListView" ItemsSource="{Binding sortedByCategorys}"  BackgroundColor="AliceBlue" 
+              SeparatorColor="AliceBlue" 
+              HasUnevenRows="true"
               IsGroupingEnabled="true">
+        <ListView.GroupHeaderTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Padding="10"
+                                     BackgroundColor="SkyBlue"
+                                     VerticalOptions="FillAndExpand">
+                        <Label Text="{Binding Key}"
+                                   TextColor="Black"
+                                   FontSize="Large"
+                                    FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="FillAndExpand" 
+                                   />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Label TextColor="Black" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
-                        <Button TextColor="Black" Text="View Details" BackgroundColor="DodgerBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
+                        <Label TextColor="Navy" FontSize="Large" FontFamily="Arial"  FontAttributes="Bold" HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
+                        <Button TextColor="White" Text="View Details" CornerRadius="10" Margin="90, 15" FontAttributes="Bold" BackgroundColor="SteelBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

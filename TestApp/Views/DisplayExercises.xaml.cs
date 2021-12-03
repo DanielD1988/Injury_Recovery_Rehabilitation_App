@@ -15,7 +15,6 @@ namespace TestApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayExercises : ContentPage
     {
-        private List<Exercise> exercises;
         private DisplayExercisesViewModel viewModel;
         /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
