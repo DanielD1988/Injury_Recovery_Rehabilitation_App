@@ -11,10 +11,13 @@
         <Label
             Text="Injury Recovery Login"
             HorizontalOptions="Center"
-            TextColor="DodgerBlue"
+            TextColor="SteelBlue"
+            FontAttributes="Bold"
             FontSize="35"
-            Margin="0, 20"
+            Margin="0, 80"
             />
+
+        
 
         <Entry
             Placeholder="E-mail"
@@ -32,15 +35,19 @@
             Text="Login"
             Clicked="LoginClicked"
             Margin="60, 30"
-            BackgroundColor="DodgerBlue"
-            TextColor="Black"
+            BackgroundColor="SteelBlue"
+            TextColor="White"
+            CornerRadius="10"
+            FontAttributes="Bold"
             />
         <Button
             Text="Register"
             Clicked="RegisterClicked"
             Margin="60, 0"
-            BackgroundColor="DodgerBlue"
-            TextColor="Black"
+            BackgroundColor="SteelBlue"
+            TextColor="White"
+            CornerRadius="10"
+            FontAttributes="Bold"
             />
     </StackLayout>
 

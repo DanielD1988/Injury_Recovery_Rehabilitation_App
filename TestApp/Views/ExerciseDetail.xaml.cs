@@ -32,7 +32,7 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            Exercise currentExercise = await viewModel.sendExerciseKey(exerciseKey);
+            ExercisePlan currentExercise = await viewModel.sendExerciseKey(exerciseKey);
             BindingContext = currentExercise;
         }
         /// <summary>

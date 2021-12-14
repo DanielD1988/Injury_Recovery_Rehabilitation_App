@@ -4,7 +4,7 @@
              x:Class="TestApp.Views.ExerciseDetail">
     <ContentPage.Content>
         <StackLayout BackgroundColor="AliceBlue">
-            <Frame BorderColor="Navy" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,10,40,10"        >
+            <Frame BorderColor="SteelBlue" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,10,40,10"        >
                 <Image Source="{Binding Image}" BackgroundColor="white"/>
 
             </Frame>

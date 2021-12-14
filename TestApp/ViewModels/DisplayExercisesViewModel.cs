@@ -21,7 +21,7 @@ namespace TestApp.ViewModels
         /// This method returns all exercise plans from the FirebaseMethods GetAllExercises method
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Exercise>> GetExerciseList()
+        public async Task<List<ExercisePlan>> GetExerciseList()
         {
             return await fire.GetAllExercises();
         }
@@ -31,9 +31,9 @@ namespace TestApp.ViewModels
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<Exercise> sendExerciseKey(string key)
+        public async Task<ExercisePlan> sendExerciseKey(string key)
         {
-            Exercise exercise = await fire.GetExercise(key);
+            ExercisePlan exercise = await fire.GetExercise(key);
 
             return exercise;
         }

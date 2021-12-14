@@ -34,7 +34,7 @@ namespace TestApp.views
         {
             base.OnAppearing();
             MyListView.ItemsSource = null;
-            List<Exercise> exercises = await viewModel.GetExerciseList();
+            List<ExercisePlan> exercises = await viewModel.GetExerciseList();
             var sortedByCategorys = exercises.GroupBy(val => val.Category);
             MyListView.ItemsSource = sortedByCategorys;
         }

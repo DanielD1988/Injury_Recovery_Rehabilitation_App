@@ -30,22 +30,21 @@ namespace TestApp.services
             return fire;
         }
         /// <summary>
-        /// This method returns all exercises of a JSON list called exercisePlans
+        /// This method returns all exercise plans of a JSON list called exercisePlans
         /// </summary>
         /// <returns></returns>
         //https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
-        public async Task<List<Exercise>> GetAllExercises()
+        public async Task<List<ExercisePlan>> GetAllExercises()
         {
             try
             {
                 return (await firebase
                 .Child("exercisePlans")
-                .OnceAsync<Exercise>()).Select(item => new Exercise
+                .OnceAsync<ExercisePlan>()).Select(item => new ExercisePlan
                 {
                     exerciseName = item.Object.exerciseName,
                     exerciseDescription = item.Object.exerciseDescription,
                     ImageBase64 = item.Object.ImageBase64,
-                    exerciseInfo = item.Object.exerciseInfo,
                     Category = item.Object.Category,
                     Exercise1 = item.Object.Exercise1,
                     Exercise2 = item.Object.Exercise2,
@@ -63,12 +62,12 @@ namespace TestApp.services
         /// </summary>
         /// <param name="exerciseKey"></param>
         /// <returns></returns>
-        public async Task<Exercise> GetExercise(String exerciseKey)
+        public async Task<ExercisePlan> GetExercise(String exerciseKey)
         {
             var allExercises = await GetAllExercises();
             await firebase
               .Child("exercisePlans")
-              .OnceAsync<Exercise>();
+              .OnceAsync<ExercisePlan>();
             return allExercises.Where(a => a.exerciseListKey == exerciseKey).FirstOrDefault();
         }///////////////////////////////////////////////////////////////////////////
     }
