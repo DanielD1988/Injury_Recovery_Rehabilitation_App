@@ -14,7 +14,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushModalAsync(new DisplayExercises());
+            Navigation.PushModalAsync(new RegisterPatient());
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////

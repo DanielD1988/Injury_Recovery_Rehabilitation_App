@@ -11,11 +11,19 @@ namespace TestApp.Models
         public string PatientName { get; set; }
         [JsonProperty("number")]
         public string Phone { get; set; }
-        [JsonProperty("sex")]
-        public string Sex { get; set; }
+        [JsonProperty("gender")]
+        public string Gender { get; set; }
         [JsonProperty("injuryType")]
         public string InjuryType { get; set; }
+        [JsonProperty("occurred")]
+        public string InjuryOccurred { get; set; }
         [JsonProperty("age")]
-        public string Age { get; set; }
+        public int Age { get; set; }
+        [JsonProperty("severity")]
+        public int InjurySeverity { get; set; }
+        [JsonProperty("start")]
+        public DateFormatHandling StartDate { get; set; }
+        [JsonProperty("end")]
+        public DateFormatHandling EndDate { get; set; }
     }
 }

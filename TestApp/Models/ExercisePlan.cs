@@ -5,7 +5,7 @@ using System.IO;
 namespace TestApp.models
 {
     /// <summary>
-    /// This Exercise class sets data comming from the FirebaseMethods. The [JsonProperty()] decorator is used to
+    /// This ExercisePlan class sets data comming from the FirebaseMethods. The [JsonProperty()] decorator is used to
     /// deserialize key value pair JSON structure so the value can be extracted to the variable.
     /// There is also a base64 string to image conversion
     /// </summary>
