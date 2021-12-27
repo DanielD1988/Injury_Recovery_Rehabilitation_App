@@ -14,7 +14,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushModalAsync(new RegisterPatient());
+            //Navigation.PushModalAsync(new RegisterPatient("Knee Pain"));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////
@@ -30,12 +30,12 @@ namespace TestApp
             string Email = email.Text;
             string Pass = pass.Text;
 
-            string Token = await auth.LoginWithEmailPassword(Email, Pass);
+            string physioUid = await auth.LoginWithEmailPassword(Email, Pass);
             
-            if (Token != "")
+            if (physioUid != "")
             {
-                await DisplayAlert("Login Successful", Token, "OK");
-                await Navigation.PushAsync(new DisplayExercises());
+                await DisplayAlert("Login Successful","", "OK");
+                await Navigation.PushAsync(new DisplayExercises(physioUid));
             }
             else
             {

@@ -16,12 +16,14 @@ namespace TestApp.views
     public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisesViewModel viewModel;
-        /// <summary>
+        private string physioUid = ""
+;       /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
-        public DisplayExercises()
+        public DisplayExercises(string physioUid)
         {
             viewModel = new DisplayExercisesViewModel();
+            this.physioUid = physioUid;
             InitializeComponent();
             
         }
@@ -47,8 +49,8 @@ namespace TestApp.views
         public void Details(Object Sender, EventArgs args)
         {
             Button button = (Button)Sender;
-            string exerciseKey = button.CommandParameter.ToString();
-            Navigation.PushModalAsync(new ExerciseDetail(exerciseKey));
+            string exerciseKey = button.CommandParameter.ToString().Replace("\"", "");
+            Navigation.PushModalAsync(new ExerciseDetail(exerciseKey, physioUid));
         }
 
     }

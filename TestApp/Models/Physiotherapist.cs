@@ -18,11 +18,7 @@ namespace TestApp.Models
         public string Email { get; set; }
         [JsonProperty("regNumber")]
         public string RegNumber { get; set; }
-        [JsonProperty("patients")]
-        public List<string> PatientList
-        {
-            get { return patients; }
-            set { patients = value; }
-        }
+        [JsonProperty("patientUid")]
+        public string PatientUid { get; set; }
     }
 }

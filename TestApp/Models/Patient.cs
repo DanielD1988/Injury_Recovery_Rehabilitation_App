@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace TestApp.Models
 {
@@ -9,8 +10,6 @@ namespace TestApp.Models
     {
         [JsonProperty("name")]
         public string PatientName { get; set; }
-        [JsonProperty("number")]
-        public string Phone { get; set; }
         [JsonProperty("gender")]
         public string Gender { get; set; }
         [JsonProperty("injuryType")]
@@ -22,8 +21,12 @@ namespace TestApp.Models
         [JsonProperty("severity")]
         public int InjurySeverity { get; set; }
         [JsonProperty("start")]
-        public DateFormatHandling StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         [JsonProperty("end")]
-        public DateFormatHandling EndDate { get; set; }
+        public DateTime EndDate { get; set; }
+        [JsonProperty("plan")]
+        public string ExerPlan { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
     }
 }

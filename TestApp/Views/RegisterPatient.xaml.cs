@@ -5,9 +5,13 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This class shows a register patient form
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPatient : ContentPage
     {
+        string exerPlan = "";
         string gender = "";
         string startDate = "";
         string patientName = "";
@@ -21,17 +25,35 @@ namespace TestApp.Views
         string endDate = "";
         bool infoCorrect = true;
         string errorMessage = "";
+        string physioUid = "";
         RPatientViewModel patientVm;
-        public RegisterPatient()
+        /// <summary>
+        /// This constructor takes in the selected exercise plan and physiotherapist Id 
+        /// </summary>
+        /// <param name="exercisePlan"></param>
+        /// <param name="physioUid"></param>
+        public RegisterPatient(string exercisePlan,string physioUid)
         {
             InitializeComponent();
+            exerPlan = exercisePlan;
+            this.physioUid = physioUid;
             patientVm = new RPatientViewModel();
         }
+        /// <summary>
+        /// Radio button for gender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void getGender(object sender, CheckedChangedEventArgs e)
         {
             RadioButton button = sender as RadioButton;
             gender = button.Content.ToString();
         }
+        /// <summary>
+        /// This button checks the validation of the entered form data before sending it to the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void PatientRegister(object sender, EventArgs e)
         {
             if(gender == "")
@@ -76,6 +98,7 @@ namespace TestApp.Views
             }
             catch(NullReferenceException error)
             {
+                Console.WriteLine(error.StackTrace);
                 errorMessage += "Please pick a severity number\n";
                 infoCorrect = false;
             }
@@ -88,6 +111,7 @@ namespace TestApp.Views
                 }
                 catch (NullReferenceException error)
                 {
+                    Console.WriteLine(error.StackTrace);
                     errorMessage += "Please pick an injury Type or enter a new injury type info\n";
                     infoCorrect = false;
                 }
@@ -102,6 +126,7 @@ namespace TestApp.Views
                 }
                 catch (NullReferenceException error)
                 {
+                    Console.WriteLine(error.StackTrace);
                     errorMessage += "Please pick how Injury occurred or enter additional injury info\n";
                     infoCorrect = false;
                 }
@@ -121,9 +146,14 @@ namespace TestApp.Views
                 errorMessage += "Please pick a date from today onwards\n";
                 infoCorrect = false;
             }
+            
             if(infoCorrect == false)
             {
                 await DisplayAlert("Error", errorMessage, "OK");
+            }
+            else
+            {
+                patientVm.setupUserAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
             }
         }
     }

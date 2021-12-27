@@ -14,15 +14,18 @@ namespace TestApp.Views
     {
         private DisplayExercisesViewModel viewModel;
         String exerciseKey;
+        string physioUid = "";
         /// <summary>
-        /// This constructor takes the exercise key from DisplayExercises Detail button press
-        /// and creates an instance of DisplayExercisesViewModel to access the FirebaseMethods class methods
+        ///  This constructor takes the exercise key from DisplayExercises Detail button press
+        ///  and creates an instance of DisplayExercisesViewModel to access the FirebaseMethods class methods
         /// </summary>
         /// <param name="key"></param>
-        public ExerciseDetail(String key)
+        /// <param name="physioUid"></param>
+        public ExerciseDetail(String key,string physioUid)
         {
             exerciseKey = key;
             viewModel = new DisplayExercisesViewModel();
+            this.physioUid = physioUid;
             InitializeComponent();
         }
         /// <summary>
@@ -42,7 +45,7 @@ namespace TestApp.Views
         /// <param name="args"></param>
         public void AddToPatient(Object Sender, EventArgs args)
         {
-            Navigation.PushModalAsync(new sendEmailToPatient(exerciseKey));
+            Navigation.PushModalAsync(new RegisterPatient(exerciseKey, physioUid));
         }
     }
 }

@@ -58,7 +58,7 @@
                 <Label Text="Injury Type" FontSize="Large"/>
                         <Picker x:Name="Injurypicker" Title="Select Injury Type">
                             <Picker.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
+                        <x:Array Type="{x:Type x:String}">
                                     <x:String>Sprains</x:String>
                                     <x:String>Strains</x:String>
                                     <x:String>Lower Back Pain</x:String>
@@ -119,14 +119,13 @@
                     Placeholder="Patient Email"
                     Keyboard="Email"
                     x:Name="email"/>
-                
+
                 <Button
                     Text="Confirm"
                     Margin="60, 30"
                     BackgroundColor="DodgerBlue"
                     TextColor="Black"
                     Clicked="PatientRegister"/>
-                
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

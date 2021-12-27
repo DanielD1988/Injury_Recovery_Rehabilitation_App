@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
 using TestApp.models;
+using TestApp.Models;
+
 namespace TestApp.services
 {
     /// <summary>
@@ -14,6 +16,7 @@ namespace TestApp.services
     {
         private static FirebaseClient firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
         private static FirebaseMethods fire = new FirebaseMethods();
+        private static List<ExercisePlan> plans = new List<ExercisePlan>();
         /// <summary>
         /// The constructor is private because the eager singleton pattern is used
         /// </summary>
@@ -38,19 +41,23 @@ namespace TestApp.services
         {
             try
             {
-                return (await firebase
-                .Child("exercisePlans")
-                .OnceAsync<ExercisePlan>()).Select(item => new ExercisePlan
+                if(plans.Count == 0)
                 {
-                    exerciseName = item.Object.exerciseName,
-                    exerciseDescription = item.Object.exerciseDescription,
-                    ImageBase64 = item.Object.ImageBase64,
-                    Category = item.Object.Category,
-                    Exercise1 = item.Object.Exercise1,
-                    Exercise2 = item.Object.Exercise2,
-                    Exercise3 = item.Object.Exercise3,
-                    exerciseListKey = item.Key,
-                }).ToList();
+                    plans = (await firebase
+                   .Child("exercisePlans")
+                   .OnceAsync<ExercisePlan>()).Select(item => new ExercisePlan
+                   {
+                       exerciseName = item.Object.exerciseName,
+                       exerciseDescription = item.Object.exerciseDescription,
+                       ImageBase64 = item.Object.ImageBase64,
+                       Category = item.Object.Category,
+                       Exercise1 = item.Object.Exercise1,
+                       Exercise2 = item.Object.Exercise2,
+                       Exercise3 = item.Object.Exercise3,
+                       exerciseListKey = item.Key,
+                   }).ToList();
+                }
+                return plans;
             }
             catch (Exception e)
             {
@@ -70,6 +77,38 @@ namespace TestApp.services
               .OnceAsync<ExercisePlan>();
             return allExercises.Where(a => a.exerciseListKey == exerciseKey).FirstOrDefault();
         }///////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// This method inserts a new patient entry into the patient database using the patientUid as the key
+        /// </summary>
+        /// <param name="patientUid"></param>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <param name="injuryType"></param>
+        /// <param name="injuryOccurred"></param>
+        /// <param name="age"></param>
+        /// <param name="injurySeverity"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="exerPlan"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task AddPatient(string patientUid,string name, string gender,string injuryType,string injuryOccurred,int age,int injurySeverity, DateTime startDate, DateTime endDate ,string exerPlan,string email)
+        {
+            await firebase
+              .Child("patients").Child(patientUid)
+              .PutAsync(new Patient() {PatientName = name, Gender = gender,InjuryType = injuryType,InjuryOccurred = injuryOccurred,Age = age,InjurySeverity = injurySeverity,StartDate = startDate,EndDate = endDate,ExerPlan = exerPlan,Email = email});
+        }
+        /// <summary>
+        /// This function adds the patient unique identifier to the physios patient list
+        /// </summary>
+        /// <param name="PhysioUid"></param>
+        /// <param name="PatientUid"></param>
+        /// <returns></returns>
+        public async Task AddPatientUIDToPatientList(string PhysioUid,string PatientUID)
+        {
+            await firebase
+              .Child("physio").Child("QzkZZv9OxkNrxDTeex9lKEKUZ0C2").Child("patients").Child(PatientUID)
+              .PutAsync(new Physiotherapist() { PatientUid = PatientUID });
+        }
     }
-
 }
