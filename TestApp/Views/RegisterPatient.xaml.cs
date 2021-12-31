@@ -19,14 +19,15 @@ namespace TestApp.Views
         string patientEmail = "";
         int severityNumber = 0;
         string injuryType = "";
-        string newInjuryType = "";
+        string newInjuryType = null;
         string injuryOccurred = "";
-        string newinjuryOccurred = "";
+        string newinjuryOccurred = null;
         string endDate = "";
         bool infoCorrect = true;
         string errorMessage = "";
         string physioUid = "";
         RPatientViewModel patientVm;
+        IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
         /// <summary>
         /// This constructor takes in the selected exercise plan and physiotherapist Id 
         /// </summary>
@@ -37,7 +38,7 @@ namespace TestApp.Views
             InitializeComponent();
             exerPlan = exercisePlan;
             this.physioUid = physioUid;
-            patientVm = new RPatientViewModel();
+            patientVm = new RPatientViewModel(auth);
         }
         /// <summary>
         /// Radio button for gender
@@ -48,6 +49,48 @@ namespace TestApp.Views
         {
             RadioButton button = sender as RadioButton;
             gender = button.Content.ToString();
+        }
+        /// <summary>
+        /// This picker event hides the Optional Other Injury Type entry if something is picked on the picker 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InjuryPicked(object sender, EventArgs e)
+        {
+            injuryType = Injurypicker.SelectedItem.ToString();
+            if(injuryType == "None")
+            {
+                InjuryLabel.IsVisible = true;
+                injury.IsVisible = true;
+                injury.IsEnabled = true;
+            }
+            else
+            {
+                injury.IsEnabled = false;
+                injury.IsVisible = false;
+                InjuryLabel.IsVisible = false;
+            }
+        }
+        /// <summary>
+        /// This picker event hides the Optional Additional Injury entry if something is picked on the picker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void InjuryOccurred(object sender, EventArgs e)
+        {
+            injuryType = Injurypicker.SelectedItem.ToString();
+            if (injuryType == "None")
+            {
+                OccuredLabel.IsVisible = true;
+                occured.IsVisible = true;
+                occured.IsEnabled = true;
+            }
+            else
+            {
+                occured.IsEnabled = false;
+                occured.IsVisible = false;
+                OccuredLabel.IsVisible = false;
+            }
         }
         /// <summary>
         /// This button checks the validation of the entered form data before sending it to the database
@@ -141,6 +184,7 @@ namespace TestApp.Views
             DateTime nDate = Convert.ToDateTime(endDate);
             int result1 = DateTime.Compare(sDate, today);
             int result2 = DateTime.Compare(nDate, today);
+
             if (result1 < 0 || result2 < 0)
             {
                 errorMessage += "Please pick a date from today onwards\n";
@@ -153,7 +197,7 @@ namespace TestApp.Views
             }
             else
             {
-                patientVm.setupUserAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
+                await patientVm.setupUserAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
             }
         }
     }

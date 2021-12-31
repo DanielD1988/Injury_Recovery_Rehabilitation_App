@@ -56,9 +56,10 @@
                 </Picker>
                 
                 <Label Text="Injury Type" FontSize="Large"/>
-                        <Picker x:Name="Injurypicker" Title="Select Injury Type">
+                <Picker x:Name="Injurypicker" Title="Select Injury Type"  SelectedIndexChanged="InjuryPicked">
                             <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
+                            <x:String>None</x:String>
                                     <x:String>Sprains</x:String>
                                     <x:String>Strains</x:String>
                                     <x:String>Lower Back Pain</x:String>
@@ -67,8 +68,8 @@
                                 </x:Array>
                             </Picker.ItemsSource>
                         </Picker>
-                
-                <Label Text="Other Injury Type (Optional)" FontSize="Large"/>
+
+                <Label x:Name="InjuryLabel" Text="Other Injury Type (Optional)" FontSize="Large"/>
                 <Entry
                     Placeholder="Other Injury"
                     Keyboard="Text"
@@ -77,9 +78,10 @@
                 />
                 
                 <Label Text="How Injury Occurred" FontSize="Large"/>
-                <Picker x:Name="Occurredpicker" Title="Select Occurence">
+                <Picker x:Name="Occurredpicker" Title="Select Occurence" SelectedIndexChanged="InjuryOccurred">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
+                            <x:String>None</x:String>
                             <x:String>Rugby</x:String>
                             <x:String>Soccer</x:String>
                             <x:String>Gym</x:String>
@@ -95,8 +97,8 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-                
-                <Label Text="Additional Injury (Optional)" FontSize="Large"/>
+
+                <Label x:Name="OccuredLabel" Text="Additional Injury (Optional)" FontSize="Large"/>
                 <Entry
                     Placeholder="Injury Occured"
                     Keyboard="Text"

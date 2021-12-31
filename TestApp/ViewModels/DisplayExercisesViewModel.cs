@@ -21,9 +21,9 @@ namespace TestApp.ViewModels
         /// This method returns all exercise plans from the FirebaseMethods GetAllExercises method
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ExercisePlan>> GetExerciseList()
+        public async Task<List<ExercisePlan>> getExerciseList(bool isMocked)
         {
-            return await fire.GetAllExercises();
+            return await fire.GetAllExercises(isMocked);
         }
         /// <summary>
         /// This method passses a key to the FirebaseMethods GetExercise() to 
@@ -31,9 +31,9 @@ namespace TestApp.ViewModels
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public async Task<ExercisePlan> sendExerciseKey(string key)
+        public async Task<ExercisePlan> sendExerciseKey(string key,bool isMocked)
         {
-            ExercisePlan exercise = await fire.GetExercise(key);
+            ExercisePlan exercise = await fire.GetExercise(key, isMocked);
 
             return exercise;
         }

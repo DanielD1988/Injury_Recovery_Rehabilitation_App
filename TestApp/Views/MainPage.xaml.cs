@@ -5,6 +5,10 @@ using TestApp.Views;
 using Xamarin.Forms;
 namespace TestApp
 {
+    /// <summary>
+    /// This class is the first screen of the application allows a user to enter login details
+    /// or go to the physio register page
+    /// </summary>
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
@@ -14,7 +18,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            //Navigation.PushModalAsync(new RegisterPatient("Knee Pain"));
+            Navigation.PushModalAsync(new RegisterPatient("Knee Pain","0000"));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////
@@ -43,13 +47,13 @@ namespace TestApp
             }
         }
         /// <summary>
-        /// This method will bring the user to registration page 
+        /// This method will bring the physiotherapist registration page 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         async void RegisterClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RegisterUser(auth));
+            await Navigation.PushAsync(new RegisterPhsysio(auth));
         }
     }
 }

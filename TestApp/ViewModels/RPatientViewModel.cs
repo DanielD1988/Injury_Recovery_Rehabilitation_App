@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Xamarin.Forms;
 using TestApp.services;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -16,12 +15,14 @@ namespace TestApp.ViewModels
     class RPatientViewModel
     {
         string password = "";
+        //IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
         IFirebaseAuthenticator auth;
         FirebaseMethods fireBase;
         List<string> patientEmailList;
-        public RPatientViewModel()
+        public RPatientViewModel(IFirebaseAuthenticator auth)
         {
-            auth = DependencyService.Get<IFirebaseAuthenticator>();
+            this.auth = auth;
+            //auth = DependencyService.Get<IFirebaseAuthenticator>();
             fireBase = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
@@ -54,24 +55,34 @@ namespace TestApp.ViewModels
         /// <param name="end"></param>
         /// <param name="exerPlan"></param> 
         /// <param name="physioUid"></param>
-        public async void setupUserAccount(string name, string gender,string email ,string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, string exerPlan,string physioUid,string newInjuryType,string newinjuryOccurred)
+        public async Task<bool> setupUserAccount(string name, string gender,string email ,string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, string exerPlan,string physioUid,string newInjuryType,string newinjuryOccurred)
         {
-            if(newInjuryType != null)
+            try
             {
-                injuryType = newInjuryType;
+                if (newInjuryType != null)
+                {
+                    injuryType = newInjuryType;
+                }
+                if (newinjuryOccurred != null)
+                {
+                    injuryOccurred = newinjuryOccurred;
+                }
+                patientEmailList.Add(email);
+                password = generatePatientPassword();
+                password = password.Replace("-", "");
+                password += "p";
+                string patientUid = await auth.SignupWithEmailPassword(email, password);
+                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, start, end, exerPlan, email,false);
+                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid,false);
+                await SendPatientEmail(patientEmailList, password);
+                return true;
             }
-            if (newinjuryOccurred != null)
+            catch(Exception e)
             {
-                injuryOccurred = newinjuryOccurred;
+                Console.WriteLine(e.StackTrace);
+                return false;
             }
-            patientEmailList.Add(email);
-            password = generatePatientPassword();
-            password = password.Replace("-", "");
-            password += "p";
-            string patientUid = await auth.SignupWithEmailPassword(email, password);
-            await fireBase.AddPatient(patientUid, name,gender,injuryType,injuryOccurred,age,injurySeverity,start,end,exerPlan,email);
-            await fireBase.AddPatientUIDToPatientList(physioUid, patientUid);
-            await SendPatientEmail(patientEmailList, password);
+            
         }
         /// <summary>
         /// This method uses the RNGCryptoServiceProvider class generates random numbers

@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This class will allow a physiotherapist to sign up to the application
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegisterUser : ContentPage
+    public partial class RegisterPhsysio : ContentPage
     {
         IFirebaseAuthenticator auth;
-        public RegisterUser(IFirebaseAuthenticator Auth)
+        public RegisterPhsysio(IFirebaseAuthenticator Auth)
         {
             auth = Auth;
             InitializeComponent();

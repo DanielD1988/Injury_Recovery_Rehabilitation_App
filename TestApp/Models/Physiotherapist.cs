@@ -20,5 +20,9 @@ namespace TestApp.Models
         public string RegNumber { get; set; }
         [JsonProperty("patientUid")]
         public string PatientUid { get; set; }
+
+        //extra fields for mock database
+        public List<string> patientList = new List<string>();
+        public string physioUid = "";
     }
 }

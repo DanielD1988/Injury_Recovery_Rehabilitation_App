@@ -3,7 +3,7 @@
 namespace TestApp.ViewModels
 {
     /// <summary>
-    /// This interface method is used to tell mainPage.xaml.cs which os is trying to login
+    /// These interface methods are used to tell mainPage.xaml.cs which os is trying to login or register
     /// </summary>
     //https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
     public interface IFirebaseAuthenticator
