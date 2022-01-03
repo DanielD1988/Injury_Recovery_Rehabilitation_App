@@ -1,4 +1,5 @@
 ﻿using System;
+using TestApp.models;
 using TestApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,7 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPatient : ContentPage
     {
-        string exerPlan = "";
+        ExercisePlan exerPlan = null;
         string gender = "";
         string startDate = "";
         string patientName = "";
@@ -26,6 +27,7 @@ namespace TestApp.Views
         bool infoCorrect = true;
         string errorMessage = "";
         string physioUid = "";
+        RadioButton button;
         RPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
         /// <summary>
@@ -33,7 +35,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="exercisePlan"></param>
         /// <param name="physioUid"></param>
-        public RegisterPatient(string exercisePlan,string physioUid)
+        public RegisterPatient(ExercisePlan exercisePlan, string physioUid)
         {
             InitializeComponent();
             exerPlan = exercisePlan;
@@ -47,7 +49,7 @@ namespace TestApp.Views
         /// <param name="e"></param>
         void getGender(object sender, CheckedChangedEventArgs e)
         {
-            RadioButton button = sender as RadioButton;
+            button = sender as RadioButton;
             gender = button.Content.ToString();
         }
         /// <summary>
@@ -58,7 +60,7 @@ namespace TestApp.Views
         void InjuryPicked(object sender, EventArgs e)
         {
             injuryType = Injurypicker.SelectedItem.ToString();
-            if(injuryType == "None")
+            if (injuryType == "None")
             {
                 InjuryLabel.IsVisible = true;
                 injury.IsVisible = true;
@@ -99,38 +101,40 @@ namespace TestApp.Views
         /// <param name="e"></param>
         async void PatientRegister(object sender, EventArgs e)
         {
-            if(gender == "")
+            if (gender == "")
             {
                 errorMessage += "Please select a gender\n";
                 infoCorrect = false;
             }
             patientName = name.Text;
-            if(patientName == null)
+            if (patientName == null)
             {
                 errorMessage += "Please enter patient name\n";
                 infoCorrect = false;
             }
 
-            int.TryParse(age.Text,out patientAge);
-            if(patientAge == 0)
+            int.TryParse(age.Text, out patientAge);
+            if (patientAge == 0 || patientAge < 0)
             {
                 errorMessage += "Please enter patient age\n";
                 infoCorrect = false;
             }
 
             patientEmail = email.Text;
-            if(patientEmail == null)
+            if (patientEmail == null)
             {
                 errorMessage += "Please enter a valid patient email\n";
                 infoCorrect = false;
             }
             else
             {
-                if(patientEmail.Contains("@") && patientEmail.Contains(".")){
+                if (patientEmail.Contains("@") && patientEmail.Contains("."))
+                {
 
                 }
                 else
                 {
+                    errorMessage += "Please enter a valid email\n";
                     infoCorrect = false;
                 }
             }
@@ -139,7 +143,7 @@ namespace TestApp.Views
             {
                 int.TryParse(SeverityPicker.SelectedItem.ToString(), out severityNumber);
             }
-            catch(NullReferenceException error)
+            catch (NullReferenceException error)
             {
                 Console.WriteLine(error.StackTrace);
                 errorMessage += "Please pick a severity number\n";
@@ -151,6 +155,11 @@ namespace TestApp.Views
                 try
                 {
                     injuryType = Injurypicker.SelectedItem.ToString();
+                    if (injuryType == "None")
+                    {
+                        errorMessage += "Please pick an injury Type or enter a new injury type info\n";
+                        infoCorrect = false;
+                    }
                 }
                 catch (NullReferenceException error)
                 {
@@ -166,6 +175,12 @@ namespace TestApp.Views
                 try
                 {
                     injuryOccurred = Occurredpicker.SelectedItem.ToString();
+                    if (injuryOccurred == "None")
+                    {
+                        errorMessage += "Please pick how Injury occurred or enter additional injury info\n";
+                        infoCorrect = false;
+                    }
+
                 }
                 catch (NullReferenceException error)
                 {
@@ -190,10 +205,11 @@ namespace TestApp.Views
                 errorMessage += "Please pick a date from today onwards\n";
                 infoCorrect = false;
             }
-            
-            if(infoCorrect == false)
+
+            if (infoCorrect == false)
             {
                 await DisplayAlert("Error", errorMessage, "OK");
+                infoCorrect = true;
             }
             else
             {

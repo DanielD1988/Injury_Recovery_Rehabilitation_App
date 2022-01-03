@@ -6,7 +6,7 @@ namespace TestApp.Models
     /// <summary>
     /// This describes the data taken from the patient Json Structure
     /// </summary>
-    class Patient
+    public class Patient
     {
         [JsonProperty("name")]
         public string PatientName { get; set; }
@@ -24,8 +24,12 @@ namespace TestApp.Models
         public DateTime StartDate { get; set; }
         [JsonProperty("end")]
         public DateTime EndDate { get; set; }
-        [JsonProperty("plan")]
-        public string ExerPlan { get; set; }
+        [JsonProperty("exercise1")]
+        public string Exer1 { get; set; }
+        [JsonProperty("exercise2")]
+        public string Exer2 { get; set; }
+        [JsonProperty("exercise3")]
+        public string Exer3 { get; set; }
         [JsonProperty("email")]
         public string Email { get; set; }
     }

@@ -24,7 +24,7 @@ namespace TestApp.Services
                     exerciseDescription = "Knee pain can affect people of all ages and can be a result of an injury caused by torn cartilage or arthritis",
                     Exercise1 = "Heel and calf stretch",
                     Exercise2 = "Hamstring stretch"
-                }, 
+                },
                 new ExercisePlan(){
                     exerciseName = "Bells palsy",
                     Category = "Face",
@@ -44,7 +44,7 @@ namespace TestApp.Services
 
             foreach (ExercisePlan plan in plans)
             {
-                if(plan.exerciseName == exerciseKey)
+                if (plan.exerciseName == exerciseKey)
                 {
                     return plan;
                 }
@@ -66,12 +66,14 @@ namespace TestApp.Services
         /// <param name="exerPlan"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public bool AddMockPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime startDate, DateTime endDate, string exerPlan, string email)
+        public bool AddMockPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime startDate, DateTime endDate, string exercise1, string exercise2, string exercise3, string email)
         {
-          Patient newPatient = null;
-          newPatient = new Patient() { 
-              PatientName = name};
-          if(newPatient.PatientName != null)
+            Patient newPatient = null;
+            newPatient = new Patient()
+            {
+                PatientName = name
+            };
+            if (newPatient.PatientName != null)
             {
                 return true;
             }
@@ -85,14 +87,14 @@ namespace TestApp.Services
         /// <returns></returns>
         public bool AddMockPatientUIDToPatientList(string PhysioUid, string PatientUID)
         {
-            List<Physiotherapist> physioList = new List<Physiotherapist>() 
-            { 
+            List<Physiotherapist> physioList = new List<Physiotherapist>()
+            {
                 new Physiotherapist{PhysioName = "john Denver",Email = "johnDenver@gmail.com",physioUid = "adcd4321"}
             };
 
             foreach (Physiotherapist physio in physioList)
             {
-                if(PhysioUid == physio.physioUid)
+                if (PhysioUid == physio.physioUid)
                 {
                     physio.patientList.Add(PatientUID);
                     return true;

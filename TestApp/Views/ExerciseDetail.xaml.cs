@@ -12,19 +12,20 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExerciseDetail : ContentPage
     {
-        private DisplayExercisesViewModel viewModel;
+        private DisplayExercisePlansViewModel viewModel;
         String exerciseKey;
         string physioUid = "";
+        ExercisePlan currentExercise = null;
         /// <summary>
         ///  This constructor takes the exercise key from DisplayExercises Detail button press
         ///  and creates an instance of DisplayExercisesViewModel to access the FirebaseMethods class methods
         /// </summary>
         /// <param name="key"></param>
         /// <param name="physioUid"></param>
-        public ExerciseDetail(String key,string physioUid)
+        public ExerciseDetail(String key, string physioUid)
         {
             exerciseKey = key;
-            viewModel = new DisplayExercisesViewModel();
+            viewModel = new DisplayExercisePlansViewModel();
             this.physioUid = physioUid;
             InitializeComponent();
         }
@@ -35,7 +36,7 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            ExercisePlan currentExercise = await viewModel.sendExerciseKey(exerciseKey,false);
+            currentExercise = await viewModel.sendExerciseKey(exerciseKey, false);
             BindingContext = currentExercise;
         }
         /// <summary>
@@ -45,7 +46,7 @@ namespace TestApp.Views
         /// <param name="args"></param>
         public void AddToPatient(Object Sender, EventArgs args)
         {
-            Navigation.PushModalAsync(new RegisterPatient(exerciseKey, physioUid));
+            Navigation.PushModalAsync(new RegisterPatient(currentExercise, physioUid));
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using TestApp.services;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using TestApp.models;
 
 namespace TestApp.ViewModels
 {
@@ -55,7 +56,7 @@ namespace TestApp.ViewModels
         /// <param name="end"></param>
         /// <param name="exerPlan"></param> 
         /// <param name="physioUid"></param>
-        public async Task<bool> setupUserAccount(string name, string gender,string email ,string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, string exerPlan,string physioUid,string newInjuryType,string newinjuryOccurred)
+        public async Task<bool> setupUserAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred)
         {
             try
             {
@@ -72,17 +73,17 @@ namespace TestApp.ViewModels
                 password = password.Replace("-", "");
                 password += "p";
                 string patientUid = await auth.SignupWithEmailPassword(email, password);
-                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, start, end, exerPlan, email,false);
-                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid,false);
+                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, start, end, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, false);
+                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
                 await SendPatientEmail(patientEmailList, password);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
-            
+
         }
         /// <summary>
         /// This method uses the RNGCryptoServiceProvider class generates random numbers

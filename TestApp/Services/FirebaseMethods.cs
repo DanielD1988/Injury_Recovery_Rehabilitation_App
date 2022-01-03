@@ -18,13 +18,14 @@ namespace TestApp.services
         private static FirebaseClient firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
         private static FirebaseMethods fire = new FirebaseMethods();
         private static List<ExercisePlan> plans = new List<ExercisePlan>();
+        private static List<Exercise> exerciseList = new List<Exercise>();
         MockDatabase db = new MockDatabase();
         /// <summary>
         /// The constructor is private as the singleton pattern is used
         /// </summary>
         private FirebaseMethods()
         {
-            
+
         }
         /// <summary>
         /// This method returns a single instance to all callers of the FirebaseMethods class
@@ -37,17 +38,18 @@ namespace TestApp.services
         /// <summary>
         /// This method returns all exercise plans of a JSON list called exercisePlans
         /// </summary>
+        /// <param name="isMocked"></param>
         /// <returns></returns>
         //https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
         public async Task<List<ExercisePlan>> GetAllExercises(bool isMocked)
         {
             try
             {
-                if(isMocked == true)
+                if (isMocked == true)
                 {
                     return db.GetAllMockExercises();
                 }
-                if(plans.Count == 0)
+                if (plans.Count == 0)
                 {
                     plans = (await firebase
                    .Child("exercisePlans")
@@ -68,24 +70,26 @@ namespace TestApp.services
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return null; } 
+                return null;
+            }
         }
         /// <summary>
         /// This method returns a single exercise from a list of exercises using an exercise key
         /// </summary>
         /// <param name="exerciseKey"></param>
+        /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<ExercisePlan> GetExercise(String exerciseKey,bool isMocked)
+        public async Task<ExercisePlan> GetExercise(String exerciseKey, bool isMocked)
         {
             var allExercises = await GetAllExercises(isMocked);
-            if(isMocked == true)
+            if (isMocked == true)
             {
                 return db.GetMockExercise(exerciseKey);
             }
             await firebase
               .Child("exercisePlans")
               .OnceAsync<ExercisePlan>();
-            return allExercises.Where(a => a.exerciseListKey == exerciseKey).FirstOrDefault();
+            return allExercises.Where(a => a.exerciseName == exerciseKey).FirstOrDefault();
         }///////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// This method inserts a new patient entry into the patient database using the patientUid as the key
@@ -99,47 +103,56 @@ namespace TestApp.services
         /// <param name="injurySeverity"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
-        /// <param name="exerPlan"></param>
+        /// <param name="exercise1"></param>
+        /// <param name="exercise2"></param>
+        /// <param name="exercise3"></param>
         /// <param name="email"></param>
+        /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatient(string patientUid,string name, string gender,string injuryType,string injuryOccurred,int age,int injurySeverity, DateTime startDate, DateTime endDate ,string exerPlan,string email,bool isMocked)
+        public async Task<bool> AddPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime startDate, DateTime endDate, string exercise1, string exercise2, string exercise3, string email, bool isMocked)
         {
             if (isMocked == true)
             {
-                return db.AddMockPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, startDate, endDate, exerPlan, email);
+                return db.AddMockPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, startDate, endDate, exercise1, exercise2, exercise3, email);
             }
             try
             {
                 await firebase
                 .Child("patients").Child(patientUid)
-                .PutAsync(new Patient() { 
-                     PatientName = name, 
-                     Gender = gender, InjuryType = injuryType, 
-                     InjuryOccurred = injuryOccurred, 
-                     Age = age, 
-                     InjurySeverity = injurySeverity, 
-                     StartDate = startDate, 
-                     EndDate = endDate, 
-                     ExerPlan = exerPlan, 
-                     Email = email });
+                .PutAsync(new Patient()
+                {
+                    PatientName = name,
+                    Gender = gender,
+                    InjuryType = injuryType,
+                    InjuryOccurred = injuryOccurred,
+                    Age = age,
+                    InjurySeverity = injurySeverity,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Exer1 = exercise1,
+                    Exer2 = exercise2,
+                    Exer3 = exercise3,
+                    Email = email
+                });
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
         }
-           
+
         /// <summary>
         /// This function adds the patient unique identifier to the physios patient list
         /// </summary>
         /// <param name="PhysioUid"></param>
         /// <param name="PatientUid"></param>
+        /// /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid,string PatientUID,bool isMocked)
+        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid, string PatientUID, bool isMocked)
         {
-            if(isMocked == true)
+            if (isMocked == true)
             {
                 return db.AddMockPatientUIDToPatientList(PhysioUid, PatientUID);
             }
@@ -147,7 +160,7 @@ namespace TestApp.services
             {
                 await firebase
                 .Child("physio").Child(PhysioUid).Child("patients").Child(PatientUID)
-                .PutAsync(new Physiotherapist() 
+                .PutAsync(new Physiotherapist()
                 { PatientUid = PatientUID });
                 return true;
             }
@@ -156,6 +169,27 @@ namespace TestApp.services
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
+        }
+
+        public async Task<List<Exercise>> GetPatientExercises(bool isMocked)
+        {
+            List<Exercise> allExercises = (await firebase
+                   .Child("exercises")
+                   .OnceAsync<Exercise>()).Select(item => new Exercise
+                   {
+                       ExerciseName = item.Object.ExerciseName,
+                       ExerciseDescription = item.Object.ExerciseDescription,
+                       VideoLink = item.Object.VideoLink
+                   }).ToList();
+
+            foreach (Exercise exercise in allExercises)
+            {
+                if ("Knee Pain" == exercise.ExerciseName)
+                {
+                    exerciseList.Add(exercise);
+                }
+            }
+            return exerciseList;
         }
     }
 }
