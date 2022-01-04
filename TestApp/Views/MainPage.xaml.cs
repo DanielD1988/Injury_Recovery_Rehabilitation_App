@@ -12,6 +12,7 @@ namespace TestApp
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
+        int i = 0;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
@@ -46,7 +47,7 @@ namespace TestApp
                 await DisplayAlert("Login Failed", "E-mail or password are incorrect. Try again!", "OK");
             }
         }
-        /// <summary>
+        /// <summary >
         /// This method will bring the physiotherapist registration page 
         /// </summary>
         /// <param name="sender"></param>
