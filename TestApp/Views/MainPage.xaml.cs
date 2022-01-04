@@ -12,6 +12,7 @@ namespace TestApp
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
+        int i = 0;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
