@@ -19,6 +19,7 @@ namespace TestApp
         {
             InitializeComponent();
             //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
+            Navigation.PushModalAsync(new ShowPatientExercisePlan());
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////

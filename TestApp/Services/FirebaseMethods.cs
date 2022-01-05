@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
+using Firebase.Storage;
 using TestApp.models;
 using TestApp.Models;
 using TestApp.Services;
@@ -190,6 +191,18 @@ namespace TestApp.services
                 }
             }
             return exerciseList;
+        }
+        /// <summary>
+        /// This method gets an exercise video download link back from firebase storage
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<string> GetVideosFromStorage(bool isMocked,string videoName)
+        {
+            FirebaseStorage firebaseStorage = new FirebaseStorage("injuryrecovery.appspot.com");
+            var video = await firebaseStorage.Child("video").Child("testing.mp4").GetDownloadUrlAsync();
+            string downloadUrl = video.ToString();
+            return downloadUrl;
         }
     }
 }
