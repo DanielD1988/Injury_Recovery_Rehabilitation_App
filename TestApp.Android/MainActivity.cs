@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Firebase;
+using MediaManager;
 
 namespace TestApp.Droid
 {
@@ -22,6 +23,7 @@ namespace TestApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            CrossMediaManager.Current.Init();
             FirebaseApp.InitializeApp(Application.Context);
             LoadApplication(new App());
         }

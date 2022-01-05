@@ -200,7 +200,7 @@ namespace TestApp.services
         public async Task<string> GetVideosFromStorage(bool isMocked,string videoName)
         {
             FirebaseStorage firebaseStorage = new FirebaseStorage("injuryrecovery.appspot.com");
-            var video = await firebaseStorage.Child("video").Child("testing.mp4").GetDownloadUrlAsync();
+            var video = await firebaseStorage.Child("video").Child(videoName).GetDownloadUrlAsync();
             string downloadUrl = video.ToString();
             return downloadUrl;
         }
