@@ -8,7 +8,6 @@ namespace TestApp.Models
     /// </summary>
     class Physiotherapist
     {
-        private List<string> patients = new List<string>();
 
         [JsonProperty("name")]
         public string PhysioName { get; set; }

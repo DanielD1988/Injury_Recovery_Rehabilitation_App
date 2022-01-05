@@ -12,14 +12,13 @@ namespace TestApp
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
-        int i = 0;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
         public MainPage()
         {
             InitializeComponent();
-            Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
+            //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////

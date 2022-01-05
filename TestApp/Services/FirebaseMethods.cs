@@ -25,7 +25,7 @@ namespace TestApp.services
         /// </summary>
         private FirebaseMethods()
         {
-
+            
         }
         /// <summary>
         /// This method returns a single instance to all callers of the FirebaseMethods class

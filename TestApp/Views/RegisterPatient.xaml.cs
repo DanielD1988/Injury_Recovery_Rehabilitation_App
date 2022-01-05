@@ -1,6 +1,7 @@
 ﻿using System;
 using TestApp.models;
 using TestApp.ViewModels;
+using TestApp.views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -214,6 +215,7 @@ namespace TestApp.Views
             else
             {
                 await patientVm.setupUserAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
+                await Navigation.PushModalAsync(new DisplayExercises("physioUid"));
             }
         }
     }
