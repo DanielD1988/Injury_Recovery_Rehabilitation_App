@@ -28,8 +28,8 @@ namespace TestApp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             CrossMediaManager.Current.Init();
-            LoadApplication(new App());
             Firebase.Core.App.Configure();
+            LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }
     }
