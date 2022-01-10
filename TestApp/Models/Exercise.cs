@@ -10,8 +10,8 @@ namespace TestApp.Models
     {
         [JsonProperty("name")]
         public string ExerciseName { get; set; }
-        [JsonProperty("description")]
-        public string ExerciseDescription { get; set; }
+        [JsonProperty("copyRight")]
+        public string exerciseVideoCopyright { get; set; }
         [JsonProperty("videoLink")]
         public string VideoLink { get; set; }
     }

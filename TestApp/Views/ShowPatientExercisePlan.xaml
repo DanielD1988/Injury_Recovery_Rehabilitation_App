@@ -4,29 +4,57 @@
              x:Class="TestApp.Views.ShowPatientExercisePlan"
              xmlns:forms="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms">
     <ScrollView>
-        <StackLayout>
-            <forms:VideoView x:Name="video1" HeightRequest="202"  
+        <StackLayout >
+            <forms:VideoView x:Name="video1" Margin="0,20,0,0" HeightRequest="202"  
                                  WidthRequest="202"/>
-            <StackLayout Orientation="Horizontal">
-                <Label  
-                       Margin="40, 20, 40, 5"
-                       Text="Exercise Video 1"  
-                       FontSize="20"  
-                       TextColor="Black"/>
-                <Button  
-                        x:Name="PlayVideo1"  
-                        Text="Play" 
-                        Clicked="showVideo1"  
-                        TextColor="Black"/>
-            </StackLayout>
-            <Label Text="Exercise Video 2"  
-                       FontSize="20"  
-                       Margin="30, 20, 15, 5"
-                       TextColor="Black"/>
+            
+                
+            <Label x:Name="exerciseLabel1" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""/>
+            <Button  
+                    x:Name="PlayVideo1"  
+                    Text="Play" 
+                    Clicked="showVideo1"  
+                    TextColor="White"  
+                    BackgroundColor="SteelBlue"/>
+            <Label x:Name="copyRightLabel1" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""
+                   />
+
+            <Label x:Name="exerciseLabel2" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""
+                   Margin="0,20,0,0"/>
             <Button x:Name="PlayVideo2"  
                         Text="Play"   
                         Clicked="showVideo2"  
-                        TextColor="Black"/>
+                        TextColor="White"  
+                        BackgroundColor="SteelBlue"/>
+            <Label x:Name="copyRightLabel2" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""
+                   />
+
+            <Label x:Name="exerciseLabel3" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""
+                   Margin="0,20,0,0"/>
+            <Button x:Name="PlayVideo3"  
+                    Text="Play"   
+                    Clicked="showVideo3"  
+                    TextColor="White"  
+                    BackgroundColor="SteelBlue"/>
+            <Label x:Name="copyRightLabel3" TextColor="Black" 
+                   FontSize="Medium" FontFamily="Arial"  
+                   HorizontalTextAlignment="Center" 
+                   Text=""/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

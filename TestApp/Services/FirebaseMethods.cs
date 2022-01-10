@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -17,6 +18,7 @@ namespace TestApp.services
     public class FirebaseMethods
     {
         private static FirebaseClient firebase = new FirebaseClient("https://injuryrecovery-default-rtdb.europe-west1.firebasedatabase.app/");
+        private FirebaseStorage firebaseStorage = new FirebaseStorage("injuryrecovery.appspot.com");
         private static FirebaseMethods fire = new FirebaseMethods();
         private static List<ExercisePlan> plans = new List<ExercisePlan>();
         private static List<Exercise> exerciseList = new List<Exercise>();
@@ -93,7 +95,7 @@ namespace TestApp.services
             return allExercises.Where(a => a.exerciseName == exerciseKey).FirstOrDefault();
         }///////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// This method inserts a new patient entry into the patient database using the patientUid as the key
+        /// This method inserts a new patient entry into the patient database using the patient user id as the key
         /// </summary>
         /// <param name="patientUid"></param>
         /// <param name="name"></param>
@@ -171,21 +173,45 @@ namespace TestApp.services
                 return false;
             }
         }
-
-        public async Task<List<Exercise>> GetPatientExercises(bool isMocked)
+        /// <summary>
+        /// This method uses the patient user id and returns information about the patient 
+        /// including what exercises have been assigned to them for their rehabilitation
+        /// </summary>
+        /// <param name="patientUid"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<Patient> getpatientDetails(string patientUid, bool isMocked)
+        {
+            if (isMocked == true)
+            {
+                return null;
+            }
+                return await firebase
+               .Child("patients").Child(patientUid).OnceSingleAsync<Patient>();
+        }
+        /// <summary>
+        /// This function gets a list of exercises from the database then
+        /// the three eneterd exercise strings are used to build a list that contains the exercise plan for the patient
+        /// </summary>
+        /// <param name="exercise1"></param>
+        /// <param name="exercise2"></param>
+        /// <param name="exercise3"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<List<Exercise>> GetPatientExercises(string exercise1, string exercise2, string exercise3 ,bool isMocked)
         {
             List<Exercise> allExercises = (await firebase
                    .Child("exercises")
                    .OnceAsync<Exercise>()).Select(item => new Exercise
                    {
                        ExerciseName = item.Object.ExerciseName,
-                       ExerciseDescription = item.Object.ExerciseDescription,
+                       exerciseVideoCopyright = item.Object.exerciseVideoCopyright,
                        VideoLink = item.Object.VideoLink
                    }).ToList();
 
             foreach (Exercise exercise in allExercises)
             {
-                if ("Knee Pain" == exercise.ExerciseName)
+                if (exercise1 == exercise.ExerciseName || exercise2 == exercise.ExerciseName || exercise3 == exercise.ExerciseName)
                 {
                     exerciseList.Add(exercise);
                 }
@@ -199,10 +225,60 @@ namespace TestApp.services
         /// <returns></returns>
         public async Task<string> GetVideosFromStorage(bool isMocked,string videoName)
         {
-            FirebaseStorage firebaseStorage = new FirebaseStorage("injuryrecovery.appspot.com");
-            var video = await firebaseStorage.Child("video").Child(videoName).GetDownloadUrlAsync();
-            string downloadUrl = video.ToString();
-            return downloadUrl;
+            try
+            {
+                var video = await firebaseStorage.Child("video").Child(videoName).GetDownloadUrlAsync();
+                string downloadUrl = video.ToString();
+                return downloadUrl;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
         }
+        /// <summary>
+        /// This method gets an image from firebase storage
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="imageName"></param>
+        /// <returns></returns>
+        public async Task<string> GetImageFromStorage(bool isMocked, string imageName)
+        {
+            try
+            {
+                var image = await firebaseStorage.Child("pics").Child(imageName).GetDownloadUrlAsync();
+                string downloadUrl = image.ToString();
+                return downloadUrl;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// This method saves an image to firebase storage
+        /// </summary>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public async Task<bool> SaveImageToStorage(Stream image)
+        {
+            try
+             {
+                await firebaseStorage
+                 .Child("pics")
+                 .PutAsync(image);
+
+                 return true;
+             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+
     }
 }
