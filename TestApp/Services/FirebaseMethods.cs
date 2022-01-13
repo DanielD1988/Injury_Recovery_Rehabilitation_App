@@ -13,7 +13,7 @@ using TestApp.Services;
 namespace TestApp.services
 {
     /// <summary>
-    /// FirebaseMethods class contains methods used to read and write to Firebase realtime database
+    /// FirebaseMethods class contains methods used to read and write to the Firebase realtime database
     /// </summary>
     public class FirebaseMethods
     {
@@ -93,7 +93,7 @@ namespace TestApp.services
               .Child("exercisePlans")
               .OnceAsync<ExercisePlan>();
             return allExercises.Where(a => a.exerciseName == exerciseKey).FirstOrDefault();
-        }///////////////////////////////////////////////////////////////////////////
+        }
         /// <summary>
         /// This method inserts a new patient entry into the patient database using the patient user id as the key
         /// </summary>
@@ -186,8 +186,16 @@ namespace TestApp.services
             {
                 return null;
             }
+            try
+            {
                 return await firebase
                .Child("patients").Child(patientUid).OnceSingleAsync<Patient>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
         }
         /// <summary>
         /// This function gets a list of exercises from the database then
@@ -200,7 +208,13 @@ namespace TestApp.services
         /// <returns></returns>
         public async Task<List<Exercise>> GetPatientExercises(string exercise1, string exercise2, string exercise3 ,bool isMocked)
         {
-            List<Exercise> allExercises = (await firebase
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                List<Exercise> allExercises = (await firebase
                    .Child("exercises")
                    .OnceAsync<Exercise>()).Select(item => new Exercise
                    {
@@ -209,14 +223,20 @@ namespace TestApp.services
                        VideoLink = item.Object.VideoLink
                    }).ToList();
 
-            foreach (Exercise exercise in allExercises)
-            {
-                if (exercise1 == exercise.ExerciseName || exercise2 == exercise.ExerciseName || exercise3 == exercise.ExerciseName)
+                foreach (Exercise exercise in allExercises)
                 {
-                    exerciseList.Add(exercise);
+                    if (exercise1 == exercise.ExerciseName || exercise2 == exercise.ExerciseName || exercise3 == exercise.ExerciseName)
+                    {
+                        exerciseList.Add(exercise);
+                    }
                 }
+                return exerciseList;
             }
-            return exerciseList;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
         }
         /// <summary>
         /// This method gets an exercise video download link back from firebase storage
@@ -225,6 +245,10 @@ namespace TestApp.services
         /// <returns></returns>
         public async Task<string> GetVideosFromStorage(bool isMocked,string videoName)
         {
+            if (isMocked == true)
+            {
+                return null;
+            }
             try
             {
                 var video = await firebaseStorage.Child("video").Child(videoName).GetDownloadUrlAsync();
@@ -245,6 +269,10 @@ namespace TestApp.services
         /// <returns></returns>
         public async Task<string> GetImageFromStorage(bool isMocked, string imageName)
         {
+            if (isMocked == true)
+            {
+                return null;
+            }
             try
             {
                 var image = await firebaseStorage.Child("pics").Child(imageName).GetDownloadUrlAsync();
@@ -263,8 +291,12 @@ namespace TestApp.services
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
-        public async Task<bool> SaveImageToStorage(Stream image)
+        public async Task<bool> SaveImageToStorage(Stream image,bool isMocked)
         {
+            if (isMocked == true)
+            {
+                return true;
+            }
             try
              {
                 await firebaseStorage
@@ -279,6 +311,55 @@ namespace TestApp.services
                 return false;
             }
         }
-
+        public async Task<bool> recordPatientProgress(string PatientUID,string currentDate,bool complete, bool isMocked)
+        {
+            if (isMocked == true)
+            {
+                
+            }
+            try
+            {
+                await firebase
+                .Child("patientProgress").Child(PatientUID).Child("currentDate")
+                .PutAsync(new Progress()
+                { isComplete = complete });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        /// <summary>
+        /// This method works as a replacement for firebases SignupWithEmailPassword for iOS
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="salted"></param>
+        /// <param name="saltedAndHashed"></param>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public async Task<bool> iOSSignupWithEmailPassword(string email, string salted, string saltedAndHashed,string uid)
+        {
+            try
+            {
+                email = email.Replace("@", "");
+                email = email.Replace(".", "");
+                await firebase
+                .Child("iosCredentials").Child(email)
+                .PutAsync(new IosCredentials()
+                {
+                    userId = uid,
+                    salt = salted,
+                    saltHashed = saltedAndHashed
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
     }
 }

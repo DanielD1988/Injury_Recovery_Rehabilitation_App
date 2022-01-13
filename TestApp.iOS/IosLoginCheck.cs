@@ -45,9 +45,10 @@ namespace TestApp.iOS
         //https://www.py4u.net/discuss/1541967
         public async Task<string> SignupWithEmailPassword(string email, string password)
         {
-            var authDataResult = await Auth.DefaultInstance.CreateUserAsync( email, password);
+            //var authDataResult = await Auth.DefaultInstance.CreateUserAsync( email, password);
 
-            return await authDataResult.User.GetIdTokenAsync();
+            //return await authDataResult.User.GetIdTokenAsync();
+            return "true";
         }
     }
 }

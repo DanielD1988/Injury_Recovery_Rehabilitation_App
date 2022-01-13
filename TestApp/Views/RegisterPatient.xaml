@@ -41,9 +41,16 @@
                     Value="Female"
                     GroupName="gen"
                     CheckedChanged="getGender"/>
-                
-                <Label Text="Injury Severity" FontSize="Large"/>
-                <Picker x:Name="SeverityPicker" Title="Select Injury Severity">
+                <Grid Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.40*" />
+                        <ColumnDefinition Width="0.50*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Severity" FontSize="Large"/>
+                    <Picker Grid.Row="0" Grid.Column="1" x:Name="SeverityPicker" Title="Select">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>1</x:String>
@@ -54,34 +61,48 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-                
-                <Label Text="Injury Type" FontSize="Large"/>
-                <Picker x:Name="Injurypicker" Title="Select Injury Type"  SelectedIndexChanged="InjuryPicked">
-                            <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>None</x:String>
-                                    <x:String>Sprains</x:String>
-                                    <x:String>Strains</x:String>
-                                    <x:String>Lower Back Pain</x:String>
-                                    <x:String>Plantar Fasciitis</x:String>
-                                    <x:String>Shin Splints</x:String>
-                                </x:Array>
-                            </Picker.ItemsSource>
-                        </Picker>
-
-                <Label x:Name="InjuryLabel" Text="Other Injury Type (Optional)" FontSize="Large"/>
+                </Grid>
+                <Grid Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.40*" />
+                        <ColumnDefinition Width="0.50*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Type" FontSize="Large"/>
+                    <Picker Grid.Row="0" Grid.Column="1" x:Name="Injurypicker" Title="Select"  SelectedIndexChanged="InjuryPicked">
+                   <Picker.ItemsSource>
+                     <x:Array Type="{x:Type x:String}">
+                            <x:String>Sprains</x:String>
+                            <x:String>Strains</x:String>
+                            <x:String>Lower Back Pain</x:String>
+                            <x:String>Plantar Fasciitis</x:String>
+                            <x:String>Shin Splints</x:String>
+                            <x:String>Enter Your Own</x:String>
+                     </x:Array>
+                   </Picker.ItemsSource>
+                </Picker>
+                </Grid>
+                <Label x:Name="InjuryLabel" Text="Enter your own injury type" FontSize="Large"/>
                 <Entry
                     Placeholder="Other Injury"
                     Keyboard="Text"
                     MaxLength="50"
                     x:Name="injury"
                 />
-                
-                <Label Text="How Injury Occurred" FontSize="Large"/>
-                <Picker x:Name="Occurredpicker" Title="Select Occurence" SelectedIndexChanged="InjuryOccurred">
+                <Grid Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.80*" />
+                        <ColumnDefinition Width="0.50*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="How Injury Occurred" FontSize="Large"/>
+                    <Picker Grid.Row="0" Grid.Column="1" x:Name="Occurredpicker" Title="Select" SelectedIndexChanged="InjuryOccurred">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>None</x:String>
                             <x:String>Rugby</x:String>
                             <x:String>Soccer</x:String>
                             <x:String>Gym</x:String>
@@ -94,11 +115,13 @@
                             <x:String>Horse Riding</x:String>
                             <x:String>Skateboarding</x:String>
                             <x:String>Cycling</x:String>
+                            <x:String>Enter Your Own</x:String>
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-
-                <Label x:Name="OccuredLabel" Text="Additional Injury (Optional)" FontSize="Large"/>
+                </Grid>
+                
+                <Label x:Name="OccuredLabel" Text="Enter your own how injury occurred" FontSize="Large"/>
                 <Entry
                     Placeholder="Injury Occured"
                     Keyboard="Text"
@@ -124,10 +147,11 @@
 
                 <Button
                     Text="Confirm"
-                    Margin="60, 30"
+                    Margin="0,30,0,45"
                     BackgroundColor="DodgerBlue"
                     TextColor="Black"
                     Clicked="PatientRegister"/>
+                <Label FontSize="Large" Text="" IsEnabled="False" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

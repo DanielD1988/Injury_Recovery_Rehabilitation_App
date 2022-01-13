@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--GroupDisplayBinding="{Binding Key}"-->
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
              x:Class="TestApp.views.DisplayExercises">
@@ -24,13 +23,11 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.GroupHeaderTemplate>
-        
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Label TextColor="SteelBlue" FontSize="Large" FontFamily="Arial"  FontAttributes="Bold" HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
-                        <Button TextColor="White" Text="View Details" CornerRadius="10" Margin="90, 15" FontAttributes="Bold" BackgroundColor="SteelBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
+                        <Button TextColor="White" Text="{Binding exerciseName}" CornerRadius="10" Margin="90, 15" FontAttributes="Bold" BackgroundColor="SteelBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

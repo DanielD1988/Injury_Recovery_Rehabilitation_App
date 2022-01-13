@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using TestApp.services;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -20,6 +19,10 @@ namespace TestApp.ViewModels
         IFirebaseAuthenticator auth;
         FirebaseMethods fireBase;
         List<string> patientEmailList;
+        PasswordSecuirty security = new PasswordSecuirty();
+        string salt = "";
+        string saltedPassword = "";
+        string patientUid = "";
         public RPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
@@ -56,7 +59,7 @@ namespace TestApp.ViewModels
         /// <param name="end"></param>
         /// <param name="exerPlan"></param> 
         /// <param name="physioUid"></param>
-        public async Task<bool> setupUserAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred)
+        public async Task<bool> setUpPatientAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred)
         {
             try
             {
@@ -69,10 +72,19 @@ namespace TestApp.ViewModels
                     injuryOccurred = newinjuryOccurred;
                 }
                 patientEmailList.Add(email);
-                password = generatePatientPassword();
-                password = password.Replace("-", "");
+                password = security.generateSaltOrPasswordOrUid(15);
+                //password = password.Replace("-", "");
                 password += "p";
-                string patientUid = await auth.SignupWithEmailPassword(email, password);
+                patientUid = await auth.SignupWithEmailPassword(email, password);
+
+                if(patientUid == "true")//this checks if the iOS SignupWithEmailPassword method is called
+                { 
+                    salt = security.generateSaltOrPasswordOrUid(32);
+                    saltedPassword = security.md5HashAndSaltThePassword(salt, password);
+                    saltedPassword = saltedPassword += "p";
+                    patientUid = security.generateSaltOrPasswordOrUid(10);
+                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid);
+                }
                 await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, start, end, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, false);
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
                 await SendPatientEmail(patientEmailList, password);
@@ -84,19 +96,6 @@ namespace TestApp.ViewModels
                 return false;
             }
 
-        }
-        /// <summary>
-        /// This method uses the RNGCryptoServiceProvider class generates random numbers
-        /// This GetBytes method takes in a byte array and fills byte array with random values
-        /// and returns a string from the byte array
-        /// </summary>
-        /// <returns></returns>
-        public string generatePatientPassword()
-        {
-            RNGCryptoServiceProvider encrypt = new RNGCryptoServiceProvider();
-            byte[] random = new byte[15];
-            encrypt.GetBytes(random);
-            return BitConverter.ToString(random);
         }
         /// <summary>
         /// This method uses xamarin essentials to open an email application on the users phone and populates the body

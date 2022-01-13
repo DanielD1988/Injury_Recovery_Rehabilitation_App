@@ -28,6 +28,7 @@ namespace TestApp.Views
         bool infoCorrect = true;
         string errorMessage = "";
         string physioUid = "";
+ 
         RadioButton button;
         RPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -42,6 +43,12 @@ namespace TestApp.Views
             exerPlan = exercisePlan;
             this.physioUid = physioUid;
             patientVm = new RPatientViewModel(auth);
+            injury.IsEnabled = false;
+            injury.IsVisible = false;
+            InjuryLabel.IsVisible = false;
+            occured.IsEnabled = false;
+            occured.IsVisible = false;
+            OccuredLabel.IsVisible = false;
         }
         /// <summary>
         /// Radio button for gender
@@ -61,7 +68,7 @@ namespace TestApp.Views
         void InjuryPicked(object sender, EventArgs e)
         {
             injuryType = Injurypicker.SelectedItem.ToString();
-            if (injuryType == "None")
+            if (injuryType == "Enter Your Own")
             {
                 InjuryLabel.IsVisible = true;
                 injury.IsVisible = true;
@@ -69,6 +76,7 @@ namespace TestApp.Views
             }
             else
             {
+                injury.Text = null;
                 injury.IsEnabled = false;
                 injury.IsVisible = false;
                 InjuryLabel.IsVisible = false;
@@ -81,8 +89,8 @@ namespace TestApp.Views
         /// <param name="e"></param>
         void InjuryOccurred(object sender, EventArgs e)
         {
-            injuryType = Injurypicker.SelectedItem.ToString();
-            if (injuryType == "None")
+            injuryOccurred = Occurredpicker.SelectedItem.ToString();
+            if (injuryOccurred == "Enter Your Own")
             {
                 OccuredLabel.IsVisible = true;
                 occured.IsVisible = true;
@@ -90,6 +98,7 @@ namespace TestApp.Views
             }
             else
             {
+                occured.Text = null;
                 occured.IsEnabled = false;
                 occured.IsVisible = false;
                 OccuredLabel.IsVisible = false;
@@ -150,13 +159,14 @@ namespace TestApp.Views
                 errorMessage += "Please pick a severity number\n";
                 infoCorrect = false;
             }
+            
             newInjuryType = injury.Text;
             if (newInjuryType == null)
             {
                 try
                 {
                     injuryType = Injurypicker.SelectedItem.ToString();
-                    if (injuryType == "None")
+                    if (injuryType == "Enter Your Own")
                     {
                         errorMessage += "Please pick an injury Type or enter a new injury type info\n";
                         infoCorrect = false;
@@ -165,7 +175,7 @@ namespace TestApp.Views
                 catch (NullReferenceException error)
                 {
                     Console.WriteLine(error.StackTrace);
-                    errorMessage += "Please pick an injury Type or enter a new injury type info\n";
+                    errorMessage += "Please pick an injury Type or enter your own\n";
                     infoCorrect = false;
                 }
             }
@@ -176,9 +186,9 @@ namespace TestApp.Views
                 try
                 {
                     injuryOccurred = Occurredpicker.SelectedItem.ToString();
-                    if (injuryOccurred == "None")
+                    if (injuryOccurred == "Enter Your Own")
                     {
-                        errorMessage += "Please pick how Injury occurred or enter additional injury info\n";
+                        errorMessage += "Please pick how Injury occurred or enter your own\n";
                         infoCorrect = false;
                     }
 
@@ -214,7 +224,7 @@ namespace TestApp.Views
             }
             else
             {
-                await patientVm.setupUserAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
+                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
                 await Navigation.PushModalAsync(new DisplayExercises("physioUid"));
             }
         }

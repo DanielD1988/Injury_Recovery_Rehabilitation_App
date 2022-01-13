@@ -1,5 +1,4 @@
-﻿using MediaManager;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -15,7 +14,14 @@ namespace TestApp.Views
         string downLoadLink1 = "";
         string downLoadLink2 = "";
         string downLoadLink3 = "";
+        bool exercise1Complete = false;
+        bool exercise2Complete = false;
+        bool exercise3Complete = false;
+        string videoFile = "";
         string patientUid = "";
+        string exerciseName = "";
+        string videoCopyRight = "";
+        List<Exercise> patientExerciselist = new List<Exercise>();
         
         public ShowPatientExercisePlan(string uid)
         {
@@ -26,61 +32,58 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            List<Exercise> patientExerciselist = await display.getPatientsExercisePlan(patientUid, false);
+            if(patientExerciselist.Count == 0)
+            {
+                patientExerciselist = await display.getPatientsExercisePlan(patientUid, false);
+            }
+            //patientExerciselist = await display.getPatientsExercisePlan(patientUid, false);
             exerciseLabel1.Text = patientExerciselist[0].ExerciseName;
-            copyRightLabel1.Text = "Copyright " +  patientExerciselist[0].exerciseVideoCopyright;
-            downLoadLink1 = await display.getExerciseVideoLink(patientExerciselist[0].VideoLink += ".mp4", false);
             exerciseLabel2.Text = patientExerciselist[1].ExerciseName;
-            copyRightLabel2.Text = "Copyright " + patientExerciselist[1].exerciseVideoCopyright;
-            downLoadLink2 = await display.getExerciseVideoLink(patientExerciselist[1].VideoLink += ".mp4", false);
             exerciseLabel3.Text = patientExerciselist[2].ExerciseName;
-            copyRightLabel3.Text = "Copyright " +  patientExerciselist[2].exerciseVideoCopyright;
-            downLoadLink3 = await display.getExerciseVideoLink(patientExerciselist[2].VideoLink += ".mp4", false);
         }
-        private async void showVideo1(object sender, EventArgs e)
+        async void exercise1(object sender, EventArgs e)
         {
-            if (PlayVideo1.Text == "Play")
-            {
-                await CrossMediaManager.Current.Play(downLoadLink1);
-
-                PlayVideo1.Text = "Stop";
-            }
-            else if (PlayVideo1.Text == "Stop")
-            {
-                await CrossMediaManager.Current.Stop();
-
-                PlayVideo1.Text = "Play";
-            }
+            videoFile = "";
+            videoFile = patientExerciselist[0].VideoLink += ".mp4";
+            downLoadLink1 = await display.getExerciseVideoLink(videoFile, false);
+            exerciseName = patientExerciselist[0].ExerciseName;
+            videoCopyRight = "Video Copyright " + patientExerciselist[0].exerciseVideoCopyright;
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink1, exerciseName, videoCopyRight, patientUid));
+            //progress.Progress += 0.33;
+            //exer1.IsEnabled = false;
         }
-        private async void showVideo2(object sender, EventArgs e)
+        async void exercise2(object sender, EventArgs e)
         {
-            if (PlayVideo2.Text == "Play")
-            {
-                 await CrossMediaManager.Current.Play(downLoadLink2);
-
-                PlayVideo2.Text = "Stop";
-            }
-            else if (PlayVideo2.Text == "Stop")
-            {
-                await CrossMediaManager.Current.Stop();
-
-                PlayVideo2.Text = "Play";
-            }
+            videoFile = "";
+            videoFile = patientExerciselist[1].VideoLink += ".mp4";
+            downLoadLink2 = await display.getExerciseVideoLink(videoFile, false);
+            exerciseName = patientExerciselist[1].ExerciseName;
+            videoCopyRight = "Video Copyright " + patientExerciselist[1].exerciseVideoCopyright;
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink2, exerciseName, videoCopyRight, patientUid));
+            //progress.Progress += 0.33;
+            //exer2.IsEnabled = false;
         }
-        private async void showVideo3(object sender, EventArgs e)
+        async void exercise3(object sender, EventArgs e)
         {
-            if (PlayVideo3.Text == "Play")
+            videoFile = "";
+            videoFile = patientExerciselist[2].VideoLink += ".mp4";
+            downLoadLink3 = await display.getExerciseVideoLink(videoFile, false);
+            exerciseName = patientExerciselist[2].ExerciseName;
+            videoCopyRight = "Video Copyright " + patientExerciselist[2].exerciseVideoCopyright;
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink3, exerciseName, videoCopyRight, patientUid));
+            //progress.Progress += 0.33;
+            //exer3.IsEnabled = false;
+        }
+        
+        private void saveResult(object sender, EventArgs e)
+        {
+            if(exercise1Complete == true && exercise2Complete == true && exercise3Complete == true)
             {
-                await CrossMediaManager.Current.Play(downLoadLink3);
-
-                PlayVideo3.Text = "Stop";
-            }
-            else if (PlayVideo3.Text == "Stop")
-            {
-                await CrossMediaManager.Current.Stop();
-
-                PlayVideo3.Text = "Play";
-            }
+                DateTime dateTime = DateTime.Today;
+                var currentDateTime = dateTime;
+                string date = currentDateTime.Date.ToString();
+                //send uid, date and true value
+            }    
         }
     }
 }
