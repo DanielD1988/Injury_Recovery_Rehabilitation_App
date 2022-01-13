@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
+using TestApp.Models;
+using TestApp.services;
 
 namespace TestApp.ViewModels
 {
@@ -9,9 +12,10 @@ namespace TestApp.ViewModels
     /// </summary>
     class PasswordSecuirty
     {
+        private FirebaseMethods fire;
         public PasswordSecuirty()
         {
-
+            fire = FirebaseMethods.GetInstance();
         }
         /// <summary>
         /// This method uses the RNGCryptoServiceProvider class generates random numbers
@@ -38,8 +42,27 @@ namespace TestApp.ViewModels
             var sourceBytes = Encoding.UTF8.GetBytes(salt + password);
             var md5Hash = MD5.Create();
             var hashedString = md5Hash.ComputeHash(sourceBytes);
-            string newPassword = hashedString.ToString().Replace("-", "");
+            string newPassword = BitConverter.ToString(hashedString).Replace("-", "");
             return newPassword;
+        }
+        public async Task<string> checkIfLoginIsVerified(string email,string password)
+        {
+            IosCredentials securityDetails = await fire.getIosPatientPasswordDetails(false,email);
+            string hashedAndSaltedPassword = md5HashAndSaltThePassword(securityDetails.salt, password);
+            
+            if (securityDetails.saltHashed.Contains("p"))
+            {
+                hashedAndSaltedPassword = hashedAndSaltedPassword += "p";
+                
+            }
+            if (hashedAndSaltedPassword.Equals(securityDetails.saltHashed))
+            {
+                return securityDetails.userId;
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

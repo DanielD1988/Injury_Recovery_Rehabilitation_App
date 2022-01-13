@@ -12,6 +12,7 @@ namespace TestApp
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
+        PasswordSecuirty secuirty;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
@@ -21,6 +22,7 @@ namespace TestApp
             Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
+            secuirty = new PasswordSecuirty();
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////
         }
@@ -36,7 +38,10 @@ namespace TestApp
             string Pass = pass.Text;
 
             string physioUid = await auth.LoginWithEmailPassword(Email, Pass);
-            
+            if(physioUid == "true")
+            {
+                physioUid = await secuirty.checkIfLoginIsVerified(Email, Pass);
+            }
             if (physioUid != "")
             {
                 await DisplayAlert("Login Successful","", "OK");

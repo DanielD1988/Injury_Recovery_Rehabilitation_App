@@ -361,5 +361,24 @@ namespace TestApp.services
                 return false;
             }
         }
+        
+        public async Task<IosCredentials> getIosPatientPasswordDetails(bool isMocked, string email)
+        {
+            email = email.Replace("@", "");
+            email = email.Replace(".", "");
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                return await firebase.Child("iosCredentials").Child(email).OnceSingleAsync<IosCredentials>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
     }
 }

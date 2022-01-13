@@ -78,7 +78,8 @@ namespace TestApp.ViewModels
                 patientUid = await auth.SignupWithEmailPassword(email, password);
 
                 if(patientUid == "true")//this checks if the iOS SignupWithEmailPassword method is called
-                { 
+                {
+                    password = password.Remove(password.Length - 1, 1);
                     salt = security.generateSaltOrPasswordOrUid(32);
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
                     saltedPassword = saltedPassword += "p";

@@ -36,5 +36,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<string>mailto</string>
 </dict>
 </plist>

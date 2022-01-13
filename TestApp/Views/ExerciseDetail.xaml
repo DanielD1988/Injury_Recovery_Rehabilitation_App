@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TestApp.Views.ExerciseDetail">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="AliceBlue">
+        <StackLayout Margin="0,30,0,0" BackgroundColor="AliceBlue">
             <Frame BorderColor="SteelBlue" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,10,40,10"        >
                 <Image Source="{Binding Image}" BackgroundColor="white"/>
 

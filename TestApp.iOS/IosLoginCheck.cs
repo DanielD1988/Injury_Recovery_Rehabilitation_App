@@ -26,8 +26,7 @@ namespace TestApp.iOS
         {
             try
             {
-                var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
-                return await user.User.GetIdTokenAsync();
+                return "true";
             }
             catch (Exception e)
             {
@@ -35,6 +34,7 @@ namespace TestApp.iOS
                 Console.WriteLine(error);
                 return "";
             }
+            
 
         }/// <summary>
          /// This method allows a user to register with the application through firebaseAuth
@@ -45,9 +45,6 @@ namespace TestApp.iOS
         //https://www.py4u.net/discuss/1541967
         public async Task<string> SignupWithEmailPassword(string email, string password)
         {
-            //var authDataResult = await Auth.DefaultInstance.CreateUserAsync( email, password);
-
-            //return await authDataResult.User.GetIdTokenAsync();
             return "true";
         }
     }
