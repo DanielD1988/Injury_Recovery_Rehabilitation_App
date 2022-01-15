@@ -6,7 +6,7 @@ namespace UnitTestProject
 {
     public class RPatientViewModelTest
     {
-        RPatientViewModel patientVm = new RPatientViewModel(null);
+        RegisterPatientViewModel patientVm = new RegisterPatientViewModel(null);
         /// <summary>
         /// This test checks if the time is striped from the date time object
         /// </summary>

@@ -12,7 +12,7 @@ namespace TestApp.ViewModels
     /// Generates a unique password for a patients login
     /// Generates an email so the login information can be sent to the patient
     /// </summary>
-    class RPatientViewModel
+    class RegisterPatientViewModel
     {
         string password = "";
         //IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -23,7 +23,7 @@ namespace TestApp.ViewModels
         string salt = "";
         string saltedPassword = "";
         string patientUid = "";
-        public RPatientViewModel(IFirebaseAuthenticator auth)
+        public RegisterPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
             //auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -73,7 +73,7 @@ namespace TestApp.ViewModels
                 }
                 patientEmailList.Add(email);
                 password = security.generateSaltOrPasswordOrUid(15);
-                //password = password.Replace("-", "");
+                
                 password += "p";
                 patientUid = await auth.SignupWithEmailPassword(email, password);
 
@@ -86,8 +86,10 @@ namespace TestApp.ViewModels
                     patientUid = security.generateSaltOrPasswordOrUid(10);
                     await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid);
                 }
-                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, start, end, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, false);
+                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, false);
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
+                await fireBase.recordPatientProgress(patientUid, false, start.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+                await fireBase.recordPatientProgress(patientUid, false, end.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
                 await SendPatientEmail(patientEmailList, password);
                 return true;
             }

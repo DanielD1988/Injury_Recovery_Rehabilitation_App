@@ -148,12 +148,21 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <BundleResource Include="Resources\danLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TestApp\TestApp.csproj">
       <Project>{5142a102-618a-4e75-8f48-b2f951e9243b}</Project>
       <Name>TestApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pauseButton.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\playButton.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\stopButton.jpg" />
   </ItemGroup>
 </Project>

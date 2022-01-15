@@ -6,9 +6,9 @@ using Xunit;
 namespace UnitTestProject
 {
     //https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
-    public class DisplayExercisesViewModelTest
+    public class DisplayExercisePlansViewModelTest
     {
-        DisplayExercisesViewModel model = new DisplayExercisesViewModel();
+        DisplayExercisePlansViewModel model = new DisplayExercisePlansViewModel();
         /// <summary>
         /// This test checks if there is data coming from the GetAllExercises() database method 
         /// </summary>

@@ -4,11 +4,10 @@ using System.Collections.Generic;
 namespace TestApp.Models
 {
     /// <summary>
-    /// This describes the data taken from the physiotherapist Json Structure
+    /// This describes the data for the physiotherapist Json Structure
     /// </summary>
     class Physiotherapist
     {
-
         [JsonProperty("name")]
         public string PhysioName { get; set; }
         [JsonProperty("phone")]

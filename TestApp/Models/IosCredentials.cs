@@ -2,6 +2,9 @@
 
 namespace TestApp.Models
 {
+    /// <summary>
+    /// This describes the data for the IosCredentials Json Structure
+    /// </summary>
     public class IosCredentials
     {
         [JsonProperty("uid")]

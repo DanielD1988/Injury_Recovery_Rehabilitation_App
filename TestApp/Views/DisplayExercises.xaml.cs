@@ -15,14 +15,14 @@ namespace TestApp.views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayExercises : ContentPage
     {
-        private DisplayExercisesViewModel viewModel;
+        private DisplayExercisePlansViewModel viewModel;
         private string physioUid = ""
 ;       /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
         public DisplayExercises(string physioUid)
         {
-            viewModel = new DisplayExercisesViewModel();
+            viewModel = new DisplayExercisePlansViewModel();
             this.physioUid = physioUid;
             InitializeComponent();
             

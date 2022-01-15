@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 namespace TestApp.Models
 {
     /// <summary>
-    /// This describes the data taken from the patient Json Structure
+    /// This describes the data for the patient Json Structure
     /// </summary>
     public class Patient
     {
@@ -20,10 +19,6 @@ namespace TestApp.Models
         public int Age { get; set; }
         [JsonProperty("severity")]
         public int InjurySeverity { get; set; }
-        [JsonProperty("start")]
-        public DateTime StartDate { get; set; }
-        [JsonProperty("end")]
-        public DateTime EndDate { get; set; }
         [JsonProperty("exercise1")]
         public string Exer1 { get; set; }
         [JsonProperty("exercise2")]

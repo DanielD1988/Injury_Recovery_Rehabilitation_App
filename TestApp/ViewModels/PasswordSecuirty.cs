@@ -45,6 +45,12 @@ namespace TestApp.ViewModels
             string newPassword = BitConverter.ToString(hashedString).Replace("-", "");
             return newPassword;
         }
+        /// <summary>
+        /// This method checks if the user is verified to access the app
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<string> checkIfLoginIsVerified(string email,string password)
         {
             IosCredentials securityDetails = await fire.getIosPatientPasswordDetails(false,email);

@@ -61,12 +61,10 @@ namespace TestApp.Services
         /// <param name="injuryOccurred"></param>
         /// <param name="age"></param>
         /// <param name="injurySeverity"></param>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
         /// <param name="exerPlan"></param>
         /// <param name="email"></param>
         /// <returns></returns>
-        public bool AddMockPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime startDate, DateTime endDate, string exercise1, string exercise2, string exercise3, string email)
+        public bool AddMockPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity,string exercise1, string exercise2, string exercise3, string email)
         {
             Patient newPatient = null;
             newPatient = new Patient()

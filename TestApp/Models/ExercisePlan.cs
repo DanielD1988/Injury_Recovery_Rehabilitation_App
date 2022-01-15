@@ -5,9 +5,7 @@ using System.IO;
 namespace TestApp.models
 {
     /// <summary>
-    /// This ExercisePlan class sets data comming from the FirebaseMethods. The [JsonProperty()] decorator is used to
-    /// deserialize key value pair JSON structure so the value can be extracted to the variable.
-    /// There is also a base64 string to image conversion
+    /// This describes the data for the ExercisePlan Json Structure
     /// </summary>
     public class ExercisePlan // https://stackoverflow.com/questions/38743280/deserialize-json-object-xamarin-android-c-sharp
     {

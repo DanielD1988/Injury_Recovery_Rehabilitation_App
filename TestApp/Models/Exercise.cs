@@ -4,7 +4,7 @@
 namespace TestApp.Models
 {
     /// <summary>
-    /// This describes the data taken from the exercise Json Structure
+    /// This describes the data for the exercise Json Structure
     /// </summary>
     public class Exercise
     {

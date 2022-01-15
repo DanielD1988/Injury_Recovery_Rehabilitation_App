@@ -11,7 +11,7 @@
                 <Label
                     Text="Patient Register"
                     HorizontalOptions="Center"
-                    TextColor="DodgerBlue"
+                    TextColor="SteelBlue"
                     FontSize="35"
                     Margin="0, 10"
                 />
@@ -147,10 +147,12 @@
 
                 <Button
                     Text="Confirm"
-                    Margin="0,30,0,45"
-                    BackgroundColor="DodgerBlue"
-                    TextColor="Black"
-                    Clicked="PatientRegister"/>
+                    Margin="50,30,50,45"
+                    BackgroundColor="SteelBlue"
+                    TextColor="White"
+                    Clicked="PatientRegister"
+                    CornerRadius="10"/>
+                     
                 <Label FontSize="Large" Text="" IsEnabled="False" />
             </StackLayout>
         </ScrollView>

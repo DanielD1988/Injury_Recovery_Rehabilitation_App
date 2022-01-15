@@ -30,7 +30,7 @@ namespace TestApp.Views
         string physioUid = "";
  
         RadioButton button;
-        RPatientViewModel patientVm;
+        RegisterPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
         /// <summary>
         /// This constructor takes in the selected exercise plan and physiotherapist Id 
@@ -42,7 +42,7 @@ namespace TestApp.Views
             InitializeComponent();
             exerPlan = exercisePlan;
             this.physioUid = physioUid;
-            patientVm = new RPatientViewModel(auth);
+            patientVm = new RegisterPatientViewModel(auth);
             injury.IsEnabled = false;
             injury.IsVisible = false;
             InjuryLabel.IsVisible = false;

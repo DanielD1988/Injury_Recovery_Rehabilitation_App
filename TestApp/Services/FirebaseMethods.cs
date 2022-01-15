@@ -104,19 +104,17 @@ namespace TestApp.services
         /// <param name="injuryOccurred"></param>
         /// <param name="age"></param>
         /// <param name="injurySeverity"></param>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
         /// <param name="exercise1"></param>
         /// <param name="exercise2"></param>
         /// <param name="exercise3"></param>
         /// <param name="email"></param>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime startDate, DateTime endDate, string exercise1, string exercise2, string exercise3, string email, bool isMocked)
+        public async Task<bool> AddPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, string exercise1, string exercise2, string exercise3, string email, bool isMocked)
         {
             if (isMocked == true)
             {
-                return db.AddMockPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, startDate, endDate, exercise1, exercise2, exercise3, email);
+                return db.AddMockPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exercise1, exercise2, exercise3, email);
             }
             try
             {
@@ -130,8 +128,6 @@ namespace TestApp.services
                     InjuryOccurred = injuryOccurred,
                     Age = age,
                     InjurySeverity = injurySeverity,
-                    StartDate = startDate,
-                    EndDate = endDate,
                     Exer1 = exercise1,
                     Exer2 = exercise2,
                     Exer3 = exercise3,
@@ -165,6 +161,26 @@ namespace TestApp.services
                 .Child("physio").Child(PhysioUid).Child("patients").Child(PatientUID)
                 .PutAsync(new Physiotherapist()
                 { PatientUid = PatientUID });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        public async Task<bool> recordPatientProgress(string PatientUID, bool isMocked,string date)
+        {
+            if (isMocked == true)
+            {
+                return false;
+            }
+            try
+            {
+                await firebase
+                .Child("patientProgress").Child(PatientUID).Child(date)
+                .PutAsync(new Progress()
+                { isComplete = true });
                 return true;
             }
             catch (Exception e)
@@ -311,26 +327,7 @@ namespace TestApp.services
                 return false;
             }
         }
-        public async Task<bool> recordPatientProgress(string PatientUID,string currentDate,bool complete, bool isMocked)
-        {
-            if (isMocked == true)
-            {
-                
-            }
-            try
-            {
-                await firebase
-                .Child("patientProgress").Child(PatientUID).Child("currentDate")
-                .PutAsync(new Progress()
-                { isComplete = complete });
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                return false;
-            }
-        }
+        
         /// <summary>
         /// This method works as a replacement for firebases SignupWithEmailPassword for iOS
         /// </summary>
@@ -361,7 +358,12 @@ namespace TestApp.services
                 return false;
             }
         }
-        
+        /// <summary>
+        /// This method gets the salt the saltedAndHashed password and user id back from a valid email address
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task<IosCredentials> getIosPatientPasswordDetails(bool isMocked, string email)
         {
             email = email.Replace("@", "");
