@@ -169,6 +169,13 @@ namespace TestApp.services
                 return false;
             }
         }
+        /// <summary>
+        /// This method saves the state of the patients exercise plan
+        /// </summary>
+        /// <param name="PatientUID"></param>
+        /// <param name="isMocked"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public async Task<bool> recordPatientProgress(string PatientUID, bool isMocked,string date)
         {
             if (isMocked == true)
@@ -215,7 +222,7 @@ namespace TestApp.services
         }
         /// <summary>
         /// This function gets a list of exercises from the database then
-        /// the three eneterd exercise strings are used to build a list that contains the exercise plan for the patient
+        /// the three entered exercise strings are used to build a list that contains the exercise plan for the patient
         /// </summary>
         /// <param name="exercise1"></param>
         /// <param name="exercise2"></param>
@@ -327,7 +334,7 @@ namespace TestApp.services
                 return false;
             }
         }
-        
+
         /// <summary>
         /// This method works as a replacement for firebases SignupWithEmailPassword for iOS
         /// </summary>
@@ -335,9 +342,14 @@ namespace TestApp.services
         /// <param name="salted"></param>
         /// <param name="saltedAndHashed"></param>
         /// <param name="uid"></param>
+        /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> iOSSignupWithEmailPassword(string email, string salted, string saltedAndHashed,string uid)
+        public async Task<bool> iOSSignupWithEmailPassword(string email, string salted, string saltedAndHashed,string uid,bool isMocked)
         {
+            if (isMocked == true)
+            {
+                return true;
+            }
             try
             {
                 email = email.Replace("@", "");

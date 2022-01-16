@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TestApp.ViewModels;
 using TestApp.views;
 using TestApp.Views;
@@ -13,6 +14,10 @@ namespace TestApp
     {
         IFirebaseAuthenticator auth;
         PasswordSecuirty secuirty;
+        string [] SpecialCharacters = new[] { "~", "`", "!", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "\"", "<", ">", "\'", "[", "]", "{", "}", "+","," };
+        string newPass = "";
+        string newEmail = "";
+        bool emailCorrect = true;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
@@ -20,11 +25,32 @@ namespace TestApp
         {
             InitializeComponent();
             //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
-            Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
+            //Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             secuirty = new PasswordSecuirty();
+            
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////
+        }
+        void passwordtextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if(SpecialCharacters.Any(e.NewTextValue.Contains))
+            {
+                newPass = pass.Text;
+                newPass = newPass.Remove(newPass.Length - 1);
+                pass.Text = newPass;
+            }
+        }
+        void emailtextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (SpecialCharacters.Any(e.NewTextValue.Contains))
+            {
+                newEmail = email.Text;
+                newEmail = newEmail.Remove(newEmail.Length - 1);
+                email.Text = newEmail;
+            }
         }
         /// <summary>
         /// This button sends the entered email and password to ether the ios or android depending which class calls the 
@@ -36,6 +62,15 @@ namespace TestApp
         {
             string Email = email.Text;
             string Pass = pass.Text;
+            if (Email.Contains("@") && Email.Contains("."))
+            {
+                
+            }
+            else
+            {
+                await DisplayAlert("Error", "Please enter a valid email\n", "OK");
+                emailCorrect = false;
+            }
 
             string physioUid = await auth.LoginWithEmailPassword(Email, Pass);
             if(physioUid == "true")

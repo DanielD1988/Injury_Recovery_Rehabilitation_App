@@ -84,7 +84,7 @@ namespace TestApp.ViewModels
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
                     saltedPassword = saltedPassword += "p";
                     patientUid = security.generateSaltOrPasswordOrUid(10);
-                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid);
+                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid,false);
                 }
                 await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, false);
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);

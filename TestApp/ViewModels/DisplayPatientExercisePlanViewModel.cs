@@ -15,6 +15,7 @@ namespace TestApp.ViewModels
         private Patient patientDetails = null;
         private List<Exercise> patientExerciselist = new List<Exercise>();
         private int exerciseCompletedNumber = 0;
+
         public DisplayPatientExercisePlanViewModel()
         {
             fire = FirebaseMethods.GetInstance();
@@ -26,9 +27,9 @@ namespace TestApp.ViewModels
         /// <param name="exercise2"></param>
         /// <param name="exercise3"></param>
         /// <returns></returns>
-        public async Task<List<Exercise>> getPatientExercises(string exercise1,string exercise2,string exercise3)
+        public async Task<List<Exercise>> getPatientExercises(string exercise1,string exercise2,string exercise3,bool isMocked)
         {
-            List<Exercise> exerciseList = await fire.GetPatientExercises(exercise1, exercise2, exercise3,false);
+            List<Exercise> exerciseList = await fire.GetPatientExercises(exercise1, exercise2, exercise3, isMocked);
             return exerciseList;
         }
         /// <summary>
@@ -41,7 +42,8 @@ namespace TestApp.ViewModels
         {
             videoLink = await fire.GetVideosFromStorage(isMocked, videoName);
             return videoLink;
-        }/// <summary>
+        }
+        /// <summary>
         /// This method returns a patients details by the use of the user id
         /// </summary>
         /// <param name="patientUid"></param>
@@ -62,7 +64,7 @@ namespace TestApp.ViewModels
         public async Task<List<Exercise>> getPatientsExercisePlan(string patientUid, bool isMocked)
         {
             patientDetails = await getpatientDetails(patientUid, false);
-            patientExerciselist = await getPatientExercises(patientDetails.Exer1, patientDetails.Exer2, patientDetails.Exer3);
+            patientExerciselist = await getPatientExercises(patientDetails.Exer1, patientDetails.Exer2, patientDetails.Exer3,false);
             return patientExerciselist;
         }
         /// <summary>

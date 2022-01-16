@@ -19,15 +19,6 @@ namespace UnitTestProject
             Assert.Equal(expected,result.Length);
         }
         /// <summary>
-        /// This test checks if a generated password is of a certain length
-        [Fact]
-        public void GeneratePatientPasswordTest()
-        {
-            string password = patientVm.generatePatientPassword();
-            int expected = 44;
-            Assert.Equal(expected, password.Length);
-        }
-        /// <summary>
         /// This method checks if the SendPatientEmail is called can not open an xamarin essentails email from a test 
         /// so test does fail
         /// </summary>

@@ -22,9 +22,19 @@ namespace UnitTestProject
         /// This test checks if there is data coming from the sendExerciseKey() database method 
         /// </summary>
         [Fact]
-        public void sendExerciseKeyTest2()
+        public void sendExerciseKeyTest1()
         {
             Assert.NotNull(model.sendExerciseKey("Knee pain",true));
+        }
+        /// <summary>
+        /// This test checks if there is data coming from the sendExerciseKey() database method when no plan is given
+        /// as expected the test will fail
+        /// </summary>
+        [Fact]
+        public void sendExerciseKeyTest2()
+        {
+            var value = model.sendExerciseKey("", true).Result;
+            Assert.Null(value);
         }
     }
 }

@@ -28,7 +28,11 @@ namespace TestApp.Views
         bool infoCorrect = true;
         string errorMessage = "";
         string physioUid = "";
- 
+        DateTime today;
+        DateTime sDate;
+        DateTime nDate;
+        int result1;
+        int result2;
         RadioButton button;
         RegisterPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
@@ -200,16 +204,16 @@ namespace TestApp.Views
                     infoCorrect = false;
                 }
             }
-            DateTime today = DateTime.Today;
+            today = DateTime.Today;
             startDate = startDatePicker.Date.ToString();
             startDate = patientVm.removeTimeFromDate(startDate);
             endDate = endDatePicker.Date.ToString();
             endDate = patientVm.removeTimeFromDate(endDate);
 
-            DateTime sDate = Convert.ToDateTime(startDate);
-            DateTime nDate = Convert.ToDateTime(endDate);
-            int result1 = DateTime.Compare(sDate, today);
-            int result2 = DateTime.Compare(nDate, today);
+            sDate = Convert.ToDateTime(startDate);
+            nDate = Convert.ToDateTime(endDate);
+            result1 = DateTime.Compare(sDate, today);
+            result2 = DateTime.Compare(nDate, today);
 
             if (result1 < 0 || result2 < 0)
             {
