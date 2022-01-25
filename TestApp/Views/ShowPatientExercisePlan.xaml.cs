@@ -24,6 +24,7 @@ namespace TestApp.Views
         string patientUid = "";
         string exerciseName = "";
         string videoCopyRight = "";
+        Patient details = null;
         DateTime dateTime = DateTime.Today;
         DateTime dateWithoutTime;
         string date = "";
@@ -41,6 +42,7 @@ namespace TestApp.Views
         /// </summary>
         protected async override void OnAppearing()
         {
+            details = await display.getpatientDetails(patientUid, false);
             base.OnAppearing();
             date = dateTime.ToString();
             date = display.removeTimeFromDate(date);
@@ -85,7 +87,7 @@ namespace TestApp.Views
             downLoadLink1 = await display.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[0].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[0].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink1, exerciseName, videoCopyRight, patientUid,display,1));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink1, exerciseName, videoCopyRight, patientUid,display,1,details.minExercise1,details.maxExercise1));
         }
         /// <summary>
         /// This button gets the necessary exercise data ready for the second exercise so it can be passed to the next page
@@ -99,7 +101,7 @@ namespace TestApp.Views
             downLoadLink2 = await display.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[1].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[1].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink2, exerciseName, videoCopyRight, patientUid,display,2));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink2, exerciseName, videoCopyRight, patientUid,display,2, details.minExercise2,details.maxExercise2));
         }
         /// <summary>
         /// This button gets the necessary exercise data ready for the third exercise so it can be passed to the next page
@@ -113,7 +115,7 @@ namespace TestApp.Views
             downLoadLink3 = await display.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[2].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[2].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink3, exerciseName, videoCopyRight, patientUid, display,3));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink3, exerciseName, videoCopyRight, patientUid, display,3,details.minExercise3,details.maxExercise3));
         }
         /// <summary>
         /// This button saves the state of the current exercise plan when all exercises are completed for th

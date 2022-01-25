@@ -27,7 +27,26 @@
             <DataTemplate>
                 <ViewCell>
                     <StackLayout Orientation="Vertical">
-                        <Button TextColor="White" Text="{Binding exerciseName}" CornerRadius="10" Margin="90, 15" FontAttributes="Bold" BackgroundColor="SteelBlue" Clicked="Details" CommandParameter="{Binding exerciseListKey}" />
+                        <Grid Margin="5,20,30,30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.50*" />
+                                <ColumnDefinition Width="0.50*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   TextColor="Black" 
+                                   FontSize="Medium" FontFamily="Arial"  
+                                   HorizontalTextAlignment="Center" 
+                                   Text="{Binding exerciseName}"/>
+                            <Button Grid.Row="0" Grid.Column="1" TextColor="White" 
+                                    Text="Select" 
+                                    CornerRadius="10" Margin="5, 0,0,5" 
+                                    FontAttributes="Bold" BackgroundColor="SteelBlue" 
+                                    Clicked="Details" 
+                                    CommandParameter="{Binding exerciseListKey}" />
+                        </Grid>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

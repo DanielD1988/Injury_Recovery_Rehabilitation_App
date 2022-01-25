@@ -110,7 +110,7 @@ namespace TestApp.services
         /// <param name="email"></param>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, string exercise1, string exercise2, string exercise3, string email, bool isMocked)
+        public async Task<bool> AddPatient(string patientUid, string name, string gender, string injuryType, string injuryOccurred, int age, int injurySeverity, string exercise1, string exercise2, string exercise3, string email,int min1,int min2,int min3,int max1,int max2,int max3, bool isMocked)
         {
             if (isMocked == true)
             {
@@ -129,8 +129,14 @@ namespace TestApp.services
                     Age = age,
                     InjurySeverity = injurySeverity,
                     Exer1 = exercise1,
+                    minExercise1 = min1,
+                    maxExercise1 = max1,
                     Exer2 = exercise2,
+                    minExercise2 = min2,
+                    maxExercise2 = max2,
                     Exer3 = exercise3,
+                    minExercise3 = min3,
+                    maxExercise3 = max3,
                     Email = email
                 });
                 return true;

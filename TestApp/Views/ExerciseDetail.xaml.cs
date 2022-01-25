@@ -15,6 +15,12 @@ namespace TestApp.Views
         private DisplayExercisePlansViewModel viewModel;
         String exerciseKey;
         string physioUid = "";
+        int minimum1 = 0;
+        int maximum1 = 0;
+        int minimum2 = 0;
+        int maximum2 = 0;
+        int minimum3 = 0;
+        int maximum3 = 0;
         ExercisePlan currentExercise = null;
         /// <summary>
         ///  This constructor takes the exercise key from DisplayExercises Detail button press
@@ -44,9 +50,31 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
-        public void AddToPatient(Object Sender, EventArgs args)
+        public async void AddToPatient(Object Sender, EventArgs args)
         {
-            Navigation.PushModalAsync(new RegisterPatient(currentExercise, physioUid));
+            if (allMinMaxValuesFilledIn())
+            {
+                await Navigation.PushModalAsync(new RegisterPatient(currentExercise, physioUid,minimum1,minimum2,minimum3,maximum1,maximum2,maximum3));
+            }
+            else
+            {
+                await DisplayAlert("Error", "Please fill in all min max values for each exercise\n", "OK");
+            }
+        }
+        /// <summary>
+        /// This method checks to see if all min max values are assigned to all exercises in the plan
+        /// </summary>
+        /// <returns></returns>
+        public bool allMinMaxValuesFilledIn()
+        {
+            bool allNumbersAdded = true;
+            allNumbersAdded = int.TryParse(min1.Text, out minimum1);
+            allNumbersAdded = int.TryParse(max1.Text, out maximum1);
+            allNumbersAdded = int.TryParse(min2.Text, out minimum2);
+            allNumbersAdded = int.TryParse(max2.Text, out maximum2);
+            allNumbersAdded = int.TryParse(min3.Text, out minimum3);
+            allNumbersAdded = int.TryParse(max3.Text, out maximum3);
+            return allNumbersAdded;
         }
     }
 }

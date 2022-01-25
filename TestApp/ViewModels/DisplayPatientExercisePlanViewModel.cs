@@ -15,7 +15,7 @@ namespace TestApp.ViewModels
         private Patient patientDetails = null;
         private List<Exercise> patientExerciselist = new List<Exercise>();
         private int exerciseCompletedNumber = 0;
-
+ 
         public DisplayPatientExercisePlanViewModel()
         {
             fire = FirebaseMethods.GetInstance();

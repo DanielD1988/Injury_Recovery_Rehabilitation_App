@@ -17,6 +17,8 @@ namespace TestApp.Views
         string copyright = "";
         string uid = "";
         int whichExercise = 0;
+        int min = 0;
+        int max = 0;
         bool exerciseComplete = false;
         DisplayPatientExercisePlanViewModel model;
         /// <summary>
@@ -28,7 +30,7 @@ namespace TestApp.Views
         /// <param name="videoCopyright"></param>
         /// <param name="uid"></param>
         /// <param name="viewModel"></param>
-        internal ShowExerciseContent(string downloadLink,string exerciseName,string videoCopyright,string uid, DisplayPatientExercisePlanViewModel viewModel,int whichExercise)
+        internal ShowExerciseContent(string downloadLink,string exerciseName,string videoCopyright,string uid, DisplayPatientExercisePlanViewModel viewModel,int whichExercise,int min,int max)
         {
             this.downloadLink = downloadLink;
             name = exerciseName;
@@ -36,6 +38,8 @@ namespace TestApp.Views
             this.uid = uid;
             this.whichExercise = whichExercise;
             model = viewModel;
+            this.min = min;
+            this.max = max;
             InitializeComponent();
         }
         /// <summary>
@@ -44,6 +48,7 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            exer.Text = "Reps to complete " + min + " to " + max;
             exerciseLabel.Text = name;
             copyRightLabel.Text = copyright;
         }
@@ -83,6 +88,20 @@ namespace TestApp.Views
         {
             exerciseComplete = true;
             exer.IsEnabled = false;
+        }
+        void exerciseValue(object sender, TextChangedEventArgs e)
+        {
+            int num = 0;
+            int.TryParse(e.NewTextValue, out num);
+            if (num >= min && num <= max)//keep at min or make zero
+            {
+                exerciseComplete = true;
+                numExercises.IsEnabled = false;
+            }
+            else
+            {
+                numExercises.Text = "";
+            }
         }
         /// <summary>
         /// This button confirms that the patient has finshed their exercise by seting a property value in the 

@@ -60,19 +60,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" TextColor="Black" 
+                    <Label x:Name="exer" Grid.Row="0" Grid.Column="0" TextColor="Black" 
                    FontSize="Medium" FontFamily="Arial"  
                    HorizontalTextAlignment="Center" 
                    Text="Reps to complete"/>
-                    <Button Grid.Row="0" Grid.Column="1" x:Name="exer"  
-                   Text="5"   
-                   Margin="0,0,50,0"
-                   CornerRadius="10"
-                   Clicked="exercise"  
-                   TextColor="White"  
-                   BackgroundColor="SteelBlue"
-                   WidthRequest="50"
-                   HeightRequest="50"/>
+                    <Entry
+                    Grid.Row="0" Grid.Column="1"
+                    Placeholder="Enter Amount done"
+                    Keyboard="Numeric"
+                    x:Name="numExercises"
+                    TextChanged="exerciseValue"
+                     />
                 </Grid>
 
                 <Button x:Name="return"  

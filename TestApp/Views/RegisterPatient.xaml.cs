@@ -36,12 +36,18 @@ namespace TestApp.Views
         RadioButton button;
         RegisterPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
+        int min1 = 0;
+        int min2 = 0;
+        int min3 = 0;
+        int max1 = 0;
+        int max2 = 0;
+        int max3 = 0;
         /// <summary>
         /// This constructor takes in the selected exercise plan and physiotherapist Id 
         /// </summary>
         /// <param name="exercisePlan"></param>
         /// <param name="physioUid"></param>
-        public RegisterPatient(ExercisePlan exercisePlan, string physioUid)
+        public RegisterPatient(ExercisePlan exercisePlan, string physioUid,int min1,int min2,int min3,int max1,int max2,int max3)
         {
             InitializeComponent();
             exerPlan = exercisePlan;
@@ -53,6 +59,12 @@ namespace TestApp.Views
             occured.IsEnabled = false;
             occured.IsVisible = false;
             OccuredLabel.IsVisible = false;
+            this.min1 = min1;
+            this.min2 = min2;
+            this.min3 = min3;
+            this.max1 = max1;
+            this.max2 = max2;
+            this.max3 = max3;
         }
         /// <summary>
         /// Radio button for gender
@@ -228,7 +240,7 @@ namespace TestApp.Views
             }
             else
             {
-                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred);
+                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
                 await Navigation.PushModalAsync(new DisplayExercises("physioUid"));
             }
         }

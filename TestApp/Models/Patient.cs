@@ -27,5 +27,20 @@ namespace TestApp.Models
         public string Exer3 { get; set; }
         [JsonProperty("email")]
         public string Email { get; set; }
+
+        [JsonProperty("minAmount1")]
+        public int minExercise1 { get; set; }
+        [JsonProperty("maxAmount1")]
+        public int maxExercise1 { get; set; }
+
+        [JsonProperty("minAmount2")]
+        public int minExercise2 { get; set; }
+        [JsonProperty("maxAmount2")]
+        public int maxExercise2 { get; set; }
+
+        [JsonProperty("minAmount3")]
+        public int minExercise3 { get; set; }
+        [JsonProperty("maxAmount3")]
+        public int maxExercise3 { get; set; }
     }
 }
