@@ -4,37 +4,35 @@ using Stripe;
 
 namespace TestApp.ViewModels
 {
-    class PaymentViewModel//https://www.youtube.com/watch?v=_b8kNxoGW3k to learn how to use stripe
+    class PaymentViewModel//https://www.youtube.com/watch?v=_b8kNxoGW3k used this video to learn how to use stripe
     {
         public PaymentViewModel()
         {
 
         }
-        string mycustomer;
-        string getchargedID;
-        string refundID;
+        //string mycustomer;
+        //string getchargedID;
+        //string refundID;
 
         public void makePayment(string cardNumber,long yearExpires,long monthExpires,string cvcNumber,string physioName,string physioEmail,long amountPaid)
         {
-            StripeConfiguration.SetApiKey("pk_test_51KLV7MADf8rgziOAEj9nm6qWVVFhOhrvIcyHsf2pk1OVG8Z1JkSjotXwQezFILTKJxgTAMhl37GqIqZzCNi0P7LG00NXeKenHZ");
+            StripeConfiguration.SetApiKey("sk_test_51KLV7MADf8rgziOA4uajs5wRdQDS2vmsTlOlgOTfAqpEZ0Pgt0iGxevzp2IOQRlo89Jzc3Aia5aEhb7QzYiEWePy00VnyvgIra");
 
             
             Stripe.TokenCardOptions stripcard = new Stripe.TokenCardOptions();
             stripcard.Number = "4000000000003055";//change to var
-            stripcard.ExpYear = 2020;//change to var
+            stripcard.ExpYear = 2023;//change to var
             stripcard.ExpMonth = 08;//change to var
             stripcard.Cvc = "199";//change to var
 
 
             //Step 1 : Assign Card to Token Object and create Token
-
             Stripe.TokenCreateOptions token = new Stripe.TokenCreateOptions();
             token.Card = stripcard;
             Stripe.TokenService serviceToken = new Stripe.TokenService();
             Stripe.Token newToken = serviceToken.Create(token);
 
             // Step 2 : Assign Token to the Source
-
             var options = new SourceCreateOptions
             {
                 Type = SourceType.Card,
@@ -46,7 +44,6 @@ namespace TestApp.ViewModels
             Source source = service.Create(options);
 
             //Step 3 : Now generate the customer who is doing the payment
-
             Stripe.CustomerCreateOptions myCustomer = new Stripe.CustomerCreateOptions()
             {
                 Name = "Daniel",//change to var
@@ -60,7 +57,6 @@ namespace TestApp.ViewModels
             //mycustomer = stripeCustomer.Id; // Not needed
 
             //Step 4 : Now Create Charge Options for the customer. 
-
             var chargeoptions = new Stripe.ChargeCreateOptions
             {
                 Amount = 50,//change to var
@@ -79,7 +75,7 @@ namespace TestApp.ViewModels
         }
 
 
-        public void GetCustomerInformationID(object sender, EventArgs e)
+        /*public void GetCustomerInformationID(object sender, EventArgs e)
         {
             var service = new CustomerService();
             var customer = service.Get(mycustomer);
@@ -119,6 +115,6 @@ namespace TestApp.ViewModels
             var refund = service.Get(refundID);
             var serializedCustomer = JsonConvert.SerializeObject(refund);
 
-        }
+        }*/
     }
 }

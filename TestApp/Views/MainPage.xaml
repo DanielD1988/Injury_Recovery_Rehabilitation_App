@@ -19,14 +19,12 @@
             Placeholder="E-mail"
             Keyboard="Email"
             x:Name="email"
-            TextChanged="emailtextChanged"
             />
 
         <Entry
             Placeholder="Password"
             IsPassword="true"
             x:Name="pass"
-            TextChanged="passwordtextChanged"
             />
 
         <Button

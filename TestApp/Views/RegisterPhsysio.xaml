@@ -24,34 +24,37 @@
                 Placeholder="Enter E-mail"
                 Keyboard="Email"
                 x:Name="email"
-                TextChanged="checkEmail"
                 />
             <Entry
+                Placeholder="Physio Registration Number"
+                Keyboard="Text"
+                x:Name="pNumber"
+                />
+              <Entry
                 Placeholder="Enter Password"
                 IsPassword="true"
                 x:Name="pass"
-                TextChanged="checkPass"
-            />
-            <Entry
+               />
+             <Entry
                 Placeholder="Confirm Password"
                 IsPassword="true"
                 x:Name="conPass"
-            />
-        <Button
+              />
+            <Button
                 Text="Pick Payment Plan"
-                Margin="60, 30"
+                Margin="50,30,50,0"
                 BackgroundColor="DodgerBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="payment"
-            />
-        <Button
+             />
+             <Button
                 Text="Confirm"
-                Margin="60, 30"
+                Margin="50,30,50,0"
                 BackgroundColor="DodgerBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="registerPhysio"
-            />
+              />
         </StackLayout>
 </ContentPage>

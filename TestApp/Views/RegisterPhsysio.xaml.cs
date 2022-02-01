@@ -13,8 +13,7 @@ namespace TestApp.Views
     public partial class RegisterPhsysio : ContentPage
     {
         IFirebaseAuthenticator auth;
-        private Regex r = new Regex("^[a-zA-Z0-9]*$");
-        private Regex p = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$^&*_]).{8,}$");//atleast one upper case char one number and one of theses special chars #?!@$^&*_
+        private Regex regexForLettersOnly = new Regex("^[a-zA-Z]*$");
         private bool isPasswordConfirmed = false;
         private string enteredEmail = "";
         private bool isPaymentConfirmed = false;
@@ -26,19 +25,12 @@ namespace TestApp.Views
 
         void checkName(object sender, TextChangedEventArgs e)
         {
-            if (r.IsMatch(e.NewTextValue))
+            if (regexForLettersOnly.IsMatch(e.NewTextValue))
             {
                 name.Text = e.NewTextValue;
             }
         }
-        void checkPass(object sender, TextChangedEventArgs e)
-        {
-            if (r.IsMatch(e.NewTextValue))
-            {
-                pass.Text = e.NewTextValue;
-            }
-        }
-        bool checkToConfirmPass()
+        bool checkToConfirmPass(string conPass)
         {
             if (pass.Text.Equals(conPass))
             {
@@ -63,7 +55,7 @@ namespace TestApp.Views
         {
             enteredEmail = email.Text;
             bool emailOk = checkIfValidEmail(enteredEmail);
-            isPasswordConfirmed = checkToConfirmPass();
+            isPasswordConfirmed = checkToConfirmPass(enteredEmail);
 
             if (emailOk == true && isPasswordConfirmed == true && isPaymentConfirmed == true)
             {

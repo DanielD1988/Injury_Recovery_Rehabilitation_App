@@ -87,7 +87,11 @@
                     x:Name="max3"
                 />
             </Grid>
-            <Button Text="Add to Patient" TextColor="White"  BackgroundColor="SteelBlue" CornerRadius="10" Margin="50, 15,50,40" Clicked="AddToPatient" />
+            <Button Text="Add to Patient" TextColor="White"  
+                    BackgroundColor="SteelBlue" 
+                    CornerRadius="10" 
+                    Margin="50, 15,50,40" 
+                    Clicked="AddToPatient" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

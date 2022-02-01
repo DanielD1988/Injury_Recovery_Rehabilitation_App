@@ -8,6 +8,11 @@
             <StackLayout Orientation="Horizontal">
                 <Entry Text="{Binding ExpiryDate}" Placeholder="Expiry date"></Entry>
                 <Entry Text="{Binding CVV}" Placeholder="CVV"></Entry>
+                <Button Text="Make Payment" TextColor="White"  
+                    BackgroundColor="SteelBlue" 
+                    CornerRadius="10" 
+                    Margin="50, 15,50,40" 
+                    Clicked="makePayment" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -14,7 +14,6 @@ namespace TestApp
     {
         IFirebaseAuthenticator auth;
         PasswordSecuirty secuirty;
-        string [] SpecialCharacters = new[] { "~", "`", "!", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "\"", "<", ">", "\'", "[", "]", "{", "}", "+","," };
         string newPass = "";
         string newEmail = "";
         bool emailCorrect = true;
@@ -26,31 +25,12 @@ namespace TestApp
             InitializeComponent();
             //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
+            Navigation.PushModalAsync(new RegisterPhsysio(auth));
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             secuirty = new PasswordSecuirty();
             
             auth = DependencyService.Get<IFirebaseAuthenticator>();
             /////////////////////////////////////////////////////////////////////
-        }
-        void passwordtextChanged(object sender, TextChangedEventArgs e)
-        {
-
-            if(SpecialCharacters.Any(e.NewTextValue.Contains))
-            {
-                newPass = pass.Text;
-                newPass = newPass.Remove(newPass.Length - 1);
-                pass.Text = newPass;
-            }
-        }
-        void emailtextChanged(object sender, TextChangedEventArgs e)
-        {
-
-            if (SpecialCharacters.Any(e.NewTextValue.Contains))
-            {
-                newEmail = email.Text;
-                newEmail = newEmail.Remove(newEmail.Length - 1);
-                email.Text = newEmail;
-            }
         }
         /// <summary>
         /// This button sends the entered email and password to ether the ios or android depending which class calls the 
