@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Stripe;
 
@@ -6,115 +7,150 @@ namespace TestApp.ViewModels
 {
     class PaymentViewModel//https://www.youtube.com/watch?v=_b8kNxoGW3k used this video to learn how to use stripe
     {
+        API_Obj Test;
+        Dictionary<string, double> exchangeRates;
         public PaymentViewModel()
         {
 
         }
-        //string mycustomer;
-        //string getchargedID;
-        //string refundID;
-
-        public void makePayment(string cardNumber,long yearExpires,long monthExpires,string cvcNumber,string physioName,string physioEmail,long amountPaid)
+        /// <summary>
+        /// This function creates a customer account and charges the new customer
+        /// </summary>
+        /// <param name="cardNumber"></param>
+        /// <param name="yearExpires"></param>
+        /// <param name="monthExpires"></param>
+        /// <param name="cvcNumber"></param>
+        /// <param name="cardName"></param>
+        /// <param name="email"></param>
+        /// <param name="amountPaid"></param>
+        /// <param name="currency"></param>
+        /// <returns></returns>
+        public bool makePayment(string cardNumber,long yearExpires,long monthExpires,string cvcNumber,string cardName,string email,long amountPaid,string currency)
         {
-            StripeConfiguration.SetApiKey("sk_test_51KLV7MADf8rgziOA4uajs5wRdQDS2vmsTlOlgOTfAqpEZ0Pgt0iGxevzp2IOQRlo89Jzc3Aia5aEhb7QzYiEWePy00VnyvgIra");
-
-            
-            Stripe.TokenCardOptions stripcard = new Stripe.TokenCardOptions();
-            stripcard.Number = "4000000000003055";//change to var
-            stripcard.ExpYear = 2023;//change to var
-            stripcard.ExpMonth = 08;//change to var
-            stripcard.Cvc = "199";//change to var
-
-
-            //Step 1 : Assign Card to Token Object and create Token
-            Stripe.TokenCreateOptions token = new Stripe.TokenCreateOptions();
-            token.Card = stripcard;
-            Stripe.TokenService serviceToken = new Stripe.TokenService();
-            Stripe.Token newToken = serviceToken.Create(token);
-
-            // Step 2 : Assign Token to the Source
-            var options = new SourceCreateOptions
+            try
             {
-                Type = SourceType.Card,
-                Currency = "EUR",//change to var
-                Token = newToken.Id
-            };
+                StripeConfiguration.SetApiKey("sk_test_51KLV7MADf8rgziOA4uajs5wRdQDS2vmsTlOlgOTfAqpEZ0Pgt0iGxevzp2IOQRlo89Jzc3Aia5aEhb7QzYiEWePy00VnyvgIra");
+                Stripe.TokenCardOptions stripcard = new Stripe.TokenCardOptions();
+                stripcard.Number = cardNumber;
+                stripcard.ExpYear = yearExpires;
+                stripcard.ExpMonth = monthExpires;
+                stripcard.Cvc = cvcNumber;
+                //Step 1 : Assign Card to Token Object and create Token
+                Stripe.TokenCreateOptions token = new Stripe.TokenCreateOptions();
+                token.Card = stripcard;
+                Stripe.TokenService serviceToken = new Stripe.TokenService();
+                Stripe.Token newToken = serviceToken.Create(token);
+                // Step 2 : Assign Token to the Source
+                var options = new SourceCreateOptions
+                {
+                    Type = SourceType.Card,
+                    Currency = currency,
+                    Token = newToken.Id
+                };
+                var service = new SourceService();
+                Source source = service.Create(options);
+                //Step 3 : Now generate the customer who is doing the payment
+                Stripe.CustomerCreateOptions myCustomer = new Stripe.CustomerCreateOptions()
+                {
+                    Name = cardName,
+                    Email = email,
+                    Description = "Customer for " + email,
+                };
+                var customerService = new Stripe.CustomerService();
+                Stripe.Customer stripeCustomer = customerService.Create(myCustomer);
+                //Step 4 : Now Create Charge Options for the customer. 
+                var chargeoptions = new Stripe.ChargeCreateOptions
+                {
+                    Amount = amountPaid,
+                    Currency = currency,
+                    ReceiptEmail = email,
+                    Customer = stripeCustomer.Id,
+                    Source = source.Id
 
-            var service = new SourceService();
-            Source source = service.Create(options);
-
-            //Step 3 : Now generate the customer who is doing the payment
-            Stripe.CustomerCreateOptions myCustomer = new Stripe.CustomerCreateOptions()
+                };
+                //Step 5 : Perform the payment by  Charging the customer with the payment. 
+                var service1 = new Stripe.ChargeService();
+                Stripe.Charge charge = service1.Create(chargeoptions); // This will do the Payment
+                return true;
+            }
+            catch (StripeException e)
             {
-                Name = "Daniel",//change to var
-                Email = "dannydinellilaois@gmail.com",//change to var
-                Description = "Customer for dannydinellilaois@gmail.com",//change to var
-            };
-
-            var customerService = new Stripe.CustomerService();
-            Stripe.Customer stripeCustomer = customerService.Create(myCustomer);
-
-            //mycustomer = stripeCustomer.Id; // Not needed
-
-            //Step 4 : Now Create Charge Options for the customer. 
-            var chargeoptions = new Stripe.ChargeCreateOptions
-            {
-                Amount = 50,//change to var
-                Currency = "EUR",//change to var
-                ReceiptEmail = "dannydinellilaois@gmail.com",//change to var
-                Customer = stripeCustomer.Id,
-                Source = source.Id
-
-            };
-
-            //Step 5 : Perform the payment by  Charging the customer with the payment. 
-            var service1 = new Stripe.ChargeService();
-            Stripe.Charge charge = service1.Create(chargeoptions); // This will do the Payment
-
-            //getchargedID = charge.Id; // Not needed
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
-
-
-        /*public void GetCustomerInformationID(object sender, EventArgs e)
+        /// <summary>
+        /// This method calls a exchange rate api so the membership prices can reflect what the user should be paying in their currency
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, double> getCurrentExchangeRate()//https://app.exchangerate-api.com/
         {
-            var service = new CustomerService();
-            var customer = service.Get(mycustomer);
-            var serializedCustomer = JsonConvert.SerializeObject(customer);
-            //  var UserDetails = JsonConvert.DeserializeObject<CustomerRetriveModel>(serializedCustomer);
-
-        }
-
-
-        public void GetAllCustomerInformation(object sender, EventArgs e)
-        {
-            var service = new CustomerService();
-            var options = new CustomerListOptions
+            String URLString = "https://v6.exchangerate-api.com/v6/a050309c53399e5e5f400366/latest/EUR";
+            using (var webClient = new System.Net.WebClient())
             {
-                Limit = 3,
-            };
-            var customers = service.List(options);
-            var serializedCustomer = JsonConvert.SerializeObject(customers);
+                var json = webClient.DownloadString(URLString);
+                Test = JsonConvert.DeserializeObject<API_Obj>(json);
+            }
+            changeValueToMap();
+            return exchangeRates;
         }
-
-
-        public void GetRefundForSpecificTransaction(object sender, EventArgs e)
+        /// <summary>
+        /// A map of the exchange rate prices tied to a key
+        /// </summary>
+        public void changeValueToMap()
         {
-            var refundService = new RefundService();
-            var refundOptions = new RefundCreateOptions
-            {
-                Charge = getchargedID,
-            };
-            Refund refund = refundService.Create(refundOptions);
-            refundID = refund.Id;
+            exchangeRates = new Dictionary<string, double>();
+            exchangeRates["AED"] = Test.conversion_rates.AED;
+            exchangeRates["ARS"] = Test.conversion_rates.ARS;
+            exchangeRates["AUD"] = Test.conversion_rates.AUD;
+            exchangeRates["BGN"] = Test.conversion_rates.BGN;
+            exchangeRates["BRL"] = Test.conversion_rates.BRL;
+            exchangeRates["BSD"] = Test.conversion_rates.BSD;
+            exchangeRates["CAD"] = Test.conversion_rates.CAD;
+            exchangeRates["CHF"] = Test.conversion_rates.CHF;
+            exchangeRates["CLP"] = Test.conversion_rates.CLP;
+            exchangeRates["CNY"] = Test.conversion_rates.CNY;
+            exchangeRates["COP"] = Test.conversion_rates.COP;
+            exchangeRates["CZK"] = Test.conversion_rates.CZK;
+            exchangeRates["DKK"] = Test.conversion_rates.DKK;
+            exchangeRates["DOP"] = Test.conversion_rates.DOP;
+            exchangeRates["EGP"] = Test.conversion_rates.EGP;
+            exchangeRates["EUR"] = Test.conversion_rates.EUR;
+            exchangeRates["FJD"] = Test.conversion_rates.FJD;
+            exchangeRates["GBP"] = Test.conversion_rates.GBP;
+            exchangeRates["GTQ"] = Test.conversion_rates.GTQ;
+            exchangeRates["HKD"] = Test.conversion_rates.HKD;
+            exchangeRates["HRK"] = Test.conversion_rates.HRK;
+            exchangeRates["HUF"] = Test.conversion_rates.HUF;
+            exchangeRates["IDR"] = Test.conversion_rates.IDR;
+            exchangeRates["ILS"] = Test.conversion_rates.ILS;
+            exchangeRates["INR"] = Test.conversion_rates.INR;
+            exchangeRates["ISK"] = Test.conversion_rates.ISK;
+            exchangeRates["JPY"] = Test.conversion_rates.JPY;
+            exchangeRates["KRW"] = Test.conversion_rates.KRW;
+            exchangeRates["KZT"] = Test.conversion_rates.KZT;
+            exchangeRates["MXN"] = Test.conversion_rates.MXN;
+            exchangeRates["MYR"] = Test.conversion_rates.MYR;
+            exchangeRates["NOK"] = Test.conversion_rates.NOK;
+            exchangeRates["NZD"] = Test.conversion_rates.NZD;
+            exchangeRates["PAB"] = Test.conversion_rates.PAB;
+            exchangeRates["PEN"] = Test.conversion_rates.PEN;
+            exchangeRates["PHP"] = Test.conversion_rates.PHP;
+            exchangeRates["PKR"] = Test.conversion_rates.PKR;
+            exchangeRates["PLN"] = Test.conversion_rates.PLN;
+            exchangeRates["PYG"] = Test.conversion_rates.PYG;
+            exchangeRates["RON"] = Test.conversion_rates.RON;
+            exchangeRates["RUB"] = Test.conversion_rates.RUB;
+            exchangeRates["SAR"] = Test.conversion_rates.SAR;
+            exchangeRates["SEK"] = Test.conversion_rates.SEK;
+            exchangeRates["SGB"] = Test.conversion_rates.SGD;
+            exchangeRates["THB"] = Test.conversion_rates.THB;
+            exchangeRates["TRY"] = Test.conversion_rates.TRY;
+            exchangeRates["TWD"] = Test.conversion_rates.TWD;
+            exchangeRates["UAH"] = Test.conversion_rates.UAH;
+            exchangeRates["USD"] = Test.conversion_rates.USD;
+            exchangeRates["UYU"] = Test.conversion_rates.UYU;
+            exchangeRates["ZAR"] = Test.conversion_rates.ZAR;
         }
-
-
-        public void GetRefundInformation(object sender, EventArgs e)
-        {
-            var service = new RefundService();
-            var refund = service.Get(refundID);
-            var serializedCustomer = JsonConvert.SerializeObject(refund);
-
-        }*/
     }
 }

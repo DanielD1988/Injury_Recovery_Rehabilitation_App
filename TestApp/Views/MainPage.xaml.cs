@@ -25,7 +25,8 @@ namespace TestApp
             InitializeComponent();
             //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
-            Navigation.PushModalAsync(new RegisterPhsysio(auth));
+            //Navigation.PushModalAsync(new RegisterPhsysio(auth));
+            Navigation.PushModalAsync(new Payment());
             //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             secuirty = new PasswordSecuirty();
             

@@ -4,16 +4,58 @@
              x:Class="TestApp.Views.Payment">
     <ContentPage.Content>
         <StackLayout>
-            <Entry Text="{Binding CreditCardNumber}" Placeholder="Enter your credit card number"></Entry>
-            <StackLayout Orientation="Horizontal">
-                <Entry Text="{Binding ExpiryDate}" Placeholder="Expiry date"></Entry>
-                <Entry Text="{Binding CVV}" Placeholder="CVV"></Entry>
-                <Button Text="Make Payment" TextColor="White"  
+            <Label
+                    Text="Payment Details"
+                    HorizontalOptions="Center"
+                    TextColor="SteelBlue"
+                    FontSize="35"
+                    Margin="0, 10"
+                />
+            <Entry Keyboard="Text" x:Name="name" Placeholder="Card Name"></Entry>
+            <Entry Keyboard="Numeric" x:Name="cardNumber" Placeholder="Card number" TextChanged ="checkCardNumber"></Entry>
+            <Entry Keyboard="Numeric" x:Name="cvvNumber" Placeholder="CVV Number" TextChanged ="checkCvvNumber"></Entry>
+            <Grid Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="0.50*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Picker Grid.Row="0" Grid.Column="0" x:Name="monthPicker" Title="Card Month" ItemsSource="{Binding months}"></Picker>
+                <Picker Grid.Row="0" Grid.Column="1" x:Name="yearPicker" Title="Card Year" ItemsSource="{Binding year}"></Picker>
+            </Grid>
+            <Picker x:Name="currencyPicker" Title="Select Currency" ItemsSource="{Binding currency}" SelectedIndexChanged="currencyConversion" ></Picker>
+            <Entry Keyboard="Email" x:Name="email" Placeholder="email"></Entry>
+            <Label HorizontalOptions="Center" Text="Choose Membership" FontSize="Medium" Margin="0, 5,0,5" />
+            <Grid Margin="5,0,5,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="0.30*" />
+                    <ColumnDefinition Width="0.50*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Label Margin="5,0,0,0" Grid.Row="0" Grid.Column="0" Text="3 Month" FontSize="Medium" x:Name="label1"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="0" FontSize="Medium" x:Name="member1"/>
+                <Button Grid.Row="0" Grid.Column="2" Text="select" TextColor="White" BackgroundColor="SteelBlue" CornerRadius="10"  Clicked="pay1"/>
+
+                <Label Margin="5,0,0,0" Grid.Row="1" Grid.Column="0" Text="6 Month" FontSize="Medium" x:Name="label2"/>
+                <Label Grid.Row="1" Grid.Column="1" Text="0" FontSize="Medium" x:Name="member2"/>
+                <Button Grid.Row="1" Grid.Column="2" Text="select" TextColor="White" BackgroundColor="SteelBlue" CornerRadius="10" Clicked="pay2"/>
+
+                <Label Margin="5,0,0,0" Grid.Row="2" Grid.Column="0" Text="1 Year" FontSize="Medium" x:Name="label3"/>
+                <Label Grid.Row="2" Grid.Column="1" Text="0" FontSize="Medium" x:Name="member3"/>
+                <Button Grid.Row="2" Grid.Column="2" Text="select" TextColor="White" BackgroundColor="SteelBlue" CornerRadius="10" Clicked="pay3"/>
+            </Grid>
+            <Button Text="Make Payment" TextColor="White"  
                     BackgroundColor="SteelBlue" 
                     CornerRadius="10" 
                     Margin="50, 15,50,40" 
                     Clicked="makePayment" />
-            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

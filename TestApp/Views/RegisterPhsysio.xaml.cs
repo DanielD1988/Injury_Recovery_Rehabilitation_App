@@ -59,9 +59,9 @@ namespace TestApp.Views
 
             if (emailOk == true && isPasswordConfirmed == true && isPaymentConfirmed == true)
             {
-                string eneteredName = name.Text;
-                string eneteredPassword = pass.Text;
-                string token = await auth.SignupWithEmailPassword(enteredEmail, eneteredPassword);
+                string enteredName = name.Text;
+                string enteredPassword = pass.Text;
+                string token = await auth.SignupWithEmailPassword(enteredEmail, enteredPassword);
                 await DisplayAlert("Logged in", "Token: " + token, "Ok");
             }
         }
