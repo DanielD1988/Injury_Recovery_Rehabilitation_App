@@ -50,11 +50,19 @@
              />
              <Button
                 Text="Confirm"
-                Margin="50,30,50,0"
+                Margin="50,15,50,0"
                 BackgroundColor="DodgerBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="registerPhysio"
               />
-        </StackLayout>
+        <Button
+                Text="Return to Login"
+                Margin="50,15,50,0"
+                BackgroundColor="DodgerBlue"
+                TextColor="Black"
+                CornerRadius="10"
+                Clicked="login"
+              />
+    </StackLayout>
 </ContentPage>

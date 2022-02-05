@@ -25,6 +25,7 @@
                     MaxLength="2"
                     HorizontalOptions="CenterAndExpand"
                     x:Name="min1"
+                    TextChanged="checkExerciseMinMax1"
                 />
                 <Entry
                     Grid.Row="0" Grid.Column="1"
@@ -33,6 +34,7 @@
                     MaxLength="2"
                     HorizontalOptions="Center"
                     x:Name="max1"
+                    TextChanged="checkExerciseMinMax1"
                 />
             </Grid>
             <Label TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise2}"/>
@@ -51,6 +53,7 @@
                     MaxLength="2"
                     HorizontalOptions="Center"
                     x:Name="min2"
+                    TextChanged="checkExerciseMinMax2"
                 />
                 <Entry
                     Grid.Row="0" Grid.Column="1"
@@ -59,6 +62,7 @@
                     MaxLength="2"
                     HorizontalOptions="Center"
                     x:Name="max2"
+                    TextChanged="checkExerciseMinMax2"
                 />
             </Grid>
             <Label TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise3}"/>
@@ -77,6 +81,7 @@
                     MaxLength="2"
                     HorizontalOptions="Center"
                     x:Name="min3"
+                    TextChanged="checkExerciseMinMax3"
                 />
                 <Entry
                     Grid.Row="0" Grid.Column="1"
@@ -85,6 +90,7 @@
                     MaxLength="2"
                     HorizontalOptions="Center"
                     x:Name="max3"
+                    TextChanged="checkExerciseMinMax3"
                 />
             </Grid>
             <Button Text="Add to Patient" TextColor="White"  

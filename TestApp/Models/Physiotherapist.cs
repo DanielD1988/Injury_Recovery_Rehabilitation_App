@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace TestApp.Models
@@ -10,17 +11,13 @@ namespace TestApp.Models
     {
         [JsonProperty("name")]
         public string PhysioName { get; set; }
-        [JsonProperty("phone")]
-        public string Phone { get; set; }
         [JsonProperty("email")]
         public string Email { get; set; }
-        [JsonProperty("regNumber")]
-        public string RegNumber { get; set; }
-        [JsonProperty("patientUid")]
+        [JsonProperty("physioIdNumber")]
+        public string IdNumber { get; set; }
+        [JsonProperty("patients")]
         public string PatientUid { get; set; }
-
-        //extra fields for mock database
-        public List<string> patientList = new List<string>();
-        public string physioUid = "";
+        [JsonProperty("membershipExpiryDate")]
+        public string Membership { get; set; }
     }
 }

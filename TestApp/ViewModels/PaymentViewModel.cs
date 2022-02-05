@@ -9,6 +9,8 @@ namespace TestApp.ViewModels
     {
         API_Obj Test;
         Dictionary<string, double> exchangeRates;
+        bool isPaid = false;
+        int membership = 0;
         public PaymentViewModel()
         {
 
@@ -97,7 +99,7 @@ namespace TestApp.ViewModels
         /// <summary>
         /// A map of the exchange rate prices tied to a key
         /// </summary>
-        public void changeValueToMap()
+        private void changeValueToMap()
         {
             exchangeRates = new Dictionary<string, double>();
             exchangeRates["AED"] = Test.conversion_rates.AED;
@@ -151,6 +153,22 @@ namespace TestApp.ViewModels
             exchangeRates["USD"] = Test.conversion_rates.USD;
             exchangeRates["UYU"] = Test.conversion_rates.UYU;
             exchangeRates["ZAR"] = Test.conversion_rates.ZAR;
+        }
+        /// <summary>
+        /// Used to check if payment was successful
+        /// </summary>
+        public bool PaymentSuccessful
+        {
+            get { return isPaid; }
+            set { isPaid = value; }
+        }
+        /// <summary>
+        /// Used to get the selected membership so I can enter how long the user membership is for
+        /// </summary>
+        public int WhichMembershipSelectedSuccessful
+        {
+            get { return membership; }
+            set { membership = value; }
         }
     }
 }

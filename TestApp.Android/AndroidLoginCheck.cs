@@ -27,8 +27,7 @@ namespace TestApp.Droid
             try
             {
                 var user = await FirebaseAuth.Instance.
-                            SignInWithEmailAndPasswordAsync(email, password);
-                //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
+                            SignInWithEmailAndPasswordAsync(email, password);//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
                 var token = await (FirebaseAuth.Instance.CurrentUser.GetIdToken(false).AsAsync<GetTokenResult>());
                 var value = user.User.Uid;
                 string newUid = value.ToString();
@@ -36,6 +35,11 @@ namespace TestApp.Droid
                 return newUid;
             }
             catch (FirebaseAuthInvalidUserException e)
+            {
+                e.PrintStackTrace();
+                return "";
+            }
+            catch (FirebaseAuthInvalidCredentialsException e)
             {
                 e.PrintStackTrace();
                 return "";

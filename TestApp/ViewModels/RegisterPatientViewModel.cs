@@ -26,7 +26,6 @@ namespace TestApp.ViewModels
         public RegisterPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
-            //auth = DependencyService.Get<IFirebaseAuthenticator>();
             fireBase = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
@@ -82,7 +81,6 @@ namespace TestApp.ViewModels
                     password = password.Remove(password.Length - 1, 1);
                     salt = security.generateSaltOrPasswordOrUid(32);
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
-                    saltedPassword = saltedPassword += "p";
                     patientUid = security.generateSaltOrPasswordOrUid(10);
                     await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid,false);
                 }
@@ -90,6 +88,7 @@ namespace TestApp.ViewModels
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
                 await fireBase.recordPatientProgress(patientUid, false, start.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
                 await fireBase.recordPatientProgress(patientUid, false, end.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+                await fireBase.addUserType(patientUid,"patient",false);
                 await SendPatientEmail(patientEmailList, password);
                 return true;
             }

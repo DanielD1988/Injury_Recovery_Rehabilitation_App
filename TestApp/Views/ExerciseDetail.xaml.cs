@@ -76,5 +76,65 @@ namespace TestApp.Views
             allNumbersAdded = int.TryParse(max3.Text, out maximum3);
             return allNumbersAdded;
         }
+        /// <summary>
+        /// Stops the user from entering a min value greater than the max value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async void checkExerciseMinMax1(object sender, TextChangedEventArgs e)
+        {
+            int min = -1;
+            int max = -1;
+            bool tf1 = int.TryParse(min1.Text, out min);
+            bool tf2 = int.TryParse(max1.Text, out max);
+            if(tf1 && tf2)
+            {
+                if (min > max)
+                {
+                    max1.Text = "";
+                    await DisplayAlert("Error", "Min value must be less than max", "OK");
+                }
+            }
+        }
+        /// <summary>
+        /// Stops the user from entering a min value greater than the max value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async void checkExerciseMinMax2(object sender, TextChangedEventArgs e)
+        {
+            int min = -1;
+            int max = -1;
+            bool tf1 = int.TryParse(min2.Text, out min);
+            bool tf2 = int.TryParse(max2.Text, out max);
+            if (tf1 && tf2)
+            {
+                if (min > max)
+                {
+                    max2.Text = "";
+                    await DisplayAlert("Error", "Min value must be less than max", "OK");
+                }
+            }
+        }
+        /// <summary>
+        /// Stops the user from entering a min value greater than the max value
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async void checkExerciseMinMax3(object sender, TextChangedEventArgs e)
+        {
+            int min = -1;
+            int max = -1;
+            bool tf1 = int.TryParse(min3.Text, out min);
+            bool tf2 = int.TryParse(max3.Text, out max);
+            if (tf1 && tf2)
+            {
+                if (min > max)
+                {
+                    max3.Text = "";
+                    await DisplayAlert("Error", "Min value must be less than max", "OK");
+                }
+            }
+        }
     }
 }

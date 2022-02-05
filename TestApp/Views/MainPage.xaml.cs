@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using TestApp.ViewModels;
 using TestApp.views;
 using TestApp.Views;
@@ -14,8 +13,6 @@ namespace TestApp
     {
         IFirebaseAuthenticator auth;
         PasswordSecuirty secuirty;
-        string newPass = "";
-        string newEmail = "";
         bool emailCorrect = true;
         /// <summary>
         /// This is the login page for both apps
@@ -23,14 +20,8 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
-            //Navigation.PushModalAsync(new ShowPatientExercisePlan("Fhr3wnQjYTg2bJKXdsa99mjf0HR2"));
-            //Navigation.PushModalAsync(new RegisterPhsysio(auth));
-            Navigation.PushModalAsync(new Payment());
-            //https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             secuirty = new PasswordSecuirty();
-            
-            auth = DependencyService.Get<IFirebaseAuthenticator>();
+            auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             /////////////////////////////////////////////////////////////////////
         }
         /// <summary>
@@ -43,7 +34,11 @@ namespace TestApp
         {
             string Email = email.Text;
             string Pass = pass.Text;
-            if (Email.Contains("@") && Email.Contains("."))
+            if(Email == null)
+            {
+                emailCorrect = false;
+            }
+            else if (Email.Contains("@") && Email.Contains("."))
             {
                 
             }
@@ -52,21 +47,38 @@ namespace TestApp
                 await DisplayAlert("Error", "Please enter a valid email\n", "OK");
                 emailCorrect = false;
             }
+            if(emailCorrect != false && Pass != null)
+            {
+                string userId = await auth.LoginWithEmailPassword(Email, Pass);
 
-            string physioUid = await auth.LoginWithEmailPassword(Email, Pass);
-            if(physioUid == "true")
-            {
-                physioUid = await secuirty.checkIfLoginIsVerified(Email, Pass);
+                if (userId == "true")//used if using an ios phone
+                {
+                    userId = await secuirty.checkIfLoginIsVerified(Email, Pass);
+                }
+                if (userId != "")
+                {
+                    await DisplayAlert("Login Successful", "", "OK");
+                    string userType = await secuirty.checkUserType(userId);
+                    if (userType == "patient")
+                    {
+                        //go to patient menu
+                    }
+                    else if(userType == "physio")
+                    {
+                        await Navigation.PushAsync(new DisplayExercises(userId));
+                        //go to physio menu
+                    }
+                    else
+                    {
+                        await DisplayAlert("error", "An error has occurred please try entering the email and password again", "OK");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Login Failed", "E-mail or password are incorrect. Try again!", "OK");
+                }
             }
-            if (physioUid != "")
-            {
-                await DisplayAlert("Login Successful","", "OK");
-                await Navigation.PushAsync(new DisplayExercises(physioUid));
-            }
-            else
-            {
-                await DisplayAlert("Login Failed", "E-mail or password are incorrect. Try again!", "OK");
-            }
+            emailCorrect = true;
         }
         /// <summary >
         /// This method will bring the physiotherapist registration page 

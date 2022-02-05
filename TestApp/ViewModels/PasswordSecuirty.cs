@@ -70,5 +70,22 @@ namespace TestApp.ViewModels
                 return "";
             }
         }
+        /// <summary>
+        /// This method returns the type of user from database function
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<string> checkUserType(string userId)
+        {
+            CheckUser userType = await fire.getTypeOfUser(userId, false);
+            if(userType == null)
+            {
+                return "";
+            }
+            else
+            {
+                return userType.User;
+            }
+        }
     }
 }

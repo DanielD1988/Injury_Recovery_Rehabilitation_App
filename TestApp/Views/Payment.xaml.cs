@@ -6,6 +6,10 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This class does validation for the xaml form and calls methods from the PaymentViewModal to get the conversion rates 
+    /// to euro
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Payment : ContentPage
     {
@@ -23,11 +27,14 @@ namespace TestApp.Views
         long amount = -1;
         bool isFormDetailsCorrect = true;
         Dictionary<string, double> exchangeRates;
-        public Payment()
+        internal Payment(PaymentViewModel pay)
         {
-            pay = new PaymentViewModel();
+            this.pay = pay;
             InitializeComponent();
         }
+        /// <summary>
+        /// initialise certain lists and calling of methods as page loads
+        /// </summary>
         protected async override void OnAppearing()
         {
             base.OnAppearing();
@@ -39,6 +46,11 @@ namespace TestApp.Views
             yearPicker.ItemsSource = years;
             exchangeRates = pay.getCurrentExchangeRate();
         }
+        /// <summary>
+        /// This method does a conversion on euro to the selected currency and displays it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void currencyConversion(object sender, EventArgs e)
         {
             double value = 0;
@@ -60,6 +72,11 @@ namespace TestApp.Views
             conversionResult = Convert.ToInt64(value);
             member3.Text = "" + conversionResult;
         }
+        /// <summary>
+        /// Allows a user to enter a maximum of 16 numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void checkCardNumber(object sender, TextChangedEventArgs e)
         {
             if (e.NewTextValue.Length > 16)
@@ -69,6 +86,11 @@ namespace TestApp.Views
                 cardNumber.Text = cardNum;
             }
         }
+        /// <summary>
+        /// Allows a user to enter a maximum of 3 numbers
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void checkCvvNumber(object sender, TextChangedEventArgs e)
         {
             if (e.NewTextValue.Length > 3)
@@ -78,24 +100,86 @@ namespace TestApp.Views
                 cvvNumber.Text = cvvNum;
             }
         }
+        /// <summary>
+        /// This button when pressed checks to make sure the currency is in the right format before being 
+        /// converted into a long for stripe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void pay1(object sender, EventArgs e)
         {
+            pay.WhichMembershipSelectedSuccessful = 1;
             string value = member1.Text;
-            value += "00";
-            long.TryParse(value, out amount);
+            if(value.Length == 2)
+            {
+                value += "00";
+                long.TryParse(value, out amount);
+            }
+            if (value.Length == 3)
+            {
+                value += "0";
+                long.TryParse(value, out amount);
+            }
+            else
+            {
+                long.TryParse(value, out amount);
+            }
         }
+        /// <summary>
+        /// This button when pressed checks to make sure the currency is in the right format before being 
+        /// converted into a long for stripe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void pay2(object sender, EventArgs e)
         {
+            pay.WhichMembershipSelectedSuccessful = 2;
             string value = member2.Text;
-            value += "00";
-            long.TryParse(value, out amount);
+            if (value.Length == 2)
+            {
+                value += "00";
+                long.TryParse(value, out amount);
+            }
+            if (value.Length == 3)
+            {
+                value += "0";
+                long.TryParse(value, out amount);
+            }
+            else
+            {
+                long.TryParse(value, out amount);
+            }
         }
+        /// <summary>
+        /// This button when pressed checks to make sure the currency is in the right format before being 
+        /// converted into a long for stripe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void pay3(object sender, EventArgs e)
         {
+            pay.WhichMembershipSelectedSuccessful = 3;
             string value = member3.Text;
-            value += "00";
-            long.TryParse(value, out amount);
+            if (value.Length == 2)
+            {
+                value += "00";
+                long.TryParse(value, out amount);
+            }
+            if (value.Length == 3)
+            {
+                value += "0";
+                long.TryParse(value, out amount);
+            }
+            else
+            {
+                long.TryParse(value, out amount);
+            }
         }
+        /// <summary>
+        /// This button press checks to see if all forms details are filled out before sending them to the next page
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="args"></param>
         public async void makePayment(Object Sender, EventArgs args)
         {
             cardName = name.Text;
@@ -132,10 +216,13 @@ namespace TestApp.Views
                 if(pay.makePayment(cardNum, yearNumber, monthNumber, cvv, cardName, enteredEmail, amount, currency))
                 {
                     await DisplayAlert("Confirmed", "Thank you for your payment", "OK");
+                    pay.PaymentSuccessful = true;
+                    await Application.Current.MainPage.Navigation.PopModalAsync(true);
                 }
                 else
                 {
                     isFormDetailsCorrect = true;
+                    message = "";
                     await DisplayAlert("error", "Your payment was not successful please check your entered information", "OK");
                 }
             }
@@ -143,8 +230,21 @@ namespace TestApp.Views
             {
                 isFormDetailsCorrect = true;
                 await DisplayAlert("Error", message, "OK");
+                message = "";
             }
         }
+        /// <summary>
+        /// validation method for the form
+        /// </summary>
+        /// <param name="cardName"></param>
+        /// <param name="cardNumber"></param>
+        /// <param name="cvvNumber"></param>
+        /// <param name="enteredMonth"></param>
+        /// <param name="enteredYear"></param>
+        /// <param name="enteredCurrency"></param>
+        /// <param name="memberShipAmount"></param>
+        /// <param name="newEmail"></param>
+        /// <returns></returns>
         public string checkDetailsEnteredcorrectly(string cardName,string cardNumber,string cvvNumber,string enteredMonth,string enteredYear,string enteredCurrency,long memberShipAmount,string newEmail)
         {
             string message = "";
@@ -193,6 +293,11 @@ namespace TestApp.Views
             }
             return message;
         }
+        /// <summary>
+        /// Checks to see if a valid email is entered
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         bool checkEmail(string email)
         {
             if (email == null)

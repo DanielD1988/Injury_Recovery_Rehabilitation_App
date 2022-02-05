@@ -85,12 +85,12 @@ namespace TestApp.Services
         /// <returns></returns>
         public bool AddMockPatientUIDToPatientList(string PhysioUid, string PatientUID)
         {
-            List<Physiotherapist> physioList = new List<Physiotherapist>()
+            List<MockPhysio> physioList = new List<MockPhysio>()
             {
-                new Physiotherapist{PhysioName = "john Denver",Email = "johnDenver@gmail.com",physioUid = "adcd4321"}
+                new MockPhysio{PhysioName = "john Denver",Email = "johnDenver@gmail.com",physioUid = "adcd4321"}
             };
 
-            foreach (Physiotherapist physio in physioList)
+            foreach (MockPhysio physio in physioList)
             {
                 if (PhysioUid == physio.physioUid)
                 {

@@ -147,6 +147,41 @@ namespace TestApp.services
                 return false;
             }
         }
+        /// <summary>
+        /// This method inserts a new physio into the physio database
+        /// </summary>
+        /// <param name="physioUid"></param>
+        /// <param name="name"></param>
+        /// <param name="physioIdNumber"></param>
+        /// <param name="physioEmail"></param>
+        /// <param name="membership"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<bool> AddPhysio(string physioUid, string name,string physioIdNumber, string physioEmail,string membership,bool isMocked)
+        {
+            if (isMocked == true)
+            {
+                
+            }
+            try
+            {
+                await firebase
+                .Child("physio").Child(physioUid)
+                .PutAsync(new Physiotherapist()
+                {
+                    PhysioName = name,
+                    Email = physioEmail,
+                    IdNumber = physioIdNumber,
+                    Membership = membership
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
 
         /// <summary>
         /// This function adds the patient unique identifier to the physios patient list
@@ -167,6 +202,33 @@ namespace TestApp.services
                 .Child("physio").Child(PhysioUid).Child("patients").Child(PatientUID)
                 .PutAsync(new Physiotherapist()
                 { PatientUid = PatientUID });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        /// <summary>
+        /// This method adds assigns a  patient or physio type of user to the user id
+        /// </summary>
+        /// <param name="userUid"></param>
+        /// <param name="userType"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<bool> addUserType(string userUid,string userType ,bool isMocked)
+        {
+            if (isMocked == true)
+            {
+                
+            }
+            try
+            {
+                await firebase
+                .Child("CheckUser").Child(userUid)
+                .PutAsync(new CheckUser()
+                { User = userType });
                 return true;
             }
             catch (Exception e)
@@ -219,6 +281,29 @@ namespace TestApp.services
             {
                 return await firebase
                .Child("patients").Child(patientUid).OnceSingleAsync<Patient>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
+        /// <summary>
+        /// This method returns what type of user is trying to access the app
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<CheckUser> getTypeOfUser(string userId, bool isMocked)
+        {
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                return await firebase
+               .Child("CheckUser").Child(userId).OnceSingleAsync<CheckUser>();
             }
             catch (Exception e)
             {
