@@ -22,6 +22,7 @@ namespace TestApp
             InitializeComponent();
             secuirty = new PasswordSecuirty();
             auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
+            //Navigation.PushModalAsync(new PatientMenuScreen(" "));
             /////////////////////////////////////////////////////////////////////
         }
         /// <summary>
@@ -61,12 +62,11 @@ namespace TestApp
                     string userType = await secuirty.checkUserType(userId);
                     if (userType == "patient")
                     {
-                        //go to patient menu
+                        await Navigation.PushAsync(new PatientMenuScreen(userId));
                     }
                     else if(userType == "physio")
                     {
-                        await Navigation.PushAsync(new DisplayExercises(userId));
-                        //go to physio menu
+                        await Navigation.PushAsync(new PhysioMenuScreen(userId));
                     }
                     else
                     {

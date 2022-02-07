@@ -72,8 +72,6 @@ namespace TestApp.ViewModels
                 }
                 patientEmailList.Add(email);
                 password = security.generateSaltOrPasswordOrUid(15);
-                
-                password += "p";
                 patientUid = await auth.SignupWithEmailPassword(email, password);
 
                 if(patientUid == "true")//this checks if the iOS SignupWithEmailPassword method is called
