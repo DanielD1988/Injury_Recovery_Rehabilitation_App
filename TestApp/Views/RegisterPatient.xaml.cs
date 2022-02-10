@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TestApp.models;
 using TestApp.ViewModels;
 using TestApp.views;
@@ -36,6 +37,7 @@ namespace TestApp.Views
         RadioButton button;
         RegisterPatientViewModel patientVm;
         IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
+        DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
         int min1 = 0;
         int min2 = 0;
         int min3 = 0;
@@ -240,8 +242,15 @@ namespace TestApp.Views
             }
             else
             {
-                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, sDate, nDate, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
-                await Navigation.PushModalAsync(new DisplayExercises("physioUid"));
+                Dictionary<string, bool> planDates = new Dictionary<string, bool>();
+                for (var dt = sDate; dt <= nDate; dt = dt.AddDays(1))
+                {
+                    string date = date = display.removeTimeFromDate(dt.ToString());
+                    date = date.Replace("/", "-");
+                    planDates.Add(date, false);
+                }
+                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
             }
         }
     }

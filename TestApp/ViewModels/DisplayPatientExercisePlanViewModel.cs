@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestApp.Models;
 using TestApp.services;
@@ -88,14 +89,27 @@ namespace TestApp.ViewModels
         }
         /// <summary>
         /// This method passes the patient user id and the current date to recordPatientProgress 
-        /// to save the current state of the exercise plan
+        /// to upadte the current state of the exercise plan
         /// </summary>
         /// <param name="PatientUID"></param>
         /// <param name="date"></param>
         /// <returns></returns>
         public async Task<bool> saveStateOfExercisePlan(string PatientUID, string date)
         {
-            return await fire.recordPatientProgress(PatientUID, false, date);
+            try
+            {
+                Dictionary<string, bool> patientState = await fire.getPatientProgress(PatientUID, date, false);
+                patientState[date] = true;
+                await fire.recordPatientProgress(PatientUID, patientState, false);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+           
         }
+        
     }
 }

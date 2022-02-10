@@ -238,13 +238,13 @@ namespace TestApp.services
             }
         }
         /// <summary>
-        /// This method saves the state of the patients exercise plan
+        /// This method saves all the exercise plan dates for a patient
         /// </summary>
         /// <param name="PatientUID"></param>
         /// <param name="isMocked"></param>
-        /// <param name="date"></param>
+        /// <param name="dates"></param>
         /// <returns></returns>
-        public async Task<bool> recordPatientProgress(string PatientUID, bool isMocked,string date)
+        public async Task<bool> recordPatientProgress(string PatientUID, Dictionary<string, bool> dates,bool isMocked)
         {
             if (isMocked == true)
             {
@@ -253,9 +253,9 @@ namespace TestApp.services
             try
             {
                 await firebase
-                .Child("patientProgress").Child(PatientUID).Child(date)
+                .Child("patientProgress").Child(PatientUID)
                 .PutAsync(new Progress()
-                { isComplete = true });
+                { planDates = dates });
                 return true;
             }
             catch (Exception e)
@@ -264,6 +264,32 @@ namespace TestApp.services
                 return false;
             }
         }
+        /// <summary>
+        /// This method updates the value set at a date of the patients plan 
+        /// </summary>
+        /// <param name="PatientUID"></param>
+        /// <param name="date"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, bool>> getPatientProgress(string PatientUID, string date, bool isMocked)
+        {
+
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                var value = await firebase.Child("patientProgress").Child(PatientUID).OnceSingleAsync<Progress>();
+                return value.planDates;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
+        
         /// <summary>
         /// This method uses the patient user id and returns information about the patient 
         /// including what exercises have been assigned to them for their rehabilitation

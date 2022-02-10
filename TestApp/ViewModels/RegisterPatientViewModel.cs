@@ -58,7 +58,7 @@ namespace TestApp.ViewModels
         /// <param name="end"></param>
         /// <param name="exerPlan"></param> 
         /// <param name="physioUid"></param>
-        public async Task<bool> setUpPatientAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, DateTime start, DateTime end, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred,int min1,int min2,int min3,int max1,int max2,int max3)
+        public async Task<bool> setUpPatientAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred,int min1,int min2,int min3,int max1,int max2,int max3)
         {
             try
             {
@@ -84,8 +84,7 @@ namespace TestApp.ViewModels
                 }
                 await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email,min1,min2,min3,max1,max2,max3, false);
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
-                await fireBase.recordPatientProgress(patientUid, false, start.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
-                await fireBase.recordPatientProgress(patientUid, false, end.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+                await fireBase.recordPatientProgress(patientUid, planDates, false);
                 await fireBase.addUserType(patientUid,"patient",false);
                 await SendPatientEmail(patientEmailList, password);
                 return true;

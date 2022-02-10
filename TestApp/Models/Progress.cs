@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TestApp.Models
 {
@@ -8,6 +9,6 @@ namespace TestApp.Models
     public class Progress
     {
         [JsonProperty("complete")]
-        public bool isComplete { get; set; }
+        public Dictionary<string, bool> planDates { get; set; }
     }
 }

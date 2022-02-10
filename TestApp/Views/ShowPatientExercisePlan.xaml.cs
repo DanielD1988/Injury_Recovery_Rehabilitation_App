@@ -126,11 +126,10 @@ namespace TestApp.Views
         {
             if(exercise1Complete == true && exercise2Complete == true && exercise3Complete == true)
             {
-                
-                date = dateTime.ToString();
-                date = display.removeTimeFromDate(date);
-                dateWithoutTime = Convert.ToDateTime(date);
-                bool isComplete = await display.saveStateOfExercisePlan(patientUid, dateWithoutTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+                date = date.Replace("/", "-");
+                bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date);
+                await DisplayAlert("Message", "Exercise Plan Saved", "OK");
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
             }
             else
             {
