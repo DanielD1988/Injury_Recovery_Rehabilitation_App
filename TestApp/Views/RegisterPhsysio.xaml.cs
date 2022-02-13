@@ -110,7 +110,7 @@ namespace TestApp.Views
                 }
                 await vm.setUpPhysioAccount(email.Text, name.Text, pNumber.Text, membershipDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"), conPass.Text);
                 await DisplayAlert("Successs", "Sign up successful ", "Ok");
-                //await Application.Current.MainPage.Navigation.PopModalAsync(true);
+                await Navigation.PopAsync();
             }
             else
             {

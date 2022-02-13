@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="0.50*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Picker Grid.Row="0" Grid.Column="0" x:Name="monthPicker" Title="Card Month" ItemsSource="{Binding months}"></Picker>
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="yearPicker" Title="Card Year" ItemsSource="{Binding year}"></Picker>

@@ -19,5 +19,7 @@ namespace TestApp.Models
         public string PatientUid { get; set; }
         [JsonProperty("membershipExpiryDate")]
         public string Membership { get; set; }
+        [JsonProperty("patientName")]
+        public string PatientName { get; set; }
     }
 }

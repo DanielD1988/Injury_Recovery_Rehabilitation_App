@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TestApp.models;
 using TestApp.ViewModels;
 using TestApp.views;
@@ -22,7 +23,7 @@ namespace TestApp.Views
         string patientEmail = "";
         int severityNumber = 0;
         string injuryType = "";
-        string newInjuryType = null;
+        string newInjuryType = " ";
         string injuryOccurred = "";
         string newinjuryOccurred = null;
         string endDate = "";
@@ -177,7 +178,7 @@ namespace TestApp.Views
                 errorMessage += "Please pick a severity number\n";
                 infoCorrect = false;
             }
-            
+           
             newInjuryType = injury.Text;
             if (newInjuryType == null)
             {
@@ -219,13 +220,13 @@ namespace TestApp.Views
                 }
             }
             today = DateTime.Today;
-            startDate = startDatePicker.Date.ToString();
-            startDate = patientVm.removeTimeFromDate(startDate);
-            endDate = endDatePicker.Date.ToString();
-            endDate = patientVm.removeTimeFromDate(endDate);
-
-            sDate = Convert.ToDateTime(startDate);
-            nDate = Convert.ToDateTime(endDate);
+            startDate = startDatePicker.Date.ToString("dd/MM/yyyy");
+            //startDate = patientVm.removeTimeFromDate(startDate);
+            endDate = endDatePicker.Date.ToString("dd/MM/yyyy");
+            //endDate = patientVm.removeTimeFromDate(endDate);
+            CultureInfo objcul = new CultureInfo("en-GB");
+            sDate = DateTime.ParseExact(startDate, "dd/MM/yyyy", objcul);
+            nDate = DateTime.ParseExact(endDate, "dd/MM/yyyy", objcul);
             result1 = DateTime.Compare(sDate, today);
             result2 = DateTime.Compare(nDate, today);
 
@@ -245,12 +246,12 @@ namespace TestApp.Views
                 Dictionary<string, bool> planDates = new Dictionary<string, bool>();
                 for (var dt = sDate; dt <= nDate; dt = dt.AddDays(1))
                 {
-                    string date = date = display.removeTimeFromDate(dt.ToString());
+                    string date = date = dt.ToString("dd/MM/yyyy");
                     date = date.Replace("/", "-");
                     planDates.Add(date, false);
                 }
                 await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
-                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
+                await Navigation.PushModalAsync(new PhysioMenuScreen(physioUid));
             }
         }
     }

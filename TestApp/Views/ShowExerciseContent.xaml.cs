@@ -93,10 +93,9 @@ namespace TestApp.Views
         {
             int num = 0;
             int.TryParse(e.NewTextValue, out num);
-            if (num >= min && num <= max)//keep at min or make zero
+            if (num >= min && num <= max && num != 0)//keep at min or make zero
             {
                 exerciseComplete = true;
-                numExercises.IsEnabled = false;
             }
             else
             {

@@ -184,13 +184,13 @@ namespace TestApp.services
         }
 
         /// <summary>
-        /// This function adds the patient unique identifier to the physios patient list
+        /// This function adds the patient unique identifier and name to the physios patient list
         /// </summary>
         /// <param name="PhysioUid"></param>
         /// <param name="PatientUid"></param>
         /// /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid, string PatientUID, bool isMocked)
+        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid, string PatientUID,string patientName, bool isMocked)
         {
             if (isMocked == true)
             {
@@ -201,7 +201,7 @@ namespace TestApp.services
                 await firebase
                 .Child("physio").Child(PhysioUid).Child("patients").Child(PatientUID)
                 .PutAsync(new Physiotherapist()
-                { PatientUid = PatientUID });
+                { PatientUid = PatientUID,PatientName = patientName });
                 return true;
             }
             catch (Exception e)
@@ -271,7 +271,7 @@ namespace TestApp.services
         /// <param name="date"></param>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<Dictionary<string, bool>> getPatientProgress(string PatientUID, string date, bool isMocked)
+        public async Task<Dictionary<string, bool>> getPatientProgress(string PatientUID, bool isMocked)
         {
 
             if (isMocked == true)

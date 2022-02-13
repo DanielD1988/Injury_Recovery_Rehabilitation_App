@@ -47,7 +47,7 @@
                         <ColumnDefinition Width="0.50*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Injury Severity" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="SeverityPicker" Title="Select">
@@ -68,7 +68,7 @@
                         <ColumnDefinition Width="0.50*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="Injury Type" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="Injurypicker" Title="Select"  SelectedIndexChanged="InjuryPicked">
@@ -97,7 +97,7 @@
                         <ColumnDefinition Width="0.50*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Text="How Injury Occurred" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="Occurredpicker" Title="Select" SelectedIndexChanged="InjuryOccurred">

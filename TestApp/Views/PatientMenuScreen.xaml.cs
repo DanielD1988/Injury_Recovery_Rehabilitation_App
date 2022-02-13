@@ -22,9 +22,9 @@ namespace TestApp.Views
         {
             await Navigation.PushModalAsync(new ShowPatientExercisePlan(patientId));
         }
-        void goToPatientProgress(object sender, EventArgs args)
+        async void goToPatientProgress(object sender, EventArgs args)
         {
-
+            await Navigation.PushModalAsync(new DisplayProgress(patientId));
         }
     }
 }

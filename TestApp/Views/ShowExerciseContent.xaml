@@ -50,15 +50,15 @@
                    FontSize="Small" FontFamily="Arial"  
                    HorizontalTextAlignment="Center" 
                    Text=""
-                   Margin="5,20,5,0"/>
+                   Margin="5,20,5,20"/>
 
-                <Grid Margin="5,30,5,0">
+                <Grid Margin="5,70,5,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.50*" />
                         <ColumnDefinition Width="0.50*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
                     <Label x:Name="exer" Grid.Row="0" Grid.Column="0" TextColor="Black" 
                    FontSize="Medium" FontFamily="Arial"  
@@ -69,6 +69,7 @@
                     Placeholder="Enter Amount done"
                     Keyboard="Numeric"
                     x:Name="numExercises"
+                    TextColor="Black"
                     TextChanged="exerciseValue"
                      />
                 </Grid>

@@ -22,8 +22,11 @@ namespace TestApp
             InitializeComponent();
             secuirty = new PasswordSecuirty();
             auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
-            //Navigation.PushModalAsync(new DisplayExercises("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
-            Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
+            //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
+            //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
+            //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
+            //Navigation.PushModalAsync(new PatientMenuScreen("tNiEslj2QdWvOz0HU4xJvOev5K32"));
+            //Navigation.PushModalAsync(new PatientMenuScreen("7WWpm7JtPBMvKyxaO9rYHq91V3l1"));
             /////////////////////////////////////////////////////////////////////
         }
         /// <summary>

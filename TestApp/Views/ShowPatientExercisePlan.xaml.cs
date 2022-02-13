@@ -129,7 +129,7 @@ namespace TestApp.Views
                 date = date.Replace("/", "-");
                 bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date);
                 await DisplayAlert("Message", "Exercise Plan Saved", "OK");
-                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count - 2]);
+                await Application.Current.MainPage.Navigation.PopModalAsync(true);
             }
             else
             {

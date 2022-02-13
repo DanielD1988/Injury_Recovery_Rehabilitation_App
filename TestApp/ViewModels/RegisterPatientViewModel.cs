@@ -15,7 +15,6 @@ namespace TestApp.ViewModels
     class RegisterPatientViewModel
     {
         string password = "";
-        //IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
         IFirebaseAuthenticator auth;
         FirebaseMethods fireBase;
         List<string> patientEmailList;
@@ -83,7 +82,7 @@ namespace TestApp.ViewModels
                     await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid,false);
                 }
                 await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email,min1,min2,min3,max1,max2,max3, false);
-                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, false);
+                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid,name, false);
                 await fireBase.recordPatientProgress(patientUid, planDates, false);
                 await fireBase.addUserType(patientUid,"patient",false);
                 await SendPatientEmail(patientEmailList, password);

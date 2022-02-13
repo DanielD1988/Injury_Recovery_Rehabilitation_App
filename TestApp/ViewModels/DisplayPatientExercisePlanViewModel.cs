@@ -98,7 +98,7 @@ namespace TestApp.ViewModels
         {
             try
             {
-                Dictionary<string, bool> patientState = await fire.getPatientProgress(PatientUID, date, false);
+                Dictionary<string, bool> patientState = await fire.getPatientProgress(PatientUID, false);
                 patientState[date] = true;
                 await fire.recordPatientProgress(PatientUID, patientState, false);
                 return true;

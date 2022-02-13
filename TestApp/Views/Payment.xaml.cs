@@ -217,7 +217,7 @@ namespace TestApp.Views
                 {
                     await DisplayAlert("Confirmed", "Thank you for your payment", "OK");
                     pay.PaymentSuccessful = true;
-                    await Application.Current.MainPage.Navigation.PopModalAsync(true);
+                    await Navigation.PopModalAsync(true);
                 }
                 else
                 {
