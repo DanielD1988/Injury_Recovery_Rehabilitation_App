@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using TestApp.models;
 using TestApp.ViewModels;
-using TestApp.views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -221,9 +220,7 @@ namespace TestApp.Views
             }
             today = DateTime.Today;
             startDate = startDatePicker.Date.ToString("dd/MM/yyyy");
-            //startDate = patientVm.removeTimeFromDate(startDate);
             endDate = endDatePicker.Date.ToString("dd/MM/yyyy");
-            //endDate = patientVm.removeTimeFromDate(endDate);
             CultureInfo objcul = new CultureInfo("en-GB");
             sDate = DateTime.ParseExact(startDate, "dd/MM/yyyy", objcul);
             nDate = DateTime.ParseExact(endDate, "dd/MM/yyyy", objcul);

@@ -210,6 +210,34 @@ namespace TestApp.services
                 return false;
             }
         }
+        public async Task<List<PatientDetails>> GetNamesAndPatientUids(string PhysioUid, bool isMocked)
+        {
+            try
+            {
+                if (isMocked == true)
+                {
+                    return null;
+                }
+                else
+                {
+                    List<PatientDetails> value = (await firebase
+                   .Child("physio").Child(PhysioUid).Child("patients")
+                   .OnceAsync<PatientDetails>()).Select(item => new PatientDetails
+                   {
+                       Name = item.Object.Name,
+                       Uid = item.Object.Uid
+
+                   }).ToList();
+
+                    return value;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
         /// <summary>
         /// This method adds assigns a  patient or physio type of user to the user id
         /// </summary>

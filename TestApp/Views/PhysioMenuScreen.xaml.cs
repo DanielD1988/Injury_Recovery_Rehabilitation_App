@@ -27,9 +27,9 @@ namespace TestApp.Views
         {
             await Navigation.PushModalAsync(new DisplayExercises(physioId));
         }
-        void viewPatientsProgress(object sender, EventArgs args)
+        async void viewPatientsProgress(object sender, EventArgs args)
         {
-
+            await Navigation.PushModalAsync(new SelectPatientToView(physioId));
         }
     }
 }
