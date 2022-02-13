@@ -123,31 +123,59 @@ namespace TestApp.Views
             }
         }
         /// <summary>
-        /// This button checks the validation of the entered form data before sending it to the database
+        /// This button allows the patient form details to be sent to the database
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         async void PatientRegister(object sender, EventArgs e)
         {
+            checkFormvalidation();
+            if (infoCorrect == false)
+            {
+                await DisplayAlert("Error", errorMessage, "OK");
+                infoCorrect = true;
+            }
+            else
+            {
+                Dictionary<string, bool> planDates = new Dictionary<string, bool>();
+                for (var dt = sDate; dt <= nDate; dt = dt.AddDays(1))
+                {
+                    string date = date = dt.ToString("dd/MM/yyyy");
+                    date = date.Replace("/", "-");
+                    planDates.Add(date, false);
+                }
+                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
+                await Navigation.PushModalAsync(new PhysioMenuScreen(physioUid));
+            }
+        }
+        /// <summary>
+        /// This method checks the form validation
+        /// </summary>
+        /// <returns></returns>
+        private bool checkFormvalidation()
+        {
+
+            // check if gender was picked
             if (gender == "")
             {
                 errorMessage += "Please select a gender\n";
                 infoCorrect = false;
             }
+            //check if name was entered
             patientName = name.Text;
             if (patientName == null)
             {
                 errorMessage += "Please enter patient name\n";
                 infoCorrect = false;
             }
-
+            //check if age was entered
             int.TryParse(age.Text, out patientAge);
             if (patientAge == 0 || patientAge < 0)
             {
                 errorMessage += "Please enter patient age\n";
                 infoCorrect = false;
             }
-
+            //check if email was entered and is valid
             patientEmail = email.Text;
             if (patientEmail == null)
             {
@@ -166,18 +194,16 @@ namespace TestApp.Views
                     infoCorrect = false;
                 }
             }
-
-            try
+            //check severity number was picked
+            if(SeverityPicker.SelectedIndex != -1)
             {
                 int.TryParse(SeverityPicker.SelectedItem.ToString(), out severityNumber);
             }
-            catch (NullReferenceException error)
+            else
             {
-                Console.WriteLine(error.StackTrace);
                 errorMessage += "Please pick a severity number\n";
-                infoCorrect = false;
             }
-           
+            //check if an injury type was picked or a new injury type was entered
             newInjuryType = injury.Text;
             if (newInjuryType == null)
             {
@@ -197,7 +223,7 @@ namespace TestApp.Views
                     infoCorrect = false;
                 }
             }
-
+            //check if a new injury occurred by selecting in the picker or was entered
             newinjuryOccurred = occured.Text;
             if (newinjuryOccurred == null)
             {
@@ -218,6 +244,7 @@ namespace TestApp.Views
                     infoCorrect = false;
                 }
             }
+            
             today = DateTime.Today;
             startDate = startDatePicker.Date.ToString("dd/MM/yyyy");
             endDate = endDatePicker.Date.ToString("dd/MM/yyyy");
@@ -226,30 +253,13 @@ namespace TestApp.Views
             nDate = DateTime.ParseExact(endDate, "dd/MM/yyyy", objcul);
             result1 = DateTime.Compare(sDate, today);
             result2 = DateTime.Compare(nDate, today);
-
+            //check if the start date of the plan is less than the end of the plan
             if (result1 < 0 || result2 < 0)
             {
                 errorMessage += "Please pick a date from today onwards\n";
                 infoCorrect = false;
             }
-
-            if (infoCorrect == false)
-            {
-                await DisplayAlert("Error", errorMessage, "OK");
-                infoCorrect = true;
-            }
-            else
-            {
-                Dictionary<string, bool> planDates = new Dictionary<string, bool>();
-                for (var dt = sDate; dt <= nDate; dt = dt.AddDays(1))
-                {
-                    string date = date = dt.ToString("dd/MM/yyyy");
-                    date = date.Replace("/", "-");
-                    planDates.Add(date, false);
-                }
-                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
-                await Navigation.PushModalAsync(new PhysioMenuScreen(physioUid));
-            }
+            return infoCorrect;
         }
     }
 }

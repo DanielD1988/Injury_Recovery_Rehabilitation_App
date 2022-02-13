@@ -22,6 +22,8 @@ namespace TestApp.Views
         int minimum3 = 0;
         int maximum3 = 0;
         ExercisePlan currentExercise = null;
+        string errorMessage = "The min value cannot be larger than the max value";
+        bool isCorrect = true;
         /// <summary>
         ///  This constructor takes the exercise key from DisplayExercises Detail button press
         ///  and creates an instance of DisplayExercisesViewModel to access the FirebaseMethods class methods
@@ -54,7 +56,17 @@ namespace TestApp.Views
         {
             if (allMinMaxValuesFilledIn())
             {
-                await Navigation.PushModalAsync(new RegisterPatient(currentExercise, physioUid,minimum1,minimum2,minimum3,maximum1,maximum2,maximum3));
+                isCorrect = checkIfMinLessThanMax(minimum1, maximum1, exercise1.Text);
+                isCorrect = checkIfMinLessThanMax(minimum2, maximum2, exercise2.Text);
+                isCorrect = checkIfMinLessThanMax(minimum3, maximum3, exercise3.Text);
+                if (isCorrect)
+                {
+                    await Navigation.PushModalAsync(new RegisterPatient(currentExercise, physioUid, minimum1, minimum2, minimum3, maximum1, maximum2, maximum3));
+                }
+                else
+                {
+                    await DisplayAlert("Error", errorMessage, "OK");
+                }
             }
             else
             {
@@ -76,65 +88,15 @@ namespace TestApp.Views
             allNumbersAdded = int.TryParse(max3.Text, out maximum3);
             return allNumbersAdded;
         }
-        /// <summary>
-        /// Stops the user from entering a min value greater than the max value
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        async void checkExerciseMinMax1(object sender, TextChangedEventArgs e)
+        
+        private bool checkIfMinLessThanMax(int min,int max,string exerciseName)
         {
-            int min = -1;
-            int max = -1;
-            bool tf1 = int.TryParse(min1.Text, out min);
-            bool tf2 = int.TryParse(max1.Text, out max);
-            if(tf1 && tf2)
+            if(min > max)
             {
-                if (min > max)
-                {
-                    max1.Text = "";
-                    await DisplayAlert("Error", "Min value must be less than max", "OK");
-                }
+                return false;
             }
-        }
-        /// <summary>
-        /// Stops the user from entering a min value greater than the max value
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        async void checkExerciseMinMax2(object sender, TextChangedEventArgs e)
-        {
-            int min = -1;
-            int max = -1;
-            bool tf1 = int.TryParse(min2.Text, out min);
-            bool tf2 = int.TryParse(max2.Text, out max);
-            if (tf1 && tf2)
-            {
-                if (min > max)
-                {
-                    max2.Text = "";
-                    await DisplayAlert("Error", "Min value must be less than max", "OK");
-                }
-            }
-        }
-        /// <summary>
-        /// Stops the user from entering a min value greater than the max value
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        async void checkExerciseMinMax3(object sender, TextChangedEventArgs e)
-        {
-            int min = -1;
-            int max = -1;
-            bool tf1 = int.TryParse(min3.Text, out min);
-            bool tf2 = int.TryParse(max3.Text, out max);
-            if (tf1 && tf2)
-            {
-                if (min > max)
-                {
-                    max3.Text = "";
-                    await DisplayAlert("Error", "Min value must be less than max", "OK");
-                }
-            }
+            return true;
+            
         }
     }
 }
