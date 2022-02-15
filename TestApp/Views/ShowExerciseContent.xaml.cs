@@ -48,7 +48,7 @@ namespace TestApp.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            exer.Text = "Reps to complete " + min + " to " + max;
+            exer.Text = "Minimum:" + min + "\nMaximum:" + max;
             exerciseLabel.Text = name;
             copyRightLabel.Text = copyright;
         }

@@ -5,7 +5,7 @@
              x:Class="TestApp.Views.DisplayProgress">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Patient Progress" HorizontalOptions="Center" FontSize="Large"/>
+            <Label TextColor="SteelBlue" Text="Patient Progress" HorizontalOptions="Center" FontSize="24"/>
             <controls:Calendar
             x:Name="calendar"
             Padding="10,0,10,0"
@@ -14,7 +14,7 @@
             <Button
             Text="Menu"
             Clicked="menu"
-            Margin="200, 0,200,0"
+            Margin="30, 10,30,0"
             BackgroundColor="SteelBlue"
             TextColor="White"
             CornerRadius="10"

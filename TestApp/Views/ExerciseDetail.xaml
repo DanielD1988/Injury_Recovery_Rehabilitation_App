@@ -99,11 +99,27 @@
                     x:Name="max3"
                 />
             </Grid>
-            <Button Text="Add to Patient" TextColor="White"  
+            <Grid Margin="10,0,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.50*" />
+                    <ColumnDefinition Width="0.50*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Button  Grid.Row="0" Grid.Column="0"
+                    Text="Create Patient" TextColor="White"  
                     BackgroundColor="SteelBlue" 
                     CornerRadius="10" 
-                    Margin="50, 15,50,40" 
-                    Clicked="AddToPatient" />
+                    
+                    Clicked="createPatient" />
+                <Button  Grid.Row="0" Grid.Column="1"
+                    Text="Select Patient" TextColor="White"  
+                    BackgroundColor="SteelBlue" 
+                    CornerRadius="10" 
+                    
+                    Clicked="selectPatient" />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

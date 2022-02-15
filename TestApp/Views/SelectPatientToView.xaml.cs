@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.Models;
 using TestApp.ViewModels;
 using Xamarin.Forms;
@@ -13,20 +10,19 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPatientToView : ContentPage
     {
-        PlanProgressViewModel model = new PlanProgressViewModel();
         List<PatientDetails> details;
-        string physioUid = "";
+        Dictionary<string, bool> progressPlan;
+        PlanProgressViewModel plan = new PlanProgressViewModel();
         string patientUid = "";
         string patientName = "";
-        public SelectPatientToView(string physioUid)
+        public SelectPatientToView(List<PatientDetails> details)
         {
             InitializeComponent();
-            this.physioUid = physioUid;
+            this.details = details;
         }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            details = await model.getPatientNameAndPatientUserId(physioUid);
             List<string> names = new List<string>();
             foreach(PatientDetails detail in details)
             {
@@ -46,7 +42,8 @@ namespace TestApp.Views
                         patientUid = detail.Uid;
                     }
                 }
-                await Navigation.PushModalAsync(new DisplayProgress(patientUid));
+                progressPlan = await plan.getPatientProgress(patientUid);
+                await Navigation.PushModalAsync(new DisplayProgress(patientUid, progressPlan,2));
             }
             else
             {

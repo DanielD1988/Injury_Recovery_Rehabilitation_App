@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestApp.Models;
+using TestApp.ViewModels;
 using TestApp.views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,6 +15,8 @@ namespace TestApp.Views
     public partial class PhysioMenuScreen : ContentPage
     {
         string physioId = "";
+        List<PatientDetails> details =  new List<PatientDetails>();
+        PlanProgressViewModel model = new PlanProgressViewModel();
         public PhysioMenuScreen(string uid)
         {
             InitializeComponent();
@@ -20,6 +24,10 @@ namespace TestApp.Views
         }
         protected async override void OnAppearing()
         {
+            if(details.Count == 0)
+            {
+                details = await model.getPatientNameAndPatientUserId(physioId);
+            }
             base.OnAppearing();
             imgageDisplay.Source = "danLogo.png";
         }
@@ -29,7 +37,7 @@ namespace TestApp.Views
         }
         async void viewPatientsProgress(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new SelectPatientToView(physioId));
+            await Navigation.PushModalAsync(new SelectPatientToView(details));
         }
     }
 }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TestApp.Views.PhysioMenuScreen">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="AliceBlue">
             <Label Grid.Row="1" Grid.Column="0" 
                    TextColor="SteelBlue"
                    FontAttributes="Bold" 

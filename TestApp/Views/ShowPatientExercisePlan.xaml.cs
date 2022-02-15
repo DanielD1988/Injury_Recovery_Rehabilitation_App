@@ -26,7 +26,6 @@ namespace TestApp.Views
         string videoCopyRight = "";
         Patient details = null;
         DateTime dateTime = DateTime.Today;
-        DateTime dateWithoutTime;
         string date = "";
 
         List<Exercise> patientExerciselist = new List<Exercise>();
@@ -126,6 +125,7 @@ namespace TestApp.Views
         {
             if(exercise1Complete == true && exercise2Complete == true && exercise3Complete == true)
             {
+                string date = dateTime.ToString("dd/MM/yyyy");
                 date = date.Replace("/", "-");
                 bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date);
                 await DisplayAlert("Message", "Exercise Plan Saved", "OK");

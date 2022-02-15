@@ -13,17 +13,17 @@ namespace TestApp.Views
     {
         PlanProgressViewModel plan = new PlanProgressViewModel();
         Dictionary<string, bool> progressPlan;
-        string patientUid;
+        int pages = 0;
         string stringDate = "";
-        public DisplayProgress(string uid)
+        public DisplayProgress(string uid, Dictionary<string, bool> progressPlan,int pages)
         {
             InitializeComponent();
-            patientUid = uid;
+            this.progressPlan = progressPlan;
+            this.pages = pages;
         }
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            progressPlan = await plan.getPatientProgress(patientUid);
             populateCalander(progressPlan);
         }
         public void populateCalander(Dictionary<string, bool> progressPlan)
@@ -59,7 +59,14 @@ namespace TestApp.Views
         }
         async void menu(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            if(pages == 3)
+            {
+                await Navigation.PopToRootAsync();
+            }
+            else
+            {
+                await Navigation.PopModalAsync();
+            }
         }
     }
 }

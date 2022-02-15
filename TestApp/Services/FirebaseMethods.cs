@@ -210,6 +210,12 @@ namespace TestApp.services
                 return false;
             }
         }
+        /// <summary>
+        /// This method retruns a list containing a patints name and user id 
+        /// </summary>
+        /// <param name="PhysioUid"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
         public async Task<List<PatientDetails>> GetNamesAndPatientUids(string PhysioUid, bool isMocked)
         {
             try
@@ -239,7 +245,7 @@ namespace TestApp.services
             }
         }
         /// <summary>
-        /// This method adds assigns a  patient or physio type of user to the user id
+        /// This method assigns which type of user patient or physio is tied to a userid
         /// </summary>
         /// <param name="userUid"></param>
         /// <param name="userType"></param>

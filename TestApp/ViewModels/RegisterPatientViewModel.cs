@@ -85,7 +85,9 @@ namespace TestApp.ViewModels
                 await fireBase.AddPatientUIDToPatientList(physioUid, patientUid,name, false);
                 await fireBase.recordPatientProgress(patientUid, planDates, false);
                 await fireBase.addUserType(patientUid,"patient",false);
-                await SendPatientEmail(patientEmailList, password);
+                string body = "Please find attached login details,\n Use this email and here is the password " + password;
+                string subject = "Injury Recovery Login Details";
+                await SendPatientEmail(patientEmailList, password,body,subject);
                 return true;
             }
             catch (Exception e)
@@ -96,6 +98,48 @@ namespace TestApp.ViewModels
 
         }
         /// <summary>
+        /// This method adds a plan to an existing patient and sends an email to the patient 
+        /// telling them that the new plan is ready to be started
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <param name="email"></param>
+        /// <param name="injuryType"></param>
+        /// <param name="injuryOccurred"></param>
+        /// <param name="age"></param>
+        /// <param name="injurySeverity"></param>
+        /// <param name="planDates"></param>
+        /// <param name="exerPlan"></param>
+        /// <param name="physioUid"></param>
+        /// <param name="newInjuryType"></param>
+        /// <param name="newinjuryOccurred"></param>
+        /// <param name="min1"></param>
+        /// <param name="min2"></param>
+        /// <param name="min3"></param>
+        /// <param name="max1"></param>
+        /// <param name="max2"></param>
+        /// <param name="max3"></param>
+        /// <param name="patientUid"></param>
+        /// <returns></returns>
+        public async Task<bool> addNewPlanToExistingPatient(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred, int min1, int min2, int min3, int max1, int max2, int max3,string patientUid)
+        {
+            if (newInjuryType != null)
+            {
+                injuryType = newInjuryType;
+            }
+            if (newinjuryOccurred != null)
+            {
+                injuryOccurred = newinjuryOccurred;
+            }
+            patientEmailList.Add(email);
+            await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, min1, min2, min3, max1, max2, max3, false);
+            await fireBase.recordPatientProgress(patientUid, planDates, false);
+            string body = "Your exercise plan has been updated please login with your old email and password";
+            string subject = "Injury Recovery App";
+            await SendPatientEmail(patientEmailList, password, body, subject);
+            return false;
+        }
+        /// <summary>
         /// This method uses xamarin essentials to open an email application on the users phone and populates the body
         /// the patients email and the subject of the email it returns a bool for testing purposes.
         /// </summary>
@@ -103,14 +147,14 @@ namespace TestApp.ViewModels
         /// <param name="password"></param>
         /// <returns></returns>
         //https://docs.microsoft.com/en-us/xamarin/essentials/email?tabs=ios
-        public async Task<bool> SendPatientEmail(List<string> recipients, string password)
+        public async Task<bool> SendPatientEmail(List<string> recipients, string password,string body,string subject)
         {
             try
             {
                 EmailMessage message = new EmailMessage
                 {
-                    Subject = "Injury Recovery Login Details",
-                    Body = "Please find attached login details,\n Use this email and here is the password " + password,
+                    Subject = subject,
+                    Body = body,
                     To = recipients,
                 };
                 await Email.ComposeAsync(message);

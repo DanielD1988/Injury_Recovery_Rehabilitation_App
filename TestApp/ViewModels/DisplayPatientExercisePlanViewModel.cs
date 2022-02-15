@@ -110,6 +110,20 @@ namespace TestApp.ViewModels
             }
            
         }
-        
+        /// <summary>
+        /// This method checks if the user has already completed
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="patientUid"></param>
+        /// <returns></returns>
+        public async Task<bool> checkIfExercisePlanCompleteForToday(string date,string patientUid)
+        {
+            Dictionary<string, bool> patientState = await fire.getPatientProgress(patientUid, false);
+            if(patientState[date] == true)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
