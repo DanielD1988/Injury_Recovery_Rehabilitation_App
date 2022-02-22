@@ -17,8 +17,10 @@ namespace TestApp.Views
         string physioUid = "";
         List<PatientDetails> details;
         CurrentPatientViewModel patientVm = new CurrentPatientViewModel();
+        SecurityViewModel security = new SecurityViewModel();
         string patientName = "";
         string patientUid = "";
+        string encryptionKey = "";
         int min1 = 0;
         int min2 = 0;
         int min3 = 0;
@@ -62,7 +64,10 @@ namespace TestApp.Views
                     }
                 }
                 Patient patient = await patientVm.getpatientDetails(patientUid, false);
-                await Navigation.PushModalAsync(new DisplayPatientDetails(patient,exercisePlan,patientUid,min1,min2,min3,max1,max2,max3,physioUid));
+                encryptionKey = await security.getEncryptionKey(false, patientUid);
+                patient.PatientName = security.decryptData(patient.PatientName, encryptionKey);
+                patient.Email = security.decryptData(patient.Email, encryptionKey);
+                await Navigation.PushModalAsync(new DisplayPatientDetails(patient,exercisePlan,patientUid,min1,min2,min3,max1,max2,max3,physioUid, encryptionKey));
             }
             else
             {

@@ -45,8 +45,9 @@ namespace TestApp.Views
         private int severityNumber;
         private string newInjuryType;
         private string newinjuryOccurred;
+        private string encryptKey = "";
 
-        public DisplayPatientDetails(Patient patient, ExercisePlan exercisePlan, string patientUid, int min1, int min2, int min3, int max1, int max2, int max3,string physioUid)
+        public DisplayPatientDetails(Patient patient, ExercisePlan exercisePlan, string patientUid, int min1, int min2, int min3, int max1, int max2, int max3,string physioUid,string encryptionKey)
         {
             InitializeComponent();
             this.patient = patient;
@@ -66,6 +67,7 @@ namespace TestApp.Views
             OccuredLabel.IsVisible = false;
             this.physioUid = physioUid;
             model = new RegisterPatientViewModel(auth);
+            encryptKey = encryptionKey;
         }
         protected async override void OnAppearing()
         {
@@ -143,7 +145,7 @@ namespace TestApp.Views
                     date = date.Replace("/", "-");
                     planDates.Add(date, false);
                 }
-                await model.addNewPlanToExistingPatient(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exercisePlan, physioUid, newInjuryType, newinjuryOccurred, min1, min2, min3, max1, max2, max3, patientUid);
+                await model.addNewPlanToExistingPatient(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exercisePlan, physioUid, newInjuryType, newinjuryOccurred, min1, min2, min3, max1, max2, max3, patientUid, encryptKey);
                 await Navigation.PushModalAsync(new PhysioMenuScreen(physioUid));
             }
         }

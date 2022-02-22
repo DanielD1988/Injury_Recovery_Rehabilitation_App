@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TestApp.models;
+using TestApp.Models;
 using TestApp.ViewModels;
 using TestApp.Views;
 using Xamarin.Forms;
@@ -16,14 +17,16 @@ namespace TestApp.views
     public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
+        List<PatientDetails> details = new List<PatientDetails>();
         private string physioUid = ""
 ;       /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
-        public DisplayExercises(string physioUid)
+        public DisplayExercises(string physioUid,List<PatientDetails> details)
         {
             viewModel = new DisplayExercisePlansViewModel();
             this.physioUid = physioUid;
+            this.details = details;
             InitializeComponent();
             
         }
@@ -50,7 +53,7 @@ namespace TestApp.views
         {
             Button button = (Button)Sender;
             string exerciseKey = button.CommandParameter.ToString().Replace("\"", "");
-            Navigation.PushModalAsync(new ExerciseDetail(exerciseKey, physioUid));
+            Navigation.PushModalAsync(new ExerciseDetail(exerciseKey, physioUid, details));
         }
 
     }

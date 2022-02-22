@@ -18,10 +18,11 @@ namespace TestApp.ViewModels
         IFirebaseAuthenticator auth;
         FirebaseMethods fireBase;
         List<string> patientEmailList;
-        PasswordSecuirty security = new PasswordSecuirty();
+        SecurityViewModel security = new SecurityViewModel();
         string salt = "";
         string saltedPassword = "";
         string patientUid = "";
+        string encryptionKey = "";
         public RegisterPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
@@ -81,10 +82,17 @@ namespace TestApp.ViewModels
                     patientUid = security.generateSaltOrPasswordOrUid(10);
                     await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid,false);
                 }
-                await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email,min1,min2,min3,max1,max2,max3, false);
-                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid,name, false);
+
+                encryptionKey = security.generateSaltOrPasswordOrUid(32);
+                string hashedName = security.encryptData(name, encryptionKey);
+                string hashedEmail = security.encryptData(email, encryptionKey);
+                await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1,min2,min3,max1,max2,max3, false);
+                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, hashedName, false);
                 await fireBase.recordPatientProgress(patientUid, planDates, false);
                 await fireBase.addUserType(patientUid,"patient",false);
+
+                await fireBase.addEncryptionKeyToUserId(patientUid,encryptionKey,false);
+
                 string body = "Please find attached login details,\n Use this email and here is the password " + password;
                 string subject = "Injury Recovery Login Details";
                 await SendPatientEmail(patientEmailList, password,body,subject);
@@ -121,7 +129,7 @@ namespace TestApp.ViewModels
         /// <param name="max3"></param>
         /// <param name="patientUid"></param>
         /// <returns></returns>
-        public async Task<bool> addNewPlanToExistingPatient(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred, int min1, int min2, int min3, int max1, int max2, int max3,string patientUid)
+        public async Task<bool> addNewPlanToExistingPatient(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred, int min1, int min2, int min3, int max1, int max2, int max3,string patientUid,string encryptKey)
         {
             if (newInjuryType != null)
             {
@@ -131,9 +139,15 @@ namespace TestApp.ViewModels
             {
                 injuryOccurred = newinjuryOccurred;
             }
+            
             patientEmailList.Add(email);
-            await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, email, min1, min2, min3, max1, max2, max3, false);
+            string hashedName = security.encryptData(name, encryptKey);
+            string hashedEmail = security.encryptData(email, encryptKey);
+            await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1, min2, min3, max1, max2, max3, false);
             await fireBase.recordPatientProgress(patientUid, planDates, false);
+
+            await fireBase.addEncryptionKeyToUserId(patientUid, encryptKey, false);
+
             string body = "Your exercise plan has been updated please login with your old email and password";
             string subject = "Injury Recovery App";
             await SendPatientEmail(patientEmailList, password, body, subject);

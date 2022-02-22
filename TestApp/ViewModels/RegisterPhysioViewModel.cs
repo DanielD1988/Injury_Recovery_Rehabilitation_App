@@ -11,7 +11,7 @@ namespace TestApp.ViewModels
     {
         IFirebaseAuthenticator auth;
         FirebaseMethods fireBase;
-        PasswordSecuirty security = new PasswordSecuirty();
+        SecurityViewModel security = new SecurityViewModel();
         string salt = "";
         string saltedPassword = "";
         string physioUid = "";

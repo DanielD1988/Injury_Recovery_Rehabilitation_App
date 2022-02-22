@@ -37,11 +37,12 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="key"></param>
         /// <param name="physioUid"></param>
-        public ExerciseDetail(String key, string physioUid)
+        public ExerciseDetail(String key, string physioUid, List<PatientDetails> details)
         {
             exerciseKey = key;
             viewModel = new DisplayExercisePlansViewModel();
             this.physioUid = physioUid;
+            this.details = details;
             InitializeComponent();
         }
         /// <summary>
@@ -86,8 +87,14 @@ namespace TestApp.Views
                 checkMinMaxValuesAreCorrect();
                 if (isCorrect && isExer1Correct && isExer2Correct && isExer3Correct)
                 {
-                    details = await model.getPatientNameAndPatientUserId(physioUid);
-                    await Navigation.PushModalAsync(new AddToExistingPatient(currentExercise, physioUid, minimum1, minimum2, minimum3, maximum1, maximum2, maximum3, details));
+                    if(details.Count != 0)
+                    {
+                        await Navigation.PushModalAsync(new AddToExistingPatient(currentExercise, physioUid, minimum1, minimum2, minimum3, maximum1, maximum2, maximum3, details));
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error","You have no current patients", "OK");
+                    }
                 }
                 else
                 {

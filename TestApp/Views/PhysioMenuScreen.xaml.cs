@@ -17,6 +17,7 @@ namespace TestApp.Views
         string physioId = "";
         List<PatientDetails> details =  new List<PatientDetails>();
         PlanProgressViewModel model = new PlanProgressViewModel();
+        SecurityViewModel security = new SecurityViewModel();
         public PhysioMenuScreen(string uid)
         {
             InitializeComponent();
@@ -26,18 +27,30 @@ namespace TestApp.Views
         {
             if(details.Count == 0)
             {
-                details = await model.getPatientNameAndPatientUserId(physioId);
+                var namedetails = await model.getPatientNameAndPatientUserId(physioId);
+                if(namedetails.Count != 0)
+                {
+                    var encyptKeys = await security.getPatientEncryptionKeys(false);
+                    details = await security.decyptPatientNames(namedetails, encyptKeys);
+                }
             }
             base.OnAppearing();
             imgageDisplay.Source = "danLogo.png";
         }
         async void goToSelectExercisePlan(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new DisplayExercises(physioId));
+            await Navigation.PushModalAsync(new DisplayExercises(physioId,details));
         }
         async void viewPatientsProgress(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new SelectPatientToView(details));
+            if(details.Count != 0)
+            {
+                await Navigation.PushModalAsync(new SelectPatientToView(details));
+            }
+            else
+            {
+                await DisplayAlert("Error", "You are not assigned any patients", "OK");
+            }
         }
     }
 }

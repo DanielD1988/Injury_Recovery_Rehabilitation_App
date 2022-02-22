@@ -182,7 +182,92 @@ namespace TestApp.services
                 return false;
             }
         }
+        /// <summary>
+        /// This method adds an encryption key to a patient user id
+        /// </summary>
+        /// <param name="patientUid"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<bool> addEncryptionKeyToUserId(string patientUid,string encryptionKey, bool isMocked)
+        {
+            if (isMocked == true)
+            {
 
+            }
+            try
+            {
+                await firebase
+                .Child("encryptionKeys").Child(patientUid)
+                .PutAsync(new Encryption()
+                {
+                    EncryptionKey = encryptionKey,
+                    PatientUid = patientUid
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        /// <summary>
+        /// This method returns a list of patient encryption keys for encrypting data
+        /// </summary>
+        /// <param name="PatientUID"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<List<Encryption>> getPatientEncryptionKeys(bool isMocked)
+        {
+
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                List<Encryption> encryptionKeys = (await firebase
+                   .Child("encryptionKeys")
+                   .OnceAsync<Encryption>()).Select(item => new Encryption
+                   {
+                       EncryptionKey = item.Object.EncryptionKey,
+                       PatientUid = item.Object.PatientUid
+
+                   }).ToList();
+
+                return encryptionKeys;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
+        /// <summary>
+        /// This method returns the encryption key for the data assigned to the patient
+        /// </summary>
+        /// <param name="PatientUID"></param>
+        /// <param name="isMocked"></param>
+        /// <returns></returns>
+        public async Task<string> getKeyToData(string PatientUID, bool isMocked)
+        {
+
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                Encryption encryptKeyObject = await firebase.Child("encryptionKeys").Child(PatientUID).OnceSingleAsync<Encryption>();
+                return encryptKeyObject.EncryptionKey;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
         /// <summary>
         /// This function adds the patient unique identifier and name to the physios patient list
         /// </summary>

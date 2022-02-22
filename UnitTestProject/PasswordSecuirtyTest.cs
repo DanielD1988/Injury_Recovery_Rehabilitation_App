@@ -8,7 +8,7 @@ namespace UnitTestProject
 {
     public class PasswordSecuirtyTest
     {
-        PasswordSecuirty secuirty = new PasswordSecuirty();
+        SecurityViewModel secuirty = new SecurityViewModel();
         /// <summary>
         /// checks if the method generates a random string of a certain length
         /// </summary>

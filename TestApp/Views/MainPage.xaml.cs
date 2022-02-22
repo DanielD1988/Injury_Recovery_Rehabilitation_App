@@ -12,7 +12,7 @@ namespace TestApp
     public partial class MainPage : ContentPage
     {
         IFirebaseAuthenticator auth;
-        PasswordSecuirty secuirty;
+        SecurityViewModel secuirty;
         bool emailCorrect = true;
         /// <summary>
         /// This is the login page for both apps
@@ -20,7 +20,7 @@ namespace TestApp
         public MainPage()
         {
             InitializeComponent();
-            secuirty = new PasswordSecuirty();
+            secuirty = new SecurityViewModel();
             auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
