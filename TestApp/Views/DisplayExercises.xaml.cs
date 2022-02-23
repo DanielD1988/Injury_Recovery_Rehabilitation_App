@@ -17,12 +17,12 @@ namespace TestApp.views
     public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
-        List<PatientDetails> details = new List<PatientDetails>();
+        List<PatientList> details = new List<PatientList>();
         private string physioUid = ""
 ;       /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
-        public DisplayExercises(string physioUid,List<PatientDetails> details)
+        public DisplayExercises(string physioUid,List<PatientList> details)
         {
             viewModel = new DisplayExercisePlansViewModel();
             this.physioUid = physioUid;

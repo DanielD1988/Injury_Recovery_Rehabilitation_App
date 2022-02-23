@@ -18,7 +18,7 @@ namespace TestApp.ViewModels
         {
             return await fire.getPatientProgress(patientUid, false);
         }
-        public async Task <List<PatientDetails>> getPatientNameAndPatientUserId(string physioId)
+        public async Task <List<PatientList>> getPatientNameAndPatientUserId(string physioId)
         {
             return await fire.GetNamesAndPatientUids(physioId, false); 
         }

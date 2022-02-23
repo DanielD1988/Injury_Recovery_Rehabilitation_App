@@ -7,7 +7,7 @@ namespace TestApp.Models
     /// <summary>
     /// This describes the data for the physiotherapist Json Structure
     /// </summary>
-    class Physiotherapist
+    public class Physiotherapist
     {
         [JsonProperty("name")]
         public string PhysioName { get; set; }
@@ -15,11 +15,7 @@ namespace TestApp.Models
         public string Email { get; set; }
         [JsonProperty("physioIdNumber")]
         public string IdNumber { get; set; }
-        [JsonProperty("patients")]
-        public string PatientUid { get; set; }
         [JsonProperty("membershipExpiryDate")]
         public string Membership { get; set; }
-        [JsonProperty("patientName")]
-        public string PatientName { get; set; }
     }
 }

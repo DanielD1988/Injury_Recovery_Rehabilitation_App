@@ -42,7 +42,7 @@ namespace TestApp.Views
         async void goToPatientProgress(object sender, EventArgs args)
         {
             progressPlan = await plan.getPatientProgress(patientId);
-            await Navigation.PushModalAsync(new DisplayProgress(patientId,progressPlan,1));
+            await Navigation.PushModalAsync(new DisplayProgress(patientId,progressPlan));
         }
     }
 }

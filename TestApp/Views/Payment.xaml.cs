@@ -22,15 +22,20 @@ namespace TestApp.Views
         string cvv = null;
         string enteredEmail = null;
         string message = "";
+        string physioUserId = "";
         long monthNumber = -1;
         long yearNumber = -1;
         long amount = -1;
         bool isFormDetailsCorrect = true;
+        bool comingFromLogin = false;
         Dictionary<string, double> exchangeRates;
-        internal Payment(PaymentViewModel pay)
+        SecurityViewModel security = new SecurityViewModel();
+        internal Payment(PaymentViewModel pay,bool comingFromLogin,string physioUid)
         {
             this.pay = pay;
             InitializeComponent();
+            this.comingFromLogin = comingFromLogin;
+            physioUserId = physioUid;
         }
         /// <summary>
         /// initialise certain lists and calling of methods as page loads
@@ -217,7 +222,29 @@ namespace TestApp.Views
                 {
                     await DisplayAlert("Confirmed", "Thank you for your payment", "OK");
                     pay.PaymentSuccessful = true;
-                    await Navigation.PopModalAsync(true);
+                    if (comingFromLogin == false)
+                    {
+                        await Navigation.PopModalAsync(true);
+                    }
+                    else
+                    {
+                        var date = DateTime.Today.Date;
+                        DateTime membershipDate;
+                        if (pay.WhichMembershipSelectedSuccessful == 1)
+                        {
+                            membershipDate = date.AddMonths(3);
+                        }
+                        else if (pay.WhichMembershipSelectedSuccessful == 2)
+                        {
+                            membershipDate = date.AddMonths(6);
+                        }
+                        else
+                        {
+                            membershipDate = date.AddMonths(12);
+                        }
+                        await security.renewMembership(false, physioUserId, membershipDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
+                        await Navigation.PopToRootAsync();
+                    } 
                 }
                 else
                 {

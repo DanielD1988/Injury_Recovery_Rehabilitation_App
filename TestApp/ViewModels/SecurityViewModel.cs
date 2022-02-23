@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -11,7 +12,7 @@ using TestApp.services;
 namespace TestApp.ViewModels
 {
     /// <summary>
-    /// This class has methods to ecrypt passwords for login
+    /// This class has methods to ecrypt passwords for login and other security methods
     /// </summary>
     class SecurityViewModel
     {
@@ -148,6 +149,32 @@ namespace TestApp.ViewModels
             return await fire.getPatientEncryptionKeys(isMocked);
         }
         /// <summary>
+        /// This method returns the current membership assigned to the physio
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="physioUid"></param>
+        /// <returns></returns>
+        public async Task<DateTime> getPhysioMembership(bool isMocked, string physioUid)
+        {
+            CultureInfo objcul = new CultureInfo("en-GB");
+            var physioDetails = await fire.checkPhysioMembership(isMocked, physioUid);
+            string membershipDate = physioDetails.MembershipDate.Replace("-", "/");
+            membershipDate = membershipDate.Substring(0, membershipDate.IndexOf("T"));
+            DateTime currentDate = DateTime.ParseExact(membershipDate, "yyyy/MM/dd", objcul);
+            return currentDate;
+        }
+        /// <summary>
+        /// Updates the date of the membership
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="physioUid"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public async Task<bool> renewMembership(bool isMocked, string physioUid,string date)
+        {
+            return await fire.renewMembership(isMocked, physioUid, date);
+        }
+        /// <summary>
         /// This method returns the encryption key tied to the patient user id
         /// </summary>
         /// <param name="isMocked"></param>
@@ -162,16 +189,16 @@ namespace TestApp.ViewModels
         /// </summary>
         /// <param name="details"></param>
         /// <param name="keys"></param>
-        public async Task<List<PatientDetails>> decyptPatientNames(List<PatientDetails> details,List<Encryption> keys)
+        public async Task<List<PatientList>> decyptPatientNames(List<PatientList> details,List<Encryption> keys)
         {
             string encryptionKey = "";
             var keysDict = keys.ToDictionary(x => x.PatientUid, x => x.EncryptionKey);
-            foreach (PatientDetails detail in details)
+            foreach (PatientList detail in details)
             {
-                if (keysDict.TryGetValue(detail.Uid,out encryptionKey))
+                if (keysDict.TryGetValue(detail.PatientUid,out encryptionKey))
                 {
-                    string plainText = decryptData(detail.Name,encryptionKey);
-                    detail.Name = plainText;
+                    string plainText = decryptData(detail.PatientName,encryptionKey);
+                    detail.PatientName = plainText;
                 }
             }
             return details;

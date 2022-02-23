@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.models;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -15,7 +12,7 @@ namespace TestApp.Views
     public partial class AddToExistingPatient : ContentPage
     {
         string physioUid = "";
-        List<PatientDetails> details;
+        List<PatientList> details;
         CurrentPatientViewModel patientVm = new CurrentPatientViewModel();
         SecurityViewModel security = new SecurityViewModel();
         string patientName = "";
@@ -28,7 +25,7 @@ namespace TestApp.Views
         int max2 = 0;
         int max3 = 0;
         ExercisePlan exercisePlan;
-        public AddToExistingPatient(ExercisePlan exercisePlan, string physioUid, int min1, int min2, int min3, int max1, int max2, int max3, List<PatientDetails> details)
+        public AddToExistingPatient(ExercisePlan exercisePlan, string physioUid, int min1, int min2, int min3, int max1, int max2, int max3, List<PatientList> details)
         {
             InitializeComponent();
             this.physioUid = physioUid;
@@ -41,26 +38,34 @@ namespace TestApp.Views
             this.details = details;
             this.exercisePlan = exercisePlan;
         }
+        /// <summary>
+        /// As the screen loads a list of patient names assigned to the physio are added to the picker
+        /// </summary>
         protected async override void OnAppearing()
         {   
             base.OnAppearing();
             List<string> names = new List<string>();
-            foreach (PatientDetails detail in details)
+            foreach (PatientList detail in details)
             {
-                names.Add(detail.Name);
+                names.Add(detail.PatientName);
             }
             namesPicker.ItemsSource = names;
         }
+        /// <summary>
+        /// This button uses the security view model to decrypt the patient data before passing it to the next screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void sendExercisePlan(object sender, EventArgs e)
         {
             if (namesPicker.SelectedIndex != -1)
             {
                 patientName = namesPicker.SelectedItem.ToString();
-                foreach (PatientDetails detail in details)
+                foreach (PatientList detail in details)
                 {
-                    if (patientName == detail.Name)
+                    if (patientName == detail.PatientName)
                     {
-                        patientUid = detail.Uid;
+                        patientUid = detail.PatientUid;
                     }
                 }
                 Patient patient = await patientVm.getpatientDetails(patientUid, false);

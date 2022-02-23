@@ -10,12 +10,12 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPatientToView : ContentPage
     {
-        List<PatientDetails> details;
+        List<PatientList> details;
         Dictionary<string, bool> progressPlan;
         PlanProgressViewModel plan = new PlanProgressViewModel();
         string patientUid = "";
         string patientName = "";
-        public SelectPatientToView(List<PatientDetails> details)
+        public SelectPatientToView(List<PatientList> details)
         {
             InitializeComponent();
             this.details = details;
@@ -24,9 +24,9 @@ namespace TestApp.Views
         {
             base.OnAppearing();
             List<string> names = new List<string>();
-            foreach(PatientDetails detail in details)
+            foreach(PatientList detail in details)
             {
-                names.Add(detail.Name);
+                names.Add(detail.PatientName);
             }
             namesPicker.ItemsSource = names;
         }
@@ -35,15 +35,15 @@ namespace TestApp.Views
             if(namesPicker.SelectedIndex != -1)
             {
                 patientName = namesPicker.SelectedItem.ToString();
-                foreach (PatientDetails detail in details)
+                foreach (PatientList detail in details)
                 {
-                    if(patientName == detail.Name)
+                    if(patientName == detail.PatientName)
                     {
-                        patientUid = detail.Uid;
+                        patientUid = detail.PatientUid;
                     }
                 }
                 progressPlan = await plan.getPatientProgress(patientUid);
-                await Navigation.PushModalAsync(new DisplayProgress(patientUid, progressPlan,2));
+                await Navigation.PushModalAsync(new DisplayProgress(patientUid, progressPlan));
             }
             else
             {

@@ -272,10 +272,11 @@ namespace TestApp.services
         /// This function adds the patient unique identifier and name to the physios patient list
         /// </summary>
         /// <param name="PhysioUid"></param>
-        /// <param name="PatientUid"></param>
-        /// /// <param name="isMocked"></param>
+        /// <param name="PatientUID"></param>
+        /// <param name="patientName"></param>
+        /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid, string PatientUID,string patientName, bool isMocked)
+        public async Task<bool> AddPatientUIDToPatientList(string PhysioUid, string PatientUID, string patientName, bool isMocked)
         {
             if (isMocked == true)
             {
@@ -284,9 +285,9 @@ namespace TestApp.services
             try
             {
                 await firebase
-                .Child("physio").Child(PhysioUid).Child("patients").Child(PatientUID)
-                .PutAsync(new Physiotherapist()
-                { PatientUid = PatientUID,PatientName = patientName });
+                .Child("patientList").Child(PhysioUid).Child(PatientUID)
+                .PutAsync(new PatientList()
+                { PatientUid = PatientUID, PatientName = patientName });
                 return true;
             }
             catch (Exception e)
@@ -301,7 +302,7 @@ namespace TestApp.services
         /// <param name="PhysioUid"></param>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<List<PatientDetails>> GetNamesAndPatientUids(string PhysioUid, bool isMocked)
+        public async Task<List<PatientList>> GetNamesAndPatientUids(string PhysioUid, bool isMocked)
         {
             try
             {
@@ -311,13 +312,12 @@ namespace TestApp.services
                 }
                 else
                 {
-                    List<PatientDetails> value = (await firebase
-                   .Child("physio").Child(PhysioUid).Child("patients")
-                   .OnceAsync<PatientDetails>()).Select(item => new PatientDetails
+                    List<PatientList> value = (await firebase
+                   .Child("patientList").Child(PhysioUid)
+                   .OnceAsync<PatientList>()).Select(item => new PatientList
                    {
-                       Name = item.Object.Name,
-                       Uid = item.Object.Uid
-
+                       PatientName = item.Object.PatientName,
+                       PatientUid = item.Object.PatientUid
                    }).ToList();
 
                     return value;
@@ -628,6 +628,55 @@ namespace TestApp.services
             {
                 Console.WriteLine(e.StackTrace);
                 return null;
+            }
+        }
+        /// <summary>
+        /// This method returns the current membership date tied to the physio 
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="physioUid"></param>
+        /// <returns></returns>
+        public async Task<Membership> checkPhysioMembership(bool isMocked,string physioUid)
+        {
+
+            if (isMocked == true)
+            {
+                return null;
+            }
+            try
+            {
+                return await firebase.Child("physio").Child(physioUid).OnceSingleAsync<Membership>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+        }
+        public async Task<bool> renewMembership(bool isMocked, string physioUid,string newMembershipDate)
+        {
+            if (isMocked == true)
+            {
+
+            }
+            try
+            {
+                Physiotherapist physio = await firebase.Child("physio").Child(physioUid).OnceSingleAsync<Physiotherapist>();
+                physio.Membership = newMembershipDate;
+                await firebase
+                .Child("physio").Child(physioUid)
+                .PutAsync(new Physiotherapist()
+                {
+                  PhysioName = physio.PhysioName,
+                  Email = physio.Email,
+                  IdNumber = physio.IdNumber,
+                  Membership = physio.Membership});
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
             }
         }
     }

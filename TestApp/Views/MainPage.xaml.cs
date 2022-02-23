@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using TestApp.ViewModels;
 using TestApp.views;
 using TestApp.Views;
@@ -14,6 +15,9 @@ namespace TestApp
         IFirebaseAuthenticator auth;
         SecurityViewModel secuirty;
         bool emailCorrect = true;
+        CultureInfo objcul = new CultureInfo("en-GB");
+        DateTime currentMembership;
+        DateTime currentDate = DateTime.Today.Date;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
@@ -25,7 +29,7 @@ namespace TestApp
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
-            Navigation.PushModalAsync(new PhysioMenuScreen("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
+            //Navigation.PushModalAsync(new PhysioMenuScreen("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new PatientMenuScreen("nPEw8Jw99FapliqI6Qn7t0GXERq2"));
             /////////////////////////////////////////////////////////////////////
         }
@@ -62,15 +66,27 @@ namespace TestApp
                 }
                 if (userId != "")
                 {
-                    await DisplayAlert("Login Successful", "", "OK");
                     string userType = await secuirty.checkUserType(userId);
                     if (userType == "patient")
                     {
+                        await DisplayAlert("Login Successful", "", "OK");
                         await Navigation.PushAsync(new PatientMenuScreen(userId));
                     }
                     else if(userType == "physio")
                     {
-                        await Navigation.PushAsync(new PhysioMenuScreen(userId));
+                        currentMembership = await secuirty.getPhysioMembership(false, userId);
+                        int result = DateTime.Compare(currentDate, currentMembership);
+                        if (result <= 0)
+                        {
+                            await DisplayAlert("Login Successful", "", "OK");
+                            await Navigation.PushAsync(new PhysioMenuScreen(userId));
+                        }
+                        else
+                        {
+                            PaymentViewModel pay = new PaymentViewModel();
+                            await DisplayAlert("error","Your membership has expired please renew your membership", "OK");
+                            await Navigation.PushAsync(new Payment(pay,true, userId));
+                        }
                     }
                     else
                     {

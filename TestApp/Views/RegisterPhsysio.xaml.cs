@@ -76,7 +76,7 @@ namespace TestApp.Views
         /// <param name="e"></param>
         async void payment(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Payment(pay));
+            await Navigation.PushModalAsync(new Payment(pay,false,""));
         }
         async void login(object sender, EventArgs e)
         {

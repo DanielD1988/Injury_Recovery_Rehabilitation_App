@@ -69,6 +69,9 @@ namespace TestApp.Views
             model = new RegisterPatientViewModel(auth);
             encryptKey = encryptionKey;
         }
+        /// <summary>
+        /// As the screen is loading some variables are set into the patient form  
+        /// </summary>
         protected async override void OnAppearing()
         {
             base.OnAppearing();
@@ -84,6 +87,11 @@ namespace TestApp.Views
                 genderPicker.SelectedIndex = 1;
             }
         }
+        /// <summary>
+        /// This picker method is used to hide and unhide a entry field depending on the form choice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void InjuryPicked(object sender, EventArgs e)
         {
             injuryType = Injurypicker.SelectedItem.ToString();

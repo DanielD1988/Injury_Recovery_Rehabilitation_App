@@ -15,8 +15,7 @@ namespace TestApp.Views
     public partial class ExerciseDetail : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
-        List<PatientDetails> details = new List<PatientDetails>();
-        PlanProgressViewModel model = new PlanProgressViewModel();
+        List<PatientList> details = new List<PatientList>();
         String exerciseKey;
         string physioUid = "";
         int minimum1 = 0;
@@ -37,7 +36,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="key"></param>
         /// <param name="physioUid"></param>
-        public ExerciseDetail(String key, string physioUid, List<PatientDetails> details)
+        public ExerciseDetail(String key, string physioUid, List<PatientList> details)
         {
             exerciseKey = key;
             viewModel = new DisplayExercisePlansViewModel();
@@ -56,7 +55,7 @@ namespace TestApp.Views
             BindingContext = currentExercise;
         }
         /// <summary>
-        /// This AddToPatient button passes the exerciseKey and opens a new page called sendEmailToPatient
+        /// This createPatient button passes exercise details new screen called register patient
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
@@ -79,6 +78,11 @@ namespace TestApp.Views
                 await DisplayAlert("Error", "Please fill in all min max values for each exercise\n", "OK");
             }
         }
+        /// <summary>
+        /// This button is used to pass exercise details to new screen called add to existing patient 
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="args"></param>
         public async void selectPatient(Object Sender, EventArgs args)
         {
 
