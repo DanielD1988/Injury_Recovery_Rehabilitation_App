@@ -29,16 +29,10 @@ namespace TestApp.ViewModels
             fireBase = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
-        /// <summary>
-        /// This method removes the time from the data time object
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public string removeTimeFromDate(string dateTime)
+        public RegisterPatientViewModel()
         {
-            int spaceFound = dateTime.IndexOf(" ");
-            string date = dateTime.Substring(0, spaceFound);
-            return date;
+            fireBase = FirebaseMethods.GetInstance();
+            patientEmailList = new List<string>();
         }
         /// <summary>
         /// This method takes data from Register patient view and
@@ -58,7 +52,7 @@ namespace TestApp.ViewModels
         /// <param name="end"></param>
         /// <param name="exerPlan"></param> 
         /// <param name="physioUid"></param>
-        public async Task<bool> setUpPatientAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred,int min1,int min2,int min3,int max1,int max2,int max3)
+        public async Task<bool> setUpPatientAccount(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity, Dictionary<string, bool> planDates, ExercisePlan exerPlan, string physioUid, string newInjuryType, string newinjuryOccurred,int min1,int min2,int min3,int max1,int max2,int max3,bool isMocked)
         {
             try
             {
@@ -70,28 +64,35 @@ namespace TestApp.ViewModels
                 {
                     injuryOccurred = newinjuryOccurred;
                 }
+                
                 patientEmailList.Add(email);
                 password = security.generateSaltOrPasswordOrUid(15);
-                patientUid = await auth.SignupWithEmailPassword(email, password);
-
+                if (isMocked)
+                {
+                    patientUid = "";
+                }
+                else
+                {
+                    patientUid = await auth.SignupWithEmailPassword(email, password);
+                }
                 if(patientUid == "true")//this checks if the iOS SignupWithEmailPassword method is called
                 {
                     password = password.Remove(password.Length - 1, 1);
                     salt = security.generateSaltOrPasswordOrUid(32);
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
                     patientUid = security.generateSaltOrPasswordOrUid(10);
-                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid,false);
+                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid, isMocked);
                 }
 
                 encryptionKey = security.generateSaltOrPasswordOrUid(32);
                 string hashedName = security.encryptData(name, encryptionKey);
                 string hashedEmail = security.encryptData(email, encryptionKey);
-                await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1,min2,min3,max1,max2,max3, false);
-                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, hashedName, false);
-                await fireBase.recordPatientProgress(patientUid, planDates, false);
-                await fireBase.addUserType(patientUid,"patient",false);
+                await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1,min2,min3,max1,max2,max3, isMocked);
+                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, hashedName, isMocked);
+                await fireBase.recordPatientProgress(patientUid, planDates, isMocked);
+                await fireBase.addUserType(patientUid,"patient", isMocked);
 
-                await fireBase.addEncryptionKeyToUserId(patientUid,encryptionKey,false);
+                await fireBase.addEncryptionKeyToUserId(patientUid,encryptionKey, isMocked);
 
                 string body = "Please find attached login details,\n Use this email and here is the password " + password;
                 string subject = "Injury Recovery Login Details";
@@ -151,7 +152,7 @@ namespace TestApp.ViewModels
             string body = "Your exercise plan has been updated please login with your old email and password";
             string subject = "Injury Recovery App";
             await SendPatientEmail(patientEmailList, password, body, subject);
-            return false;
+            return true;
         }
         /// <summary>
         /// This method uses xamarin essentials to open an email application on the users phone and populates the body

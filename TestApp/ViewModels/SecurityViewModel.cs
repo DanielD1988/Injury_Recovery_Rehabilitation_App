@@ -56,9 +56,9 @@ namespace TestApp.ViewModels
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<string> checkIfLoginIsVerified(string email,string password)
+        public async Task<string> checkIfLoginIsVerified(string email,string password,bool isMocked)
         {
-            IosCredentials securityDetails = await fire.getIosPatientPasswordDetails(false,email);
+            IosCredentials securityDetails = await fire.getIosPatientPasswordDetails(isMocked, email);
             string hashedAndSaltedPassword = md5HashAndSaltThePassword(securityDetails.salt, password);
            
             if (hashedAndSaltedPassword.Equals(securityDetails.saltHashed))
@@ -75,9 +75,9 @@ namespace TestApp.ViewModels
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<string> checkUserType(string userId)
+        public async Task<string> checkUserType(string userId,bool isMocked)
         {
-            CheckUser userType = await fire.getTypeOfUser(userId, false);
+            CheckUser userType = await fire.getTypeOfUser(userId, isMocked);
             if(userType == null)
             {
                 return "";
@@ -192,13 +192,13 @@ namespace TestApp.ViewModels
         public async Task<List<PatientList>> decyptPatientNames(List<PatientList> details,List<Encryption> keys)
         {
             string encryptionKey = "";
-            var keysDict = keys.ToDictionary(x => x.PatientUid, x => x.EncryptionKey);
+            var keysDict = keys.ToDictionary(x => x.PatientUid, x => x.EncryptionKey);//make dictionary out of object list
             foreach (PatientList detail in details)
             {
-                if (keysDict.TryGetValue(detail.PatientUid,out encryptionKey))
+                if (keysDict.TryGetValue(detail.PatientUid,out encryptionKey))//get value from dictionary if patient user ids match
                 {
-                    string plainText = decryptData(detail.PatientName,encryptionKey);
-                    detail.PatientName = plainText;
+                    string plainText = decryptData(detail.PatientName,encryptionKey);//decrypt the cipher text
+                    detail.PatientName = plainText;//set the decoded text back into object list
                 }
             }
             return details;

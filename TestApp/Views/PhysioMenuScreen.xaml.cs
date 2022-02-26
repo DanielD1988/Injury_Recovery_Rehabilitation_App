@@ -29,7 +29,7 @@ namespace TestApp.Views
         {
             if(details.Count == 0)
             {
-                var namedetails = await model.getPatientNameAndPatientUserId(physioId);
+                var namedetails = await model.getPatientNameAndPatientUserId(physioId,false);
                 if(namedetails.Count != 0)
                 {
                     var encyptKeys = await security.getPatientEncryptionKeys(false);

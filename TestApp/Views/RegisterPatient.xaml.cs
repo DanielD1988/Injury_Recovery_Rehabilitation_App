@@ -144,7 +144,7 @@ namespace TestApp.Views
                     date = date.Replace("/", "-");
                     planDates.Add(date, false);
                 }
-                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3);
+                await patientVm.setUpPatientAccount(patientName, gender, patientEmail, injuryType, injuryOccurred, patientAge, severityNumber, planDates, exerPlan, physioUid, newInjuryType, newinjuryOccurred,min1,min2,min3,max1,max2,max3,false);
                 await Navigation.PushModalAsync(new PhysioMenuScreen(physioUid));
             }
         }

@@ -161,7 +161,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                
+                return db.AddMockPhysio(physioUid, name, physioIdNumber, physioEmail, membership);
             }
             try
             {
@@ -193,7 +193,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-
+                return db.addMockEncryptionKeyToUserId(patientUid, encryptionKey);
             }
             try
             {
@@ -220,10 +220,9 @@ namespace TestApp.services
         /// <returns></returns>
         public async Task<List<Encryption>> getPatientEncryptionKeys(bool isMocked)
         {
-
             if (isMocked == true)
             {
-                return null;
+                return db.getMockPatientEncryptionKeys();
             }
             try
             {
@@ -255,7 +254,7 @@ namespace TestApp.services
 
             if (isMocked == true)
             {
-                return null;
+                return db.getMockKeyToData();
             }
             try
             {
@@ -308,7 +307,7 @@ namespace TestApp.services
             {
                 if (isMocked == true)
                 {
-                    return null;
+                    return db.GetMockNamesAndPatientUids();
                 }
                 else
                 {
@@ -340,7 +339,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                
+                return db.addMockUserType(userType);
             }
             try
             {
@@ -367,7 +366,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return false;
+                return db.recordMockPatientProgress(dates);
             }
             try
             {
@@ -395,7 +394,7 @@ namespace TestApp.services
 
             if (isMocked == true)
             {
-                return null;
+                return db.getMockPatientProgress();
             }
             try
             {
@@ -420,7 +419,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return null;
+                return db.getMockpatientDetails();
             }
             try
             {
@@ -443,7 +442,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return null;
+                return db.getMockTypeOfUser(userId);
             }
             try
             {
@@ -469,7 +468,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return null;
+                return db.GetMockPatientExercises();
             }
             try
             {
@@ -506,7 +505,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return null;
+                return db.GetMockVideosFromStorage(videoName);
             }
             try
             {
@@ -584,7 +583,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return true;
+                return db.iOSMockSignupWithEmailPassword(email,salted,saltedAndHashed);
             }
             try
             {
@@ -618,7 +617,7 @@ namespace TestApp.services
             email = email.Replace(".", "");
             if (isMocked == true)
             {
-                return null;
+                return db.getMockIosPatientPasswordDetails();
             }
             try
             {
@@ -641,7 +640,7 @@ namespace TestApp.services
 
             if (isMocked == true)
             {
-                return null;
+                return db.checkMockPhysioMembership();
             }
             try
             {
@@ -653,11 +652,18 @@ namespace TestApp.services
                 return null;
             }
         }
+        /// <summary>
+        /// This method adds a new membership to physio membership field
+        /// </summary>
+        /// <param name="isMocked"></param>
+        /// <param name="physioUid"></param>
+        /// <param name="newMembershipDate"></param>
+        /// <returns></returns>
         public async Task<bool> renewMembership(bool isMocked, string physioUid,string newMembershipDate)
         {
             if (isMocked == true)
             {
-
+                return db.renewMockMembership(newMembershipDate);
             }
             try
             {

@@ -62,11 +62,11 @@ namespace TestApp
 
                 if (userId == "true")//used if using an ios phone
                 {
-                    userId = await secuirty.checkIfLoginIsVerified(Email, Pass);
+                    userId = await secuirty.checkIfLoginIsVerified(Email, Pass,false);
                 }
                 if (userId != "")
                 {
-                    string userType = await secuirty.checkUserType(userId);
+                    string userType = await secuirty.checkUserType(userId,false);
                     if (userType == "patient")
                     {
                         await DisplayAlert("Login Successful", "", "OK");

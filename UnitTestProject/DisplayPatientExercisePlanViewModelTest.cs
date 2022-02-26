@@ -15,7 +15,6 @@ namespace UnitTestProject
         public void getPatientExercisesTest()
         {
             List<Exercise> result = display.getPatientExercises("squat", "hamstring stretch", "heel and calf stretch", true).Result;
-
         }
         /// <summary>
         /// This test checks to see if the time is removed from the date

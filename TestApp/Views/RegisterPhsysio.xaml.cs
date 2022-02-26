@@ -108,7 +108,7 @@ namespace TestApp.Views
                 {
                      membershipDate = date.AddMonths(12);
                 }
-                await vm.setUpPhysioAccount(email.Text, name.Text, pNumber.Text, membershipDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"), conPass.Text);
+                await vm.setUpPhysioAccount(email.Text, name.Text, pNumber.Text, membershipDate.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"), conPass.Text,false);
                 await DisplayAlert("Successs", "Sign up successful ", "Ok");
                 await Navigation.PopAsync();
             }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestApp.Models;
 using TestApp.services;
@@ -14,13 +12,23 @@ namespace TestApp.ViewModels
         {
             fire = FirebaseMethods.GetInstance();
         }
+        /// <summary>
+        /// This method returns a patients progress plan
+        /// </summary>
+        /// <param name="patientUid"></param>
+        /// <returns></returns>
         public async Task<Dictionary<string, bool>> getPatientProgress(string patientUid)
         {
             return await fire.getPatientProgress(patientUid, false);
         }
-        public async Task <List<PatientList>> getPatientNameAndPatientUserId(string physioId)
+        /// <summary>
+        /// This meyhod returns a list of patient user ids and encrypted patient names
+        /// </summary>
+        /// <param name="physioId"></param>
+        /// <returns></returns>
+        public async Task <List<PatientList>> getPatientNameAndPatientUserId(string physioId,bool isMocked)
         {
-            return await fire.GetNamesAndPatientUids(physioId, false); 
+            return await fire.GetNamesAndPatientUids(physioId, isMocked); 
         }
     }
 }
