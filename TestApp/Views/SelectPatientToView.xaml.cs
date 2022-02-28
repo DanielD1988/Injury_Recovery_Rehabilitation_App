@@ -10,11 +10,11 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPatientToView : ContentPage
     {
-        List<PatientList> details;
-        Dictionary<string, bool> progressPlan;
-        PlanProgressViewModel plan = new PlanProgressViewModel();
-        string patientUid = "";
-        string patientName = "";
+        private List<PatientList> details;
+        private Dictionary<string, bool> progressPlan;
+        private PlanProgressViewModel plan = new PlanProgressViewModel();
+        private string patientUid = "";
+        private string patientName = "";
         public SelectPatientToView(List<PatientList> details)
         {
             InitializeComponent();
@@ -30,7 +30,12 @@ namespace TestApp.Views
             }
             namesPicker.ItemsSource = names;
         }
-        async void viewProgress(object sender, EventArgs e)
+        /// <summary>
+        /// Allows the patient id associated with the name to be sent to the next screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void viewProgress(object sender, EventArgs e)
         {
             if(namesPicker.SelectedIndex != -1)
             {

@@ -14,36 +14,36 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPatient : ContentPage
     {
-        ExercisePlan exerPlan = null;
-        string gender = "";
-        string startDate = "";
-        string patientName = "";
-        int patientAge = 0;
-        string patientEmail = "";
-        int severityNumber = 0;
-        string injuryType = "";
-        string newInjuryType = " ";
-        string injuryOccurred = "";
-        string newinjuryOccurred = null;
-        string endDate = "";
-        bool infoCorrect = true;
-        string errorMessage = "";
-        string physioUid = "";
-        DateTime today;
-        DateTime sDate;
-        DateTime nDate;
-        int result1;
-        int result2;
-        RadioButton button;
-        RegisterPatientViewModel patientVm;
-        IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
-        DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
-        int min1 = 0;
-        int min2 = 0;
-        int min3 = 0;
-        int max1 = 0;
-        int max2 = 0;
-        int max3 = 0;
+        private ExercisePlan exerPlan = null;
+        private string gender = "";
+        private string startDate = "";
+        private string patientName = "";
+        private int patientAge = 0;
+        private string patientEmail = "";
+        private int severityNumber = 0;
+        private string injuryType = "";
+        private string newInjuryType = " ";
+        private string injuryOccurred = "";
+        private string newinjuryOccurred = null;
+        private string endDate = "";
+        private bool infoCorrect = true;
+        private string errorMessage = "";
+        private string physioUid = "";
+        private DateTime today;
+        private DateTime sDate;
+        private DateTime nDate;
+        private int result1;
+        private int result2;
+        private RadioButton button;
+        private RegisterPatientViewModel patientVm;
+        private IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
+        private DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
+        private int min1 = 0;
+        private int min2 = 0;
+        private int min3 = 0;
+        private int max1 = 0;
+        private int max2 = 0;
+        private int max3 = 0;
         /// <summary>
         /// This constructor takes in the selected exercise plan and physiotherapist Id 
         /// </summary>
@@ -73,7 +73,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void getGender(object sender, CheckedChangedEventArgs e)
+        private void getGender(object sender, CheckedChangedEventArgs e)
         {
             button = sender as RadioButton;
             gender = button.Content.ToString();
@@ -83,7 +83,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void InjuryPicked(object sender, EventArgs e)
+        private void InjuryPicked(object sender, EventArgs e)
         {
             injuryType = Injurypicker.SelectedItem.ToString();
             if (injuryType == "Enter Your Own")
@@ -105,7 +105,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void InjuryOccurred(object sender, EventArgs e)
+        private void InjuryOccurred(object sender, EventArgs e)
         {
             injuryOccurred = Occurredpicker.SelectedItem.ToString();
             if (injuryOccurred == "Enter Your Own")
@@ -127,7 +127,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void PatientRegister(object sender, EventArgs e)
+        private async void PatientRegister(object sender, EventArgs e)
         {
             checkFormvalidation();
             if (infoCorrect == false)

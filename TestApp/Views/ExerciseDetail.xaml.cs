@@ -15,21 +15,21 @@ namespace TestApp.Views
     public partial class ExerciseDetail : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
-        List<PatientList> details = new List<PatientList>();
-        String exerciseKey;
-        string physioUid = "";
-        int minimum1 = 0;
-        int maximum1 = 0;
-        int minimum2 = 0;
-        int maximum2 = 0;
-        int minimum3 = 0;
-        int maximum3 = 0;
-        ExercisePlan currentExercise = null;
-        string errorMessage = "The min value cannot be larger than the max value";
-        bool isCorrect = true;
-        bool isExer1Correct = false;
-        bool isExer2Correct = false;
-        bool isExer3Correct = false;
+        private List<PatientList> details = new List<PatientList>();
+        private String exerciseKey;
+        private string physioUid = "";
+        private int minimum1 = 0;
+        private int maximum1 = 0;
+        private int minimum2 = 0;
+        private int maximum2 = 0;
+        private int minimum3 = 0;
+        private int maximum3 = 0;
+        private ExercisePlan currentExercise = null;
+        private string errorMessage = "The min value cannot be larger than the max value";
+        private bool isCorrect = true;
+        private bool isExer1Correct = false;
+        private bool isExer2Correct = false;
+        private bool isExer3Correct = false;
         /// <summary>
         ///  This constructor takes the exercise key from DisplayExercises Detail button press
         ///  and creates an instance of DisplayExercisesViewModel to access the FirebaseMethods class methods
@@ -59,7 +59,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
-        public async void createPatient(Object Sender, EventArgs args)
+        private async void createPatient(Object Sender, EventArgs args)
         {
             if (allMinMaxValuesFilledIn())
             {
@@ -83,7 +83,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
-        public async void selectPatient(Object Sender, EventArgs args)
+        private async void selectPatient(Object Sender, EventArgs args)
         {
 
             if (allMinMaxValuesFilledIn())
@@ -113,7 +113,7 @@ namespace TestApp.Views
         /// <summary>
         /// This function calls the checkIfMinLessThanMax method with the three differnt exercises
         /// </summary>
-        public void checkMinMaxValuesAreCorrect()
+        private void checkMinMaxValuesAreCorrect()
         {
             isExer1Correct = checkIfMinLessThanMax(minimum1, maximum1, exercise1.Text);
             isExer2Correct = checkIfMinLessThanMax(minimum2, maximum2, exercise2.Text);
@@ -123,7 +123,7 @@ namespace TestApp.Views
         /// This method checks to see if all min max values are assigned to all exercises in the plan
         /// </summary>
         /// <returns></returns>
-        public bool allMinMaxValuesFilledIn()
+        private bool allMinMaxValuesFilledIn()
         {
             bool allNumbersAdded = true;
             allNumbersAdded = int.TryParse(min1.Text, out minimum1);

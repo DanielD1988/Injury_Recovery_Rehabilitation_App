@@ -13,22 +13,21 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ShowPatientExercisePlan : ContentPage
     {
-        static DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
-        string downLoadLink1 = "";
-        string downLoadLink2 = "";
-        string downLoadLink3 = "";
-        bool exercise1Complete = false;
-        bool exercise2Complete = false;
-        bool exercise3Complete = false;
-        string videoFile = "";
-        string patientUid = "";
-        string exerciseName = "";
-        string videoCopyRight = "";
-        Patient details = null;
-        DateTime dateTime = DateTime.Today;
-        string date = "";
-
-        List<Exercise> patientExerciselist = new List<Exercise>();
+        private static DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
+        private string downLoadLink1 = "";
+        private string downLoadLink2 = "";
+        private string downLoadLink3 = "";
+        private bool exercise1Complete = false;
+        private bool exercise2Complete = false;
+        private bool exercise3Complete = false;
+        private string videoFile = "";
+        private string patientUid = "";
+        private string exerciseName = "";
+        private string videoCopyRight = "";
+        private Patient details = null;
+        private DateTime dateTime = DateTime.Today;
+        private string date = "";
+        private List<Exercise> patientExerciselist = new List<Exercise>();
         
         public ShowPatientExercisePlan(string uid)
         {
@@ -79,7 +78,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void exercise1(object sender, EventArgs e)
+        private async void exercise1(object sender, EventArgs e)
         {
             videoFile = "";
             videoFile = patientExerciselist[0].VideoLink;
@@ -93,7 +92,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void exercise2(object sender, EventArgs e)
+        private async void exercise2(object sender, EventArgs e)
         {
             videoFile = "";
             videoFile = patientExerciselist[1].VideoLink;
@@ -107,7 +106,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void exercise3(object sender, EventArgs e)
+        private async void exercise3(object sender, EventArgs e)
         {
             videoFile = "";
             videoFile = patientExerciselist[2].VideoLink;

@@ -14,22 +14,22 @@ namespace TestApp.ViewModels
     /// </summary>
     class RegisterPatientViewModel
     {
-        string password = "";
-        IFirebaseAuthenticator auth;
-        FirebaseMethods fireBase;
-        List<string> patientEmailList;
-        SecurityViewModel security = new SecurityViewModel();
-        string salt = "";
-        string saltedPassword = "";
-        string patientUid = "";
-        string encryptionKey = "";
+        private string password = "";
+        private IFirebaseAuthenticator auth;
+        private FirebaseMethods fireBase;
+        private List<string> patientEmailList;
+        private SecurityViewModel security = new SecurityViewModel();
+        private string salt = "";
+        private string saltedPassword = "";
+        private string patientUid = "";
+        private string encryptionKey = "";
         public RegisterPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
             fireBase = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
-        public RegisterPatientViewModel()
+        public RegisterPatientViewModel()//used for testing IFirebaseAuthenticator can not be run in unit test
         {
             fireBase = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
@@ -92,7 +92,7 @@ namespace TestApp.ViewModels
                 await fireBase.recordPatientProgress(patientUid, planDates, isMocked);
                 await fireBase.addUserType(patientUid,"patient", isMocked);
 
-                await fireBase.addEncryptionKeyToUserId(patientUid,encryptionKey, isMocked);
+                await fireBase.AddEncryptionKeyToUserId(patientUid,encryptionKey, isMocked);
 
                 string body = "Please find attached login details,\n Use this email and here is the password " + password;
                 string subject = "Injury Recovery Login Details";
@@ -147,7 +147,7 @@ namespace TestApp.ViewModels
             await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1, min2, min3, max1, max2, max3, false);
             await fireBase.recordPatientProgress(patientUid, planDates, false);
 
-            await fireBase.addEncryptionKeyToUserId(patientUid, encryptKey, false);
+            await fireBase.AddEncryptionKeyToUserId(patientUid, encryptKey, false);
 
             string body = "Your exercise plan has been updated please login with your old email and password";
             string subject = "Injury Recovery App";

@@ -12,15 +12,15 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ShowExerciseContent : ContentPage
     {
-        string downloadLink = "";
-        string name = "";
-        string copyright = "";
-        string uid = "";
-        int whichExercise = 0;
-        int min = 0;
-        int max = 0;
-        bool exerciseComplete = false;
-        DisplayPatientExercisePlanViewModel model;
+        private string downloadLink = "";
+        private string name = "";
+        private string copyright = "";
+        private string uid = "";
+        private int whichExercise = 0;
+        private int min = 0;
+        private int max = 0;
+        private bool exerciseComplete = false;
+        private DisplayPatientExercisePlanViewModel model;
         /// <summary>
         /// This constructor takes a downloadlink to an exercise video the copyright to the owner of the video 
         /// the currently logged in patient user id and the shared view model instance
@@ -84,12 +84,12 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void exercise(object sender, EventArgs e)
+        private void exercise(object sender, EventArgs e)
         {
             exerciseComplete = true;
             exer.IsEnabled = false;
         }
-        void exerciseValue(object sender, TextChangedEventArgs e)
+        private void exerciseValue(object sender, TextChangedEventArgs e)
         {
             int num = 0;
             int.TryParse(e.NewTextValue, out num);

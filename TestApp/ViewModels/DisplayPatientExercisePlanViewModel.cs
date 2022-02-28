@@ -116,7 +116,7 @@ namespace TestApp.ViewModels
         /// <param name="date"></param>
         /// <param name="patientUid"></param>
         /// <returns></returns>
-        public async Task<bool> checkIfExercisePlanCompleteForToday(string date,string patientUid,bool isMocked)
+        public async Task<bool> CheckIfExercisePlanCompleteForToday(string date,string patientUid,bool isMocked)
         {
             Dictionary<string, bool> patientState = await fire.getPatientProgress(patientUid, isMocked);
             if(patientState[date] == true)

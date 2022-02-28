@@ -12,8 +12,8 @@
                     Margin="0, 5"
                 />
             <Entry Keyboard="Text" x:Name="name" Placeholder="Card Name"></Entry>
-            <Entry Keyboard="Numeric" x:Name="cardNumber" Placeholder="Card number" TextChanged ="checkCardNumber"></Entry>
-            <Entry Keyboard="Numeric" x:Name="cvvNumber" Placeholder="CVV Number" TextChanged ="checkCvvNumber"></Entry>
+            <Entry Keyboard="Numeric" x:Name="cardNumber" Placeholder="Card number" TextChanged ="CheckCardNumber"></Entry>
+            <Entry Keyboard="Numeric" x:Name="cvvNumber" Placeholder="CVV Number" TextChanged ="CheckCvvNumber"></Entry>
             <Grid Margin="5,0,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.50*" />

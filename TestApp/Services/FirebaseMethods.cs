@@ -189,11 +189,11 @@ namespace TestApp.services
         /// <param name="encryptionKey"></param>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        public async Task<bool> addEncryptionKeyToUserId(string patientUid,string encryptionKey, bool isMocked)
+        public async Task<bool> AddEncryptionKeyToUserId(string patientUid,string encryptionKey, bool isMocked)
         {
             if (isMocked == true)
             {
-                return db.addMockEncryptionKeyToUserId(patientUid, encryptionKey);
+                return db.AddMockEncryptionKeyToUserId(patientUid, encryptionKey);
             }
             try
             {
@@ -339,7 +339,7 @@ namespace TestApp.services
         {
             if (isMocked == true)
             {
-                return db.addMockUserType(userType);
+                return db.AddMockUserType(userType);
             }
             try
             {

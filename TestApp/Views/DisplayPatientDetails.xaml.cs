@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.models;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -15,26 +12,26 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayPatientDetails : ContentPage
     {
-        IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
-        RegisterPatientViewModel model;
-        Patient patient;
-        ExercisePlan exercisePlan;
-        int min1 = 0;
-        int min2 = 0;
-        int min3 = 0;
-        int max1 = 0;
-        int max2 = 0;
-        int max3 = 0;
-        string patientUid = "";
-        string injuryType = "";
-        string injuryOccurred = "";
-        bool infoCorrect = true;
-        string errorMessage = "";
-        DateTime today;
+        private IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
+        private RegisterPatientViewModel model;
+        private Patient patient;
+        private ExercisePlan exercisePlan;
+        private int min1 = 0;
+        private int min2 = 0;
+        private int min3 = 0;
+        private int max1 = 0;
+        private int max2 = 0;
+        private int max3 = 0;
+        private string patientUid = "";
+        private string injuryType = "";
+        private string injuryOccurred = "";
+        private bool infoCorrect = true;
+        private string errorMessage = "";
+        private DateTime today;
         private string startDate;
         private string endDate;
-        DateTime sDate;
-        DateTime nDate;
+        private DateTime sDate;
+        private DateTime nDate;
         private int result1;
         private int result2;
         string physioUid = "";
@@ -92,7 +89,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void InjuryPicked(object sender, EventArgs e)
+        private void InjuryPicked(object sender, EventArgs e)
         {
             injuryType = Injurypicker.SelectedItem.ToString();
             if (injuryType == "Enter Your Own")
@@ -114,7 +111,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void InjuryOccurred(object sender, EventArgs e)
+        private void InjuryOccurred(object sender, EventArgs e)
         {
             injuryOccurred = Occurredpicker.SelectedItem.ToString();
             if (injuryOccurred == "Enter Your Own")
@@ -136,7 +133,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void startNewPlan(object sender, EventArgs e)
+        private async void startNewPlan(object sender, EventArgs e)
         {
             checkFormvalidation();
             if (infoCorrect == false)

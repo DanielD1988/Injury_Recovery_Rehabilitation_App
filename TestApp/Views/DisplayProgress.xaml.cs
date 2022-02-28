@@ -10,9 +10,8 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayProgress : ContentPage
     {
-        Dictionary<string, bool> progressPlan;
-        int pages = 0;
-        string stringDate = "";
+        private Dictionary<string, bool> progressPlan;
+        private string stringDate = "";
         public DisplayProgress(string uid, Dictionary<string, bool> progressPlan)
         {
             InitializeComponent();
@@ -30,7 +29,7 @@ namespace TestApp.Views
         /// This method populates a calander with a dictionary of dates
         /// </summary>
         /// <param name="progressPlan"></param>
-        public void populateCalendar(Dictionary<string, bool> progressPlan)
+        private void populateCalendar(Dictionary<string, bool> progressPlan)
         {
             CultureInfo objcul = new CultureInfo("en-GB");
             calendar.SpecialDates = new List<XamForms.Controls.SpecialDate>();
@@ -66,7 +65,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void menu(object sender, EventArgs e)
+        private async void menu(object sender, EventArgs e)
         {
              await Navigation.PopModalAsync();
         }

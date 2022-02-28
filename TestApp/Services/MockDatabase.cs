@@ -108,7 +108,7 @@ namespace TestApp.Services
         /// <param name="patientUid"></param>
         /// <param name="encryptionKey"></param>
         /// <returns></returns>
-        public bool addMockEncryptionKeyToUserId(string patientUid, string encryptionKey)
+        public bool AddMockEncryptionKeyToUserId(string patientUid, string encryptionKey)
         {
             List<Encryption> physio = new List<Encryption>()
             {
@@ -202,7 +202,7 @@ namespace TestApp.Services
         /// <param name="userUid"></param>
         /// <param name="userType"></param>
         /// <returns></returns>
-        public bool addMockUserType(string userType)
+        public bool AddMockUserType(string userType)
         {
             CheckUser user = new CheckUser()
             {

@@ -17,7 +17,7 @@ namespace TestApp.views
     public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
-        List<PatientList> details = new List<PatientList>();
+        private List<PatientList> details = new List<PatientList>();
         private string physioUid = ""
 ;       /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
@@ -49,7 +49,7 @@ namespace TestApp.views
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
-        public void Details(Object Sender, EventArgs args)
+        private void Details(Object Sender, EventArgs args)
         {
             Button button = (Button)Sender;
             string exerciseKey = button.CommandParameter.ToString().Replace("\"", "");

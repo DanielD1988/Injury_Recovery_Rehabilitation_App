@@ -11,20 +11,20 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddToExistingPatient : ContentPage
     {
-        string physioUid = "";
-        List<PatientList> details;
-        CurrentPatientViewModel patientVm = new CurrentPatientViewModel();
-        SecurityViewModel security = new SecurityViewModel();
-        string patientName = "";
-        string patientUid = "";
-        string encryptionKey = "";
-        int min1 = 0;
-        int min2 = 0;
-        int min3 = 0;
-        int max1 = 0;
-        int max2 = 0;
-        int max3 = 0;
-        ExercisePlan exercisePlan;
+        private string physioUid = "";
+        private List<PatientList> details;
+        private CurrentPatientViewModel patientVm = new CurrentPatientViewModel();
+        private SecurityViewModel security = new SecurityViewModel();
+        private string patientName = "";
+        private string patientUid = "";
+        private string encryptionKey = "";
+        private int min1 = 0;
+        private int min2 = 0;
+        private int min3 = 0;
+        private int max1 = 0;
+        private int max2 = 0;
+        private int max3 = 0;
+        private ExercisePlan exercisePlan;
         public AddToExistingPatient(ExercisePlan exercisePlan, string physioUid, int min1, int min2, int min3, int max1, int max2, int max3, List<PatientList> details)
         {
             InitializeComponent();
@@ -56,7 +56,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void sendExercisePlan(object sender, EventArgs e)
+        private async void sendExercisePlan(object sender, EventArgs e)
         {
             if (namesPicker.SelectedIndex != -1)
             {

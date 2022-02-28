@@ -13,23 +13,23 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Payment : ContentPage
     {
-        PaymentViewModel pay;
-        string cardName = null;
-        string cardNum = null;
-        string month = null;
-        string year = null;
-        string currency = null;
-        string cvv = null;
-        string enteredEmail = null;
-        string message = "";
-        string physioUserId = "";
-        long monthNumber = -1;
-        long yearNumber = -1;
-        long amount = -1;
-        bool isFormDetailsCorrect = true;
-        bool comingFromLogin = false;
-        Dictionary<string, double> exchangeRates;
-        SecurityViewModel security = new SecurityViewModel();
+        private PaymentViewModel pay;
+        private string cardName = null;
+        private string cardNum = null;
+        private string month = null;
+        private string year = null;
+        private string currency = null;
+        private string cvv = null;
+        private string enteredEmail = null;
+        private string message = "";
+        private string physioUserId = "";
+        private long monthNumber = -1;
+        private long yearNumber = -1;
+        private long amount = -1;
+        private bool isFormDetailsCorrect = true;
+        private bool comingFromLogin = false;
+        private Dictionary<string, double> exchangeRates;
+        private SecurityViewModel security = new SecurityViewModel();
         internal Payment(PaymentViewModel pay,bool comingFromLogin,string physioUid)
         {
             this.pay = pay;
@@ -56,7 +56,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void currencyConversion(object sender, EventArgs e)
+        private void currencyConversion(object sender, EventArgs e)
         {
             double value = 0;
             double rate = 0;
@@ -82,7 +82,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void checkCardNumber(object sender, TextChangedEventArgs e)
+        private void CheckCardNumber(object sender, TextChangedEventArgs e)
         {
             if (e.NewTextValue.Length > 16)
             {
@@ -96,7 +96,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void checkCvvNumber(object sender, TextChangedEventArgs e)
+        private void CheckCvvNumber(object sender, TextChangedEventArgs e)
         {
             if (e.NewTextValue.Length > 3)
             {
@@ -111,7 +111,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void pay1(object sender, EventArgs e)
+        private void pay1(object sender, EventArgs e)
         {
             pay.WhichMembershipSelectedSuccessful = 1;
             string value = member1.Text;
@@ -136,7 +136,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void pay2(object sender, EventArgs e)
+        private void pay2(object sender, EventArgs e)
         {
             pay.WhichMembershipSelectedSuccessful = 2;
             string value = member2.Text;
@@ -161,7 +161,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void pay3(object sender, EventArgs e)
+        private void pay3(object sender, EventArgs e)
         {
             pay.WhichMembershipSelectedSuccessful = 3;
             string value = member3.Text;
@@ -185,7 +185,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="args"></param>
-        public async void makePayment(Object Sender, EventArgs args)
+        private async void makePayment(Object Sender, EventArgs args)
         {
             cardName = name.Text;
             cardNum = cardNumber.Text;
@@ -215,7 +215,7 @@ namespace TestApp.Views
             }
             cvv = cvvNumber.Text;
             enteredEmail = email.Text;
-            message = checkDetailsEnteredcorrectly(cardName, cardNum, cvv, month, year, currency, amount, enteredEmail);
+            message = CheckDetailsEnteredcorrectly(cardName, cardNum, cvv, month, year, currency, amount, enteredEmail);
             if (isFormDetailsCorrect)
             {
                 if(pay.makePayment(cardNum, yearNumber, monthNumber, cvv, cardName, enteredEmail, amount, currency))
@@ -272,7 +272,7 @@ namespace TestApp.Views
         /// <param name="memberShipAmount"></param>
         /// <param name="newEmail"></param>
         /// <returns></returns>
-        public string checkDetailsEnteredcorrectly(string cardName,string cardNumber,string cvvNumber,string enteredMonth,string enteredYear,string enteredCurrency,long memberShipAmount,string newEmail)
+        private string CheckDetailsEnteredcorrectly(string cardName,string cardNumber,string cvvNumber,string enteredMonth,string enteredYear,string enteredCurrency,long memberShipAmount,string newEmail)
         {
             string message = "";
             if(cardName == null)
@@ -308,7 +308,7 @@ namespace TestApp.Views
             {
                 long.TryParse(enteredYear, out yearNumber);
             }
-            if (!checkEmail(newEmail))
+            if (!CheckEmail(newEmail))
             {
                 message += "You did not enter a valid email\n";
                 isFormDetailsCorrect = false;
@@ -325,7 +325,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        bool checkEmail(string email)
+        private bool CheckEmail(string email)
         {
             if (email == null)
             {

@@ -7,10 +7,10 @@ namespace TestApp.ViewModels
 {
     class PaymentViewModel//https://www.youtube.com/watch?v=_b8kNxoGW3k used this video to learn how to use stripe
     {
-        API_Obj Test;
-        Dictionary<string, double> exchangeRates;
-        bool isPaid = false;
-        int membership = 0;
+        private API_Obj Test;
+        private Dictionary<string, double> exchangeRates;
+        private bool isPaid = false;
+        private int membership = 0;
         public PaymentViewModel()
         {
 
@@ -93,13 +93,13 @@ namespace TestApp.ViewModels
                 var json = webClient.DownloadString(URLString);
                 Test = JsonConvert.DeserializeObject<API_Obj>(json);
             }
-            changeValueToMap();
+            ChangeValueToMap();
             return exchangeRates;
         }
         /// <summary>
-        /// A map of the exchange rate prices tied to a key
+        /// A map of the exchange rate prices tied to a currency key
         /// </summary>
-        private void changeValueToMap()
+        private void ChangeValueToMap()
         {
             exchangeRates = new Dictionary<string, double>();
             exchangeRates["AED"] = Test.conversion_rates.AED;

@@ -13,11 +13,10 @@ namespace TestApp.Views
     public partial class RegisterPhsysio : ContentPage
     {
         private Regex regexForLettersOnly = new Regex("^[a-zA-Z]*$");
-        private string enteredEmail = "";
-        bool isInfoCorrect = true;
-        string message = "";
-        PaymentViewModel pay = new PaymentViewModel();
-        RegisterPhysioViewModel vm;
+        private bool isInfoCorrect = true;
+        private string message = "";
+        private PaymentViewModel pay = new PaymentViewModel();
+        private RegisterPhysioViewModel vm;
         public RegisterPhsysio(IFirebaseAuthenticator Auth)
         {
             vm = new RegisterPhysioViewModel(Auth);
@@ -28,7 +27,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void checkName(object sender, TextChangedEventArgs e)
+        private void checkName(object sender, TextChangedEventArgs e)
         {
             if (regexForLettersOnly.IsMatch(e.NewTextValue))
             {
@@ -40,7 +39,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="conPass"></param>
         /// <returns></returns>
-        bool checkToConfirmPass(string conPass)
+        private bool checkToConfirmPass(string conPass)
         {
             if (pass.Text == null)
             {
@@ -57,7 +56,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        bool checkIfValidEmail(string email)
+        private bool checkIfValidEmail(string email)
         {
             if(email == null)
             {
@@ -74,11 +73,16 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void payment(object sender, EventArgs e)
+        private async void payment(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new Payment(pay,false,""));
         }
-        async void login(object sender, EventArgs e)
+        /// <summary>
+        /// Return to login screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void login(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }
@@ -87,7 +91,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void registerPhysio(object sender, EventArgs e)
+        private async void registerPhysio(object sender, EventArgs e)
         {
             checkDetailsEnteredcorrectly();
 
@@ -123,7 +127,7 @@ namespace TestApp.Views
         /// This method checks to see if the form was filled out correctly
         /// </summary>
         /// <returns></returns>
-        public string checkDetailsEnteredcorrectly()
+        private string checkDetailsEnteredcorrectly()
         {
             if(name.Text == null)
             {

@@ -11,10 +11,10 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PhysioMenuScreen : ContentPage
     {
-        string physioId = "";
-        List<PatientList> details =  new List<PatientList>();
-        PlanProgressViewModel model = new PlanProgressViewModel();
-        SecurityViewModel security = new SecurityViewModel();
+        private string physioId = "";
+        private List<PatientList> details =  new List<PatientList>();
+        private PlanProgressViewModel model = new PlanProgressViewModel();
+        private SecurityViewModel security = new SecurityViewModel();
         
         public PhysioMenuScreen(string uid)
         {
@@ -45,7 +45,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        async void goToSelectExercisePlan(object sender, EventArgs args)
+        private async void goToSelectExercisePlan(object sender, EventArgs args)
         {
             await Navigation.PushModalAsync(new DisplayExercises(physioId,details));
         }
@@ -54,7 +54,7 @@ namespace TestApp.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        async void viewPatientsProgress(object sender, EventArgs args)
+        private async void viewPatientsProgress(object sender, EventArgs args)
         {
             if(details.Count != 0)
             {

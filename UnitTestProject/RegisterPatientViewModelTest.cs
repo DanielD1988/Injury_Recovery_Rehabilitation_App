@@ -5,7 +5,7 @@ using Xunit;
 
 namespace UnitTestProject
 {
-    public class RPatientViewModelTest
+    public class RegisterPatientViewModelTest
     {
         RegisterPatientViewModel patientVm = new RegisterPatientViewModel();
         /// <summary>

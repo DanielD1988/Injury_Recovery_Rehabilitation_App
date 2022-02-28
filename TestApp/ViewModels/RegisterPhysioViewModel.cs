@@ -9,12 +9,12 @@ namespace TestApp.ViewModels
     /// </summary>
     class RegisterPhysioViewModel
     {
-        IFirebaseAuthenticator auth;
-        FirebaseMethods fireBase;
-        SecurityViewModel security = new SecurityViewModel();
-        string salt = "";
-        string saltedPassword = "";
-        string physioUid = "";
+        private IFirebaseAuthenticator auth;
+        private FirebaseMethods fireBase;
+        private SecurityViewModel security = new SecurityViewModel();
+        private string salt = "";
+        private string saltedPassword = "";
+        private string physioUid = "";
         public RegisterPhysioViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;

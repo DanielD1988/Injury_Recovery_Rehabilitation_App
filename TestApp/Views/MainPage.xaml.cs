@@ -12,12 +12,12 @@ namespace TestApp
     /// </summary>
     public partial class MainPage : ContentPage
     {
-        IFirebaseAuthenticator auth;
-        SecurityViewModel secuirty;
-        bool emailCorrect = true;
-        CultureInfo objcul = new CultureInfo("en-GB");
-        DateTime currentMembership;
-        DateTime currentDate = DateTime.Today.Date;
+        private IFirebaseAuthenticator auth;
+        private SecurityViewModel secuirty;
+        private bool emailCorrect = true;
+        private CultureInfo objcul = new CultureInfo("en-GB");
+        private DateTime currentMembership;
+        private DateTime currentDate = DateTime.Today.Date;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
@@ -39,7 +39,7 @@ namespace TestApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void LoginClicked(object sender, EventArgs e)
+        private async void LoginClicked(object sender, EventArgs e)
         {
             string Email = email.Text;
             string Pass = pass.Text;
@@ -105,7 +105,7 @@ namespace TestApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        async void RegisterClicked(object sender, EventArgs e)
+        private async void RegisterClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegisterPhsysio(auth));
         }
