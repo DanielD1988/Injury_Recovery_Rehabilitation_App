@@ -126,7 +126,7 @@ namespace TestApp.Views
             {
                 string date = dateTime.ToString("dd/MM/yyyy");
                 date = date.Replace("/", "-");
-                bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date,false);
+                bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date);
                 await DisplayAlert("Message", "Exercise Plan Saved", "OK");
                 await Application.Current.MainPage.Navigation.PopModalAsync(true);
             }

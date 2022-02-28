@@ -64,8 +64,8 @@ namespace TestApp.ViewModels
         /// <returns></returns>
         public async Task<List<Exercise>> getPatientsExercisePlan(string patientUid, bool isMocked)
         {
-            patientDetails = await getpatientDetails(patientUid, isMocked);
-            patientExerciselist = await getPatientExercises(patientDetails.Exer1, patientDetails.Exer2, patientDetails.Exer3, isMocked);
+            patientDetails = await getpatientDetails(patientUid, false);
+            patientExerciselist = await getPatientExercises(patientDetails.Exer1, patientDetails.Exer2, patientDetails.Exer3,false);
             return patientExerciselist;
         }
         /// <summary>
@@ -94,13 +94,13 @@ namespace TestApp.ViewModels
         /// <param name="PatientUID"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public async Task<bool> saveStateOfExercisePlan(string PatientUID, string date,bool isMocked)
+        public async Task<bool> saveStateOfExercisePlan(string PatientUID, string date)
         {
             try
             {
-                Dictionary<string, bool> patientState = await fire.getPatientProgress(PatientUID, isMocked);
+                Dictionary<string, bool> patientState = await fire.getPatientProgress(PatientUID, false);
                 patientState[date] = true;
-                await fire.recordPatientProgress(PatientUID, patientState, isMocked);
+                await fire.recordPatientProgress(PatientUID, patientState, false);
                 return true;
             }
             catch (Exception e)
@@ -116,9 +116,9 @@ namespace TestApp.ViewModels
         /// <param name="date"></param>
         /// <param name="patientUid"></param>
         /// <returns></returns>
-        public async Task<bool> CheckIfExercisePlanCompleteForToday(string date,string patientUid,bool isMocked)
+        public async Task<bool> checkIfExercisePlanCompleteForToday(string date,string patientUid)
         {
-            Dictionary<string, bool> patientState = await fire.getPatientProgress(patientUid, isMocked);
+            Dictionary<string, bool> patientState = await fire.getPatientProgress(patientUid, false);
             if(patientState[date] == true)
             {
                 return true;
