@@ -46,6 +46,7 @@ namespace TestApp.services
         //https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
         public async Task<List<ExercisePlan>> GetAllExercises(bool isMocked)
         {
+
             try
             {
                 if (isMocked == true)

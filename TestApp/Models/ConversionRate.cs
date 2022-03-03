@@ -1,10 +1,11 @@
-﻿namespace TestApp.ViewModels
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TestApp.Models
 {
-    /// <summary>
-    /// This class stores the conversion rates from other currencys to euro
-    /// </summary>
-     class ConversionRate//https://app.exchangerate-api.com/
-     {
+    public class ConversionRate
+    {
         public double AED { get; set; }
         public double ARS { get; set; }
         public double AUD { get; set; }
