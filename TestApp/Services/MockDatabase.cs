@@ -229,7 +229,7 @@ namespace TestApp.Services
             Dictionary<string, bool> patientPlan = new Dictionary<string, bool>();
             patientPlan.Add("21-02-2022", false);
             patientPlan.Add("22-02-2022", false);
-            patientPlan.Add("23-02-2022", false);
+            patientPlan.Add("23-02-2022", true);
             return patientPlan;
         }
         /// <summary>

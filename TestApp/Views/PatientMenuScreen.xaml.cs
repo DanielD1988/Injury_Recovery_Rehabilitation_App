@@ -29,7 +29,7 @@ namespace TestApp.Views
             today = DateTime.Today;
             string date = today.ToString("dd/MM/yyyy");
             date = date.Replace("/", "-");
-            bool isCompleteForToday = await model.checkIfExercisePlanCompleteForToday(date, patientId);
+            bool isCompleteForToday = await model.checkIfExercisePlanCompleteForToday(date, patientId,false);
             if (isCompleteForToday)
             {
                 await DisplayAlert("Error", "You have already completed your exercise for today", "OK");

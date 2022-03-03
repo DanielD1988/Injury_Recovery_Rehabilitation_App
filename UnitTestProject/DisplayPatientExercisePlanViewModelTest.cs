@@ -58,13 +58,13 @@ namespace UnitTestProject
         [Fact]
         public void checkIfExercisePlanCompleteForTodayTestPasses()
         {
-            bool result = display.CheckIfExercisePlanCompleteForToday("23-02-2022", "1agdsjwus", true).Result;
+            bool result = display.checkIfExercisePlanCompleteForToday("23-02-2022", "1agdsjwus", true).Result;
             Assert.True(result);
         }
         [Fact]
         public void checkIfExercisePlanCompleteForTodayTestFails()
         {
-            bool result = display.CheckIfExercisePlanCompleteForToday("22-02-2022", "1agdsjwus", true).Result;
+            bool result = display.checkIfExercisePlanCompleteForToday("22-02-2022", "1agdsjwus", true).Result;
             Assert.False(result);
         }
     }
