@@ -8,7 +8,7 @@
                      VerticalOptions="Center"
                      Margin="20"
                 >
-                
+
                 <Label
                     Text="Patient Register"
                     HorizontalOptions="Center"
@@ -16,30 +16,34 @@
                     FontSize="35"
                     Margin="0, 10"
                 />
-                
-                <Label Text="Patient Name" FontSize="Large"/>
+
+                <Label Text="Patient Name" TextColor="Black" FontSize="Large"/>
                 <Entry
                     Placeholder="Patient Name"
                     Keyboard="Text"
+                    TextColor="Black"
                     MaxLength="15"
                     x:Name="name"
                 />
-                
-                <Label Text="Patient Age" FontSize="Large"/>
+
+                <Label Text="Patient Age" TextColor="Black" FontSize="Large"/>
                 <Entry
                     Placeholder="Patient Age"
                     Keyboard="Numeric"
+                    TextColor="Black"
                     MaxLength="2"
                     x:Name="age"
                 />
-                
-                <Label Text="Select Gender" FontSize="Large"/>
+
+                <Label Text="Select Gender" TextColor="Black" FontSize="Large"/>
                 <RadioButton Content="Male" 
                     Value="Male" 
+                    TextColor="Black"
                     GroupName="gen"
                     CheckedChanged="getGender"/>
                 <RadioButton Content="Female"
                     Value="Female"
+                    TextColor="Black"
                     GroupName="gen"
                     CheckedChanged="getGender"/>
                 <Grid Margin="5,0,5,0">
@@ -50,7 +54,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Severity" FontSize="Large"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Severity" TextColor="Black" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="SeverityPicker" Title="Select">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
@@ -71,7 +75,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Type" FontSize="Large"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Injury Type" TextColor="Black" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="Injurypicker" Title="Select"  SelectedIndexChanged="InjuryPicked">
                    <Picker.ItemsSource>
                      <x:Array Type="{x:Type x:String}">
@@ -85,9 +89,10 @@
                    </Picker.ItemsSource>
                 </Picker>
                 </Grid>
-                <Label x:Name="InjuryLabel" Text="Enter your own injury type" FontSize="Large"/>
+                <Label x:Name="InjuryLabel" TextColor="Black" Text="Enter your own injury type" FontSize="Large"/>
                 <Entry
                     Placeholder="Other Injury"
+                    TextColor="Black"
                     Keyboard="Text"
                     MaxLength="50"
                     x:Name="injury"
@@ -100,7 +105,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Text="How Injury Occurred" FontSize="Large"/>
+                    <Label Grid.Row="0" Grid.Column="0" TextColor="Black" Text="How Injury Occurred" FontSize="Large"/>
                     <Picker Grid.Row="0" Grid.Column="1" x:Name="Occurredpicker" Title="Select" SelectedIndexChanged="InjuryOccurred">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
@@ -121,26 +126,26 @@
                     </Picker.ItemsSource>
                 </Picker>
                 </Grid>
-                
-                <Label x:Name="OccuredLabel" Text="Enter your own how injury occurred" FontSize="Large"/>
+
+                <Label x:Name="OccuredLabel" TextColor="Black" Text="Enter your own how injury occurred" FontSize="Large"/>
                 <Entry
                     Placeholder="Injury Occured"
                     Keyboard="Text"
                      MaxLength="20"
                     x:Name="occured"
                 />
-                
-                <Label FontSize="Large" Text="Start Date of Exercise Plan" />
+
+                <Label FontSize="Large" TextColor="Black" Text="Start Date of Exercise Plan" />
                 <DatePicker x:Name="startDatePicker"
                     Format="D"
                     />
 
-                <Label FontSize="Large" Text="End Date of Exercise Plan" />
+                <Label FontSize="Large" TextColor="Black" Text="End Date of Exercise Plan" />
                 <DatePicker x:Name="endDatePicker"
                     Format="D"
                     />
-                
-                <Label FontSize="Large" Text="Enter patient email" />
+
+                <Label FontSize="Large" TextColor="Black" Text="Enter patient email" />
                 <Entry
                     Placeholder="Patient Email"
                     Keyboard="Email"

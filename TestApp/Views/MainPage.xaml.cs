@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.FirebasePushNotification;
+using System;
 using System.Globalization;
 using TestApp.ViewModels;
 using TestApp.views;
@@ -18,12 +19,17 @@ namespace TestApp
         private CultureInfo objcul = new CultureInfo("en-GB");
         private DateTime currentMembership;
         private DateTime currentDate = DateTime.Today.Date;
+        bool togglePassword = true;
         /// <summary>
         /// This is the login page for both apps
         /// </summary>
         public MainPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                CrossFirebasePushNotification.Current.OnNotificationReceived += Current_OnNotificationReceived;
+            }
             secuirty = new SecurityViewModel();
             auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
@@ -32,6 +38,10 @@ namespace TestApp
             //Navigation.PushModalAsync(new PhysioMenuScreen("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new PatientMenuScreen("nPEw8Jw99FapliqI6Qn7t0GXERq2"));
             /////////////////////////////////////////////////////////////////////
+        }
+        private void Current_OnNotificationReceived(object source, FirebasePushNotificationDataEventArgs e)
+        {
+            DisplayAlert("Notification", $"Data: {e.Data["myData"]}", "OK");
         }
         /// <summary>
         /// This button sends the entered email and password to ether the ios or android depending which class calls the 
@@ -108,6 +118,12 @@ namespace TestApp
         private async void RegisterClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new RegisterPhsysio(auth));
+        }
+        private void showPass(object sender, EventArgs e)
+        {
+
+            togglePassword = !togglePassword;
+            pass.IsPassword = togglePassword;
         }
     }
 }

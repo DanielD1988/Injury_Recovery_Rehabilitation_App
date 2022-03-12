@@ -13,24 +13,32 @@
             TextColor="SteelBlue"
             FontAttributes="Bold"
             FontSize="35"
-            Margin="0, 80"
+            Margin="0, 40"
             />
         <Entry
             Placeholder="E-mail"
             Keyboard="Email"
             x:Name="email"
             />
-
+        
         <Entry
             Placeholder="Password"
             IsPassword="true"
             x:Name="pass"
             />
-
+        <Button
+            Text="Show Password"
+            Clicked="showPass"
+            Margin="60, 5"
+            BackgroundColor="SteelBlue"
+            TextColor="White"
+            CornerRadius="10"
+            FontAttributes="Bold"
+            />
         <Button
             Text="Login"
             Clicked="LoginClicked"
-            Margin="60, 30"
+            Margin="60, 10"
             BackgroundColor="SteelBlue"
             TextColor="White"
             CornerRadius="10"

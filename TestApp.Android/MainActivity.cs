@@ -4,6 +4,7 @@ using Android.Runtime;
 using Android.OS;
 using Firebase;
 using MediaManager;
+using Plugin.FirebasePushNotification;
 
 namespace TestApp.Droid
 {
@@ -26,9 +27,10 @@ namespace TestApp.Droid
             CrossMediaManager.Current.Init();
             FirebaseApp.InitializeApp(Application.Context);
             LoadApplication(new App());
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
         }
         /// <summary>
-        /// This method allows android to give permission to use xamarin essentials APIs
+        /// This method allows android to give permission to use phone features
         /// </summary>
         /// <param name="requestCode"></param>
         /// <param name="permissions"></param>

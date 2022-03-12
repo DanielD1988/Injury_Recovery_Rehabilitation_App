@@ -64,6 +64,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.FirebasePushNotification">
+      <Version>3.4.1</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.MediaManager">
       <Version>1.0.9</Version>
     </PackageReference>
@@ -75,12 +78,16 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Base">
+      <Version>117.6.0.3</Version>
+    </PackageReference>
     <PackageReference Include="XamForms.Controls.Calendar">
       <Version>1.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidLoginCheck.cs" />
+    <Compile Include="Application.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

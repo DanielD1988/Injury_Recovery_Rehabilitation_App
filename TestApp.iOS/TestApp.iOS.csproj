@@ -134,6 +134,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.FirebasePushNotification">
+      <Version>3.4.1</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.MediaManager">
       <Version>1.0.9</Version>
     </PackageReference>
