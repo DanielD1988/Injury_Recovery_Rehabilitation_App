@@ -20,21 +20,28 @@
             Keyboard="Email"
             x:Name="email"
             />
-        
-        <Entry
+        <Grid Margin="5,0,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.50*" />
+                <ColumnDefinition Width="0.10*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Entry
+            Grid.Row="0" Grid.Column="0"
             Placeholder="Password"
             IsPassword="true"
             x:Name="pass"
             />
-        <Button
-            Text="Show Password"
-            Clicked="showPass"
-            Margin="60, 5"
-            BackgroundColor="SteelBlue"
-            TextColor="White"
-            CornerRadius="10"
-            FontAttributes="Bold"
-            />
+        <ImageButton 
+                    Grid.Row="0" Grid.Column="1"
+                    Source="showPass.png"
+                    HorizontalOptions="Center"
+                    WidthRequest="30"
+                    HeightRequest="30"  
+                    Clicked ="showPass" />
+        </Grid>
         <Button
             Text="Login"
             Clicked="LoginClicked"

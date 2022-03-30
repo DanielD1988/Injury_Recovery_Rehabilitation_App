@@ -65,5 +65,9 @@ namespace TestApp.Views
                 await DisplayAlert("Error", "You are not assigned any patients", "OK");
             }
         }
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
+        }
     }
 }

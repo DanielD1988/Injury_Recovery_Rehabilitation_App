@@ -128,7 +128,9 @@ namespace TestApp.Views
         /// <param name="e"></param>
         private async void returned(object sender, EventArgs e)
         {
+            model.ExerciseCompletedNumber = 0;
             await Application.Current.MainPage.Navigation.PopModalAsync(true);
         }
+        protected override bool OnBackButtonPressed() => true;
     }
 }

@@ -44,5 +44,9 @@ namespace TestApp.Views
             progressPlan = await plan.getPatientProgress(patientId);
             await Navigation.PushModalAsync(new DisplayProgress(patientId,progressPlan));
         }
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
+        }
     }
 }

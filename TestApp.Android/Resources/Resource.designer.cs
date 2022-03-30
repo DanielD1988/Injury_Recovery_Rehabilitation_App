@@ -15710,16 +15710,19 @@ namespace TestApp.Droid
 			public const int playButton = 2131165390;
 			
 			// aapt resource value: 0x7F0700CF
-			public const int stopButton = 2131165391;
+			public const int showPass = 2131165391;
 			
 			// aapt resource value: 0x7F0700D0
-			public const int test_custom_background = 2131165392;
+			public const int stopButton = 2131165392;
 			
 			// aapt resource value: 0x7F0700D1
-			public const int tooltip_frame_dark = 2131165393;
+			public const int test_custom_background = 2131165393;
 			
 			// aapt resource value: 0x7F0700D2
-			public const int tooltip_frame_light = 2131165394;
+			public const int tooltip_frame_dark = 2131165394;
+			
+			// aapt resource value: 0x7F0700D3
+			public const int tooltip_frame_light = 2131165395;
 			
 			static Drawable()
 			{

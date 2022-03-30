@@ -36,7 +36,7 @@ namespace TestApp
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new PhysioMenuScreen("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
-            //Navigation.PushModalAsync(new PatientMenuScreen("nPEw8Jw99FapliqI6Qn7t0GXERq2"));
+            //Navigation.PushModalAsync(new PatientMenuScreen("Xmy0ofjszSe9DohrrH1uezsfbmz1"));
             /////////////////////////////////////////////////////////////////////
         }
         private void Current_OnNotificationReceived(object source, FirebasePushNotificationDataEventArgs e)
@@ -119,6 +119,11 @@ namespace TestApp
         {
             await Navigation.PushAsync(new RegisterPhsysio(auth));
         }
+        /// <summary>
+        /// Used to display password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void showPass(object sender, EventArgs e)
         {
 
