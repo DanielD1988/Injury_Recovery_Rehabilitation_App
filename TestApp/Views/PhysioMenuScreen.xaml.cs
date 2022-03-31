@@ -65,6 +65,10 @@ namespace TestApp.Views
                 await DisplayAlert("Error", "You are not assigned any patients", "OK");
             }
         }
+        private async void goToPredictInjuryType(object sender, EventArgs args)
+        {
+            await Navigation.PushModalAsync(new PredictInjuryType());
+        }
         protected override bool OnBackButtonPressed()
         {
             return false;

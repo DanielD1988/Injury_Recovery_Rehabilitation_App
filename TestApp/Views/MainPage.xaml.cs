@@ -35,7 +35,7 @@ namespace TestApp
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
-            //Navigation.PushModalAsync(new PhysioMenuScreen("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
+            Navigation.PushModalAsync(new PhysioMenuScreen("QzkZZv9OxkNrxDTeex9lKEKUZ0C2"));
             //Navigation.PushModalAsync(new PatientMenuScreen("Xmy0ofjszSe9DohrrH1uezsfbmz1"));
             /////////////////////////////////////////////////////////////////////
         }

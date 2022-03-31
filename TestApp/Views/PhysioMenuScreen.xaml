@@ -27,6 +27,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" Grid.Column="0"
                     Text="Select Exercise Plan" 
@@ -38,6 +39,13 @@
                 <Button Grid.Row="0" Grid.Column="1"
                     Text="Patients Progress" 
                     Clicked="viewPatientsProgress"  
+                    TextColor="White"  
+                    BackgroundColor="SteelBlue"
+                    CornerRadius="10"
+                    Margin="0,0,10,0"/>
+                <Button Grid.Row="1" Grid.Column="0"
+                    Text="Predict Injury" 
+                    Clicked="goToPredictInjuryType"  
                     TextColor="White"  
                     BackgroundColor="SteelBlue"
                     CornerRadius="10"
