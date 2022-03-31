@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using TestApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,11 +13,13 @@ namespace TestApp.Views
         string stringAge = null;
         string isInjuryBefore = null;
         string selectedActivity = null;
+        PredictViewModel predict;
         private RadioButton genderButton, injuryButton;
 
         public PredictInjuryType()
         {
             InitializeComponent();
+            predict = new PredictViewModel();
         }
         /// <summary>
         /// Picker for skill level
@@ -88,8 +86,8 @@ namespace TestApp.Views
         {
             if(sLevel != null && gender != null && stringAge != null && isInjuryBefore != null && selectedActivity != null)
             {
-                await DisplayAlert("Success", "data sent", "OK");
-                //send values to view modal and then to api call
+                string result = predict.predictWithValues(sLevel, isInjuryBefore, stringAge, gender, selectedActivity);
+                await DisplayAlert("The model predicted", result, "OK");
             }
             else
             {

@@ -4,9 +4,14 @@
              x:Class="TestApp.Views.PredictInjuryType">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label
+            Text="Predict Injury"
+            HorizontalOptions="Center"
+            TextColor="SteelBlue"
+            FontAttributes="Bold"
+            FontSize="35"
+            Margin="0, 40"
+            />
             <Grid Margin="5,0,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.40*" />
