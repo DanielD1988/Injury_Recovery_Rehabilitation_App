@@ -15,7 +15,8 @@ namespace TestApp.Views
         private List<PatientList> details =  new List<PatientList>();
         private PlanProgressViewModel model = new PlanProgressViewModel();
         private SecurityViewModel security = new SecurityViewModel();
-        
+        private ExerciseViewModel exercise = new ExerciseViewModel();
+        private List<Exercise> exerciseList = new List<Exercise>();
         public PhysioMenuScreen(string uid)
         {
             InitializeComponent();
@@ -68,6 +69,18 @@ namespace TestApp.Views
         private async void goToPredictInjuryType(object sender, EventArgs args)
         {
             await Navigation.PushModalAsync(new PredictInjuryType());
+        }
+        private async void addNewPlan(object sender, EventArgs args)
+        {
+            if(exerciseList.Count == 0)
+            {
+                exerciseList = await exercise.getExercises();
+                await Navigation.PushModalAsync(new AddPlan(physioId, exerciseList));
+            }
+            else
+            {
+                await Navigation.PushModalAsync(new AddPlan(physioId, exerciseList));
+            }
         }
         protected override bool OnBackButtonPressed()
         {

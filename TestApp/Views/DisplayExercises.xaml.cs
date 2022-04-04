@@ -39,7 +39,12 @@ namespace TestApp.views
         {
             base.OnAppearing();
             MyListView.ItemsSource = null;
+            List<ExercisePlan> physioPlanList = await viewModel.getPhysioPlans(physioUid);
             List<ExercisePlan> exercises = await viewModel.getExerciseList(false);
+            if (physioPlanList != null)
+            {
+                exercises.AddRange(physioPlanList);
+            }
             var sortedByCategorys = exercises.GroupBy(val => val.Category);
             MyListView.ItemsSource = sortedByCategorys;
         }

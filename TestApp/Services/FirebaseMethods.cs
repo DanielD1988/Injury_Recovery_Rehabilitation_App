@@ -21,6 +21,7 @@ namespace TestApp.services
         private FirebaseStorage firebaseStorage = new FirebaseStorage("injuryrecovery.appspot.com");
         private static FirebaseMethods fire = new FirebaseMethods();
         private static List<ExercisePlan> plans = new List<ExercisePlan>();
+        private static List<ExercisePlan> physioPlans = new List<ExercisePlan>();
         private static List<Exercise> exerciseList = new List<Exercise>();
         MockDatabase db = new MockDatabase();
         /// <summary>
@@ -60,7 +61,6 @@ namespace TestApp.services
                    .OnceAsync<ExercisePlan>()).Select(item => new ExercisePlan
                    {
                        exerciseName = item.Object.exerciseName,
-                       exerciseDescription = item.Object.exerciseDescription,
                        ImageBase64 = item.Object.ImageBase64,
                        Category = item.Object.Category,
                        Exercise1 = item.Object.Exercise1,
@@ -521,57 +521,6 @@ namespace TestApp.services
             }
         }
         /// <summary>
-        /// This method gets an image from firebase storage
-        /// </summary>
-        /// <param name="isMocked"></param>
-        /// <param name="imageName"></param>
-        /// <returns></returns>
-        public async Task<string> GetImageFromStorage(bool isMocked, string imageName)
-        {
-            if (isMocked == true)
-            {
-                return null;
-            }
-            try
-            {
-                var image = await firebaseStorage.Child("pics").Child(imageName).GetDownloadUrlAsync();
-                string downloadUrl = image.ToString();
-                return downloadUrl;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// This method saves an image to firebase storage
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        public async Task<bool> SaveImageToStorage(Stream image,bool isMocked)
-        {
-            if (isMocked == true)
-            {
-                return true;
-            }
-            try
-             {
-                await firebaseStorage
-                 .Child("pics")
-                 .PutAsync(image);
-
-                 return true;
-             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                return false;
-            }
-        }
-
-        /// <summary>
         /// This method works as a replacement for firebases SignupWithEmailPassword for iOS
         /// </summary>
         /// <param name="email"></param>
@@ -684,6 +633,83 @@ namespace TestApp.services
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
+            }
+        }
+        /// <summary>
+        /// This method returns an object list of exercise names from firebase
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Exercise>> getAListOfExerciseNames()
+        {
+            List<Exercise> allExercises = (await firebase
+                  .Child("exercises")
+                  .OnceAsync<Exercise>()).Select(item => new Exercise
+                  {
+                      ExerciseName = item.Object.ExerciseName
+                  }).ToList();
+            return allExercises;
+        }
+        /// <summary>
+        /// This method addes a new plan to a physio plan list
+        /// </summary>
+        /// <param name="physioUserId"></param>
+        /// <param name="category"></param>
+        /// <param name="exercise1"></param>
+        /// <param name="exercise2"></param>
+        /// <param name="execrcise3"></param>
+        /// <param name="imageString"></param>
+        /// <param name="exerciseName"></param>
+        /// <returns></returns>
+        public async Task<bool> addNewPlan(string physioUserId,string category,string exercise1,string exercise2,string execrcise3,string imageString,string exerciseName)
+        {
+            try
+            {
+                await firebase
+                .Child("newPlans").Child(physioUserId).Child(exerciseName)
+                .PutAsync(new Plan()
+                {
+                   Category = category,
+                   exerciseName = exerciseName,
+                   Exercise1 = exercise1,
+                   Exercise2 = exercise2,
+                   Exercise3 = execrcise3,
+                   ImageString = imageString
+                });
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        /// <summary>
+        /// This method returns all exercise plans created by the physio therapist
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<List<ExercisePlan>> getPhysioExercisePlans(string userId)
+        {
+            try
+            {
+                physioPlans = (await firebase
+                .Child("newPlans").Child(userId)
+                .OnceAsync<ExercisePlan>()).Select(item => new ExercisePlan
+                {
+                    exerciseName = item.Object.exerciseName,
+                    ImageBase64 = item.Object.ImageBase64,
+                    Category = item.Object.Category,
+                    Exercise1 = item.Object.Exercise1,
+                    Exercise2 = item.Object.Exercise2,
+                    Exercise3 = item.Object.Exercise3,
+                    exerciseListKey = item.Key,
+                }).ToList();
+                return physioPlans;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
             }
         }
     }

@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout Margin="0,5,0,0" BackgroundColor="AliceBlue">
             <Label Margin="0,20,0,5" TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
-            <Frame BorderColor="SteelBlue" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,10,40,10"        >
+            <Frame BorderColor="SteelBlue" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,5,40,10"        >
                 <Image Source="{Binding Image}" BackgroundColor="white"/>
             </Frame>
             <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Plan List"/>

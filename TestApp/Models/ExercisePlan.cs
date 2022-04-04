@@ -13,10 +13,6 @@ namespace TestApp.models
         private Xamarin.Forms.ImageSource image;
         [JsonProperty("name")]
         public string exerciseName { get; set; }
-        [JsonProperty("desc")]
-        public string exerciseDescription { get; set; }
-        [JsonProperty("exerciseInfo")]
-        public string exerciseInfo { get; set; }
         [JsonProperty("category")]
         public string Category { get; set; }
         [JsonProperty("exercise1")]
@@ -26,8 +22,7 @@ namespace TestApp.models
         [JsonProperty("exercise3")]
         public string Exercise3 { get; set; }
         public string exerciseListKey { get; set; }
-        [JsonProperty("exerciseImage")]
-        //https://blog.mzikmund.com/2018/01/displaying-base64-encoded-image-in-xamarin-forms/
+        [JsonProperty("exerciseImage")]//https://blog.mzikmund.com/2018/01/displaying-base64-encoded-image-in-xamarin-forms/
         public string ImageBase64
         {
             get { return base64stringToImage; }

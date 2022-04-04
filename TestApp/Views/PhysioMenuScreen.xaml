@@ -50,6 +50,13 @@
                     BackgroundColor="SteelBlue"
                     CornerRadius="10"
                     Margin="0,0,10,0"/>
+                <Button Grid.Row="1" Grid.Column="1"
+                    Text="Add Exercise Plan" 
+                    Clicked="addNewPlan"  
+                    TextColor="White"  
+                    BackgroundColor="SteelBlue"
+                    CornerRadius="10"
+                    Margin="0,0,10,0"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

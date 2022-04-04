@@ -37,5 +37,14 @@ namespace TestApp.ViewModels
 
             return exercise;
         }
+        /// <summary>
+        /// This method returns a list of physio made plans
+        /// </summary>
+        /// <param name="physioUid"></param>
+        /// <returns></returns>
+        public async Task<List<ExercisePlan>> getPhysioPlans(string physioUid)
+        {
+            return await fire.getPhysioExercisePlans(physioUid);
+        }
     }
 }
