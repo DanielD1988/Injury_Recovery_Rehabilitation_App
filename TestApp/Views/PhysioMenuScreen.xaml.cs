@@ -59,17 +59,27 @@ namespace TestApp.Views
         {
             if(details.Count != 0)
             {
-                await Navigation.PushModalAsync(new SelectPatientToView(details));
+                await Navigation.PushModalAsync(new SelectPatientToView(details, "Patient Progress",true));
             }
             else
             {
                 await DisplayAlert("Error", "You are not assigned any patients", "OK");
             }
         }
+        /// <summary>
+        /// This button goes to the predict injury page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void goToPredictInjuryType(object sender, EventArgs args)
         {
             await Navigation.PushModalAsync(new PredictInjuryType());
         }
+        /// <summary>
+        /// This button goes to the addNewPlan page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void addNewPlan(object sender, EventArgs args)
         {
             if(exerciseList.Count == 0)
@@ -80,6 +90,17 @@ namespace TestApp.Views
             else
             {
                 await Navigation.PushModalAsync(new AddPlan(physioId, exerciseList));
+            }
+        }
+        public async void updatePatientExercisePlan(object sender, EventArgs args)
+        {
+            if (details.Count != 0)
+            {
+                await Navigation.PushModalAsync(new SelectPatientToView(details, "Update Patient Plan", false));
+            }
+            else
+            {
+                await DisplayAlert("Error", "You are not assigned any patients", "OK");
             }
         }
         protected override bool OnBackButtonPressed()

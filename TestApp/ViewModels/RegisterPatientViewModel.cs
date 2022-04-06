@@ -155,6 +155,32 @@ namespace TestApp.ViewModels
             return true;
         }
         /// <summary>
+        /// This method updates the number of exercises a patient will have to do in their plan
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="gender"></param>
+        /// <param name="email"></param>
+        /// <param name="injuryType"></param>
+        /// <param name="injuryOccurred"></param>
+        /// <param name="age"></param>
+        /// <param name="injurySeverity"></param>
+        /// <param name="min1"></param>
+        /// <param name="min2"></param>
+        /// <param name="min3"></param>
+        /// <param name="max1"></param>
+        /// <param name="max2"></param>
+        /// <param name="max3"></param>
+        /// <param name="exer1"></param>
+        /// <param name="exer2"></param>
+        /// <param name="exer3"></param>
+        /// <param name="patientUid"></param>
+        /// <returns></returns>
+        public async Task<bool> updatePatientRecord(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity,int min1, int min2, int min3, int max1, int max2, int max3,string exer1,string exer2,string exer3, string patientUid)
+        {
+            bool tf = await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, exer1, exer2, exer3, email, min1, min2, min3, max1, max2, max3, false);
+            return tf;
+        }
+        /// <summary>
         /// This method uses xamarin essentials to open an email application on the users phone and populates the body
         /// the patients email and the subject of the email it returns a bool for testing purposes.
         /// </summary>

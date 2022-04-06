@@ -1,25 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TestApp.Views.ExerciseDetail">
+             x:Class="TestApp.Views.UpdatePatientExerciseAmount">
     <ContentPage.Content>
-        <StackLayout Margin="0,5,0,0" BackgroundColor="AliceBlue">
-            <Label Margin="0,20,0,5" TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding exerciseName}"/>
-            <Frame BorderColor="SteelBlue" CornerRadius="20" Grid.Row="0" Grid.Column="1"  Margin="40,5,40,10"        >
-                <Image Source="{Binding Image}" BackgroundColor="white"/>
-            </Frame>
-            <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Workout Plan List"/>
-            <Label x:Name="exercise1" TextColor="Black" FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise1}"/>
-            <Grid Margin="40,0,5,0">
+        <StackLayout>
+            <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Update Exercises"/>
+            <Grid Margin="10,15,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.20*" />
-                    <ColumnDefinition Width="0.40*" />
+                    <ColumnDefinition Width="0.10*" />
+                    <ColumnDefinition Width="0.10*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       Grid.Column="0" 
+                       x:Name="exercise1" 
+                       TextColor="Black" 
+                       FontSize="Medium" 
+                       FontFamily="Arial"  
+                       Text="{Binding Exercise1}"/>
                 <Entry
-                    Grid.Row="0" Grid.Column="0"
+                    Grid.Row="0" Grid.Column="1"
                     TextColor="Black"
                     PlaceholderColor="Black"
                     Placeholder="Min Amount"
@@ -29,7 +32,7 @@
                     x:Name="min1"
                 />
                 <Entry
-                    Grid.Row="0" Grid.Column="1"
+                    Grid.Row="0" Grid.Column="2"
                     PlaceholderColor="Black"
                     TextColor="Black"
                     Placeholder="Max Amount"
@@ -39,17 +42,24 @@
                     x:Name="max1"
                 />
             </Grid>
-            <Label x:Name="exercise2" TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise2}"/>
-            <Grid Margin="40,0,5,0">
+            <Grid Margin="10,10,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.20*" />
-                    <ColumnDefinition Width="0.40*" />
+                    <ColumnDefinition Width="0.10*" />
+                    <ColumnDefinition Width="0.10*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       Grid.Column="0" 
+                       x:Name="exercise2" 
+                       TextColor="Black"  
+                       FontSize="Medium" 
+                       FontFamily="Arial"  
+                       Text="{Binding Exercise2}"/>
                 <Entry
-                    Grid.Row="0" Grid.Column="0"
+                    Grid.Row="0" Grid.Column="1"
                     TextColor="Black"
                     PlaceholderColor="Black"
                     Placeholder="Min Amount"
@@ -59,7 +69,7 @@
                     x:Name="min2"
                 />
                 <Entry
-                    Grid.Row="0" Grid.Column="1"
+                    Grid.Row="0" Grid.Column="2"
                     TextColor="Black"
                     PlaceholderColor="Black"
                     Placeholder="Max Amount"
@@ -69,17 +79,24 @@
                     x:Name="max2"
                 />
             </Grid>
-            <Label x:Name="exercise3" TextColor="Black"  FontSize="Medium" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="{Binding Exercise3}"/>
-            <Grid Margin="40,0,5,0">
+            <Grid Margin="10,10,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.20*" />
-                    <ColumnDefinition Width="0.40*" />
+                    <ColumnDefinition Width="0.10*" />
+                    <ColumnDefinition Width="0.10*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       Grid.Column="0" 
+                       x:Name="exercise3" 
+                       TextColor="Black"  
+                       FontSize="Medium" 
+                       FontFamily="Arial"  
+                       Text="{Binding Exercise3}"/>
                 <Entry
-                    Grid.Row="0" Grid.Column="0"
+                    Grid.Row="0" Grid.Column="1"
                     TextColor="Black"
                     PlaceholderColor="Black"
                     Placeholder="Min Amount"
@@ -89,7 +106,7 @@
                     x:Name="min3"
                 />
                 <Entry
-                    Grid.Row="0" Grid.Column="1"
+                    Grid.Row="0" Grid.Column="2"
                     TextColor="Black"
                     PlaceholderColor="Black"
                     Placeholder="Max Amount"
@@ -99,25 +116,12 @@
                     x:Name="max3"
                 />
             </Grid>
-            <Grid Margin="10,0,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.50*" />
-                    <ColumnDefinition Width="0.50*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <Button  Grid.Row="0" Grid.Column="0"
-                    Text="Create Patient" TextColor="White"  
+            <Button 
+                    Margin="40,10,40,0"
+                    Text="Update Plan" TextColor="White"  
                     BackgroundColor="SteelBlue" 
                     CornerRadius="10" 
-                    Clicked="createPatient" />
-                <Button  Grid.Row="0" Grid.Column="1"
-                    Text="Select Patient" TextColor="White"  
-                    BackgroundColor="SteelBlue" 
-                    CornerRadius="10" 
-                    Clicked="selectPatient" />
-            </Grid>
+                    Clicked="updateExercisePlan" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -31,7 +31,7 @@ namespace XFFCMPushNotificationsSample.Droid
 
             //If debug you should reset the token each time.
 #if DEBUG
-            FirebasePushNotificationManager.Initialize(this, true);
+            FirebasePushNotificationManager.Initialize(this, false);
 #else
             FirebasePushNotificationManager.Initialize(this, false);
 #endif

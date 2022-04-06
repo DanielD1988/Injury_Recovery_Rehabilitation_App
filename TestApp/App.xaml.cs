@@ -1,8 +1,5 @@
 ﻿using Plugin.FirebasePushNotification;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 namespace TestApp
 {
     public partial class App : Application

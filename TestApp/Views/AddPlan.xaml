@@ -27,7 +27,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Exercise1" FontSize="Large" TextColor="Black"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Exercise 1" FontSize="Large" TextColor="Black"/>
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="exercise1" Title="Select"  ItemsSource="{Binding name}">
                 </Picker>
             </Grid>
@@ -39,7 +39,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Exercise2" FontSize="Large" TextColor="Black"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Exercise 2" FontSize="Large" TextColor="Black"/>
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="exercise2" Title="Select"  ItemsSource="{Binding name}">
                 </Picker>
             </Grid>
@@ -51,7 +51,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Exercise3" FontSize="Large" TextColor="Black"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Exercise 3" FontSize="Large" TextColor="Black"/>
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="exercise3" Title="Select"  ItemsSource="{Binding name}">
                 </Picker>
             </Grid>

@@ -22,7 +22,7 @@ namespace TestApp.Services
             {
                 var dataString = JsonConvert.SerializeObject(predictionArray);
                 webClient.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-                prediction = webClient.UploadString(new Uri("http://10.0.2.2:56285/predict"), "POST", dataString);
+                prediction = webClient.UploadString(new Uri("http://10.0.2.2:80/predict"), "POST", dataString);
             }
             return prediction;
         }

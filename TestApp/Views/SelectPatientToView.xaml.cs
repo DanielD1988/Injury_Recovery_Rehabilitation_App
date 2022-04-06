@@ -13,12 +13,16 @@ namespace TestApp.Views
         private List<PatientList> details;
         private Dictionary<string, bool> progressPlan;
         private PlanProgressViewModel plan = new PlanProgressViewModel();
+        private DisplayPatientExercisePlanViewModel model = new DisplayPatientExercisePlanViewModel();
         private string patientUid = "";
         private string patientName = "";
-        public SelectPatientToView(List<PatientList> details)
+        private bool isViewProgress;
+        public SelectPatientToView(List<PatientList> details,string titleName,bool isViewProgress)
         {
             InitializeComponent();
             this.details = details;
+            labelName.Text = titleName;
+            this.isViewProgress = isViewProgress;
         }
         protected async override void OnAppearing()
         {
@@ -47,8 +51,16 @@ namespace TestApp.Views
                         patientUid = detail.PatientUid;
                     }
                 }
-                progressPlan = await plan.getPatientProgress(patientUid);
-                await Navigation.PushModalAsync(new DisplayProgress(patientUid, progressPlan));
+                if (isViewProgress)
+                {
+                    progressPlan = await plan.getPatientProgress(patientUid);
+                    await Navigation.PushModalAsync(new DisplayProgress(patientUid, progressPlan));
+                }
+                else
+                {
+                    Patient patient = await model.getpatientDetails(patientUid, false);
+                    await Navigation.PushModalAsync(new UpdatePatientExerciseAmount(patientUid, patient));
+                }
             }
             else
             {
