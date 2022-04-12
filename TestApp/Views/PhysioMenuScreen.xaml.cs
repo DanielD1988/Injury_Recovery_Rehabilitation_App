@@ -76,21 +76,14 @@ namespace TestApp.Views
             await Navigation.PushModalAsync(new PredictInjuryType());
         }
         /// <summary>
-        /// This button goes to the addNewPlan page
+        /// This button goes to the to a menu to edit create or delete an exercise plan
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
         private async void addNewPlan(object sender, EventArgs args)
         {
-            if(exerciseList.Count == 0)
-            {
-                exerciseList = await exercise.getExercises();
-                await Navigation.PushModalAsync(new AddPlan(physioId, exerciseList));
-            }
-            else
-            {
-                await Navigation.PushModalAsync(new AddPlan(physioId, exerciseList));
-            }
+            exerciseList = await exercise.getExercises();
+            await Navigation.PushModalAsync(new YourPlans(physioId, exerciseList));
         }
         public async void updatePatientExercisePlan(object sender, EventArgs args)
         {

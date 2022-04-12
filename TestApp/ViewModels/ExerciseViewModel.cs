@@ -36,5 +36,33 @@ namespace TestApp.ViewModels
             bool tF = await fire.addNewPlan(physioUserid, category, exer1, exer2, exer3, image, exerciseName);
             return tF;
         }
+        /// <summary>
+        /// This method updates an existing plan with a new one
+        /// </summary>
+        /// <param name="physioUserid"></param>
+        /// <param name="newExerciseName"></param>
+        /// <param name="exer1"></param>
+        /// <param name="exer2"></param>
+        /// <param name="exer3"></param>
+        /// <param name="image"></param>
+        /// <param name="category"></param>
+        /// <param name="orginalExerciseName"></param>
+        /// <returns></returns>
+        public async Task<bool> updatePlanToDb(string physioUserid, string newExerciseName, string exer1, string exer2, string exer3, string image, string category,string orginalExerciseName)
+        {
+            bool tf = await fire.updatePhysioPlan(physioUserid, newExerciseName, exer1, exer2, exer3, image, category, orginalExerciseName);
+            return tf;
+        }
+        /// <summary>
+        /// This method removes a created exercise plan from the physio
+        /// </summary>
+        /// <param name="physioUserid"></param>
+        /// <param name="exerciseName"></param>
+        /// <returns></returns>
+        public async Task<bool> deletePlanToDb(string physioUserid, string exerciseName)
+        {
+            bool tf = await fire.deletePhysioPlan(physioUserid, exerciseName);
+            return tf;
+        }
     }
 }

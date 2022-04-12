@@ -712,5 +712,50 @@ namespace TestApp.services
                 return null;
             }
         }
+        /// <summary>
+        /// This method updates a physio plan
+        /// </summary>
+        /// <param name="physioUserid"></param>
+        /// <param name="newExerciseName"></param>
+        /// <param name="exer1"></param>
+        /// <param name="exer2"></param>
+        /// <param name="exer3"></param>
+        /// <param name="image"></param>
+        /// <param name="category"></param>
+        /// <param name="orginalExerciseName"></param>
+        /// <returns></returns>
+        public async Task<bool> updatePhysioPlan(string physioUserid, string newExerciseName, string exer1, string exer2, string exer3, string image, string category, string orginalExerciseName)
+        {
+            try
+            {
+                await deletePhysioPlan(physioUserid, orginalExerciseName);
+                await addNewPlan(physioUserid, category, exer1, exer2, exer3, image, newExerciseName);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+        /// <summary>
+        /// This method deletes a physio made plan
+        /// </summary>
+        /// <param name="physioUserid"></param>
+        /// <param name="planName"></param>
+        /// <returns></returns>
+        public async Task<bool> deletePhysioPlan(string physioUserid,string planName)
+        {
+            try
+            {
+                await firebase.Child("newPlans").Child(physioUserid).Child(planName).DeleteAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
     }
 }

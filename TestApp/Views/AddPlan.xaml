@@ -5,7 +5,8 @@
     <ContentPage.Content>
         <StackLayout>
             <Label
-            Text="Add New Plan"
+            x:Name="title"
+            Text=""
             HorizontalOptions="Center"
             TextColor="SteelBlue"
             FontAttributes="Bold"
@@ -76,7 +77,8 @@
                 </Picker>
             </Grid>
             <Button
-                    Text="Add Plan"
+                    x:Name="buttonName"
+                    Text=""
                     Margin="50,30,50,45"
                     BackgroundColor="SteelBlue"
                     TextColor="White"
