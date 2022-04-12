@@ -10,7 +10,7 @@
             <Label
                 Text="Injury Recovery Register"
                 HorizontalOptions="Center"
-                TextColor="DodgerBlue"
+                TextColor="SteelBlue"
                 FontSize="35"
                 Margin="0, 20"
             />
@@ -43,7 +43,7 @@
             <Button
                 Text="Pick Payment Plan"
                 Margin="50,30,50,0"
-                BackgroundColor="DodgerBlue"
+                BackgroundColor="SteelBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="payment"
@@ -51,7 +51,7 @@
              <Button
                 Text="Confirm"
                 Margin="50,15,50,0"
-                BackgroundColor="DodgerBlue"
+                BackgroundColor="SteelBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="registerPhysio"
@@ -59,7 +59,7 @@
         <Button
                 Text="Return to Login"
                 Margin="50,15,50,0"
-                BackgroundColor="DodgerBlue"
+                BackgroundColor="SteelBlue"
                 TextColor="Black"
                 CornerRadius="10"
                 Clicked="login"

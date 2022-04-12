@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -7,6 +11,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page shows a list of patients assigned to the physio with the use of a picker
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPatientToView : ContentPage
     {

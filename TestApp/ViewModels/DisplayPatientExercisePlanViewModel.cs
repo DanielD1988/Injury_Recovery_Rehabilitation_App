@@ -119,8 +119,16 @@ namespace TestApp.ViewModels
         public async Task<bool> checkIfExercisePlanCompleteForToday(string date,string patientUid,bool IsMocked)
         {
             Dictionary<string, bool> patientState = await fire.getPatientProgress(patientUid, IsMocked);
-            if(patientState[date] == true)
+            try
             {
+                if (patientState[date] == true)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
                 return true;
             }
             return false;

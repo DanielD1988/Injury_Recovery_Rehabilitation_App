@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using Newtonsoft.Json;
 using System;
 using System.Net;
 
@@ -7,6 +11,10 @@ namespace TestApp.Services
     class PredictModelApi
     {
         string prediction = "";
+        /// <summary>
+        /// This class connects to a decsion tree classifier model that is in a flask web app stored on googles cloud platform
+        /// Data sent from the phone is used to classify what common injury a patient might have
+        /// </summary>
         public PredictModelApi()
         {
 

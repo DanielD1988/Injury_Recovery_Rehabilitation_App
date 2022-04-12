@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestApp.Models;
 using TestApp.services;
 
 namespace TestApp.ViewModels
 {
+    /// <summary>
+    /// This class allows for deleting updating and creating of an exercise plan and return a list of exercise plan names
+    /// </summary>
     class ExerciseViewModel
     {
         private FirebaseMethods fire;

@@ -1,7 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System.Collections.Generic;
 
 namespace TestApp.Models
 {
+    /// <summary>
+    /// This model has extra fields used for the mock database
+    /// </summary>
     public class MockPhysio
     {
         //extra fields for mock database

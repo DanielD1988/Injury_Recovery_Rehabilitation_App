@@ -1,4 +1,8 @@
-﻿using Android.App;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;

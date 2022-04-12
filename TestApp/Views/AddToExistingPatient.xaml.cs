@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.models;
 using TestApp.Models;
@@ -8,6 +12,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page displays a form so a current patient of a physio can be assigned a new exercise plan
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddToExistingPatient : ContentPage
     {

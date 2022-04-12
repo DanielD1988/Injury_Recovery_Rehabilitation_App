@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
+ */
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,9 +16,6 @@ namespace UnitTestProject
     public class SecurityViewModelTest
     {
         SecurityViewModel security = new SecurityViewModel();
-        /// <summary>
-        /// checks if the method generates a random string of a certain length
-        /// </summary>
         [Fact]
         public void generateSaltOrPasswordOrUidTest()
         {
@@ -22,9 +24,6 @@ namespace UnitTestProject
             Assert.Equal(expected, result.Length);
 
         }
-        /// <summary>
-        /// checks if the method generates a random string
-        /// </summary>
         [Fact]
         public void md5HashAndSaltThePasswordTest()
         {
@@ -35,9 +34,6 @@ namespace UnitTestProject
             string result = security.md5HashAndSaltThePassword("asfdhw336whus", "GOODpASS45678");
             Assert.Equal(expected, result);
         }
-        /// <summary>
-        /// This checks if the the user is authenticated to login
-        /// </summary>
         [Fact]
         public async void checkIfLoginIsVerifiedTestFails()
         {
@@ -45,9 +41,6 @@ namespace UnitTestProject
             string expected = "";
             Assert.Equal(expected, result);
         }
-        /// <summary>
-        /// This checks if the the user is authenticated to login
-        /// </summary>
         [Fact]
         public async void checkIfLoginIsVerifiedTestPasses()
         {

@@ -1,4 +1,9 @@
-﻿using TestApp.ViewModels;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
+ */
+using TestApp.ViewModels;
 using Xunit;
 
 namespace UnitTestProject

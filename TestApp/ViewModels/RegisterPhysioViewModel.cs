@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Threading.Tasks;
 using TestApp.services;
 
@@ -20,7 +24,10 @@ namespace TestApp.ViewModels
             this.auth = auth;
             fireBase = FirebaseMethods.GetInstance();
         }
-        public RegisterPhysioViewModel()//used for testing IFirebaseAuthenticator can not be run in unit test
+        /// <summary>
+        /// This constructor used for testing  - IFirebaseAuthenticator can not be run in unit test
+        /// </summary>
+        public RegisterPhysioViewModel()
         {
             fireBase = FirebaseMethods.GetInstance();
         }

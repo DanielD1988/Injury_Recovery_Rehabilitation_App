@@ -1,8 +1,15 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System.Collections.Generic;
 using TestApp.Services;
 
 namespace TestApp.ViewModels
 {
+    /// <summary>
+    /// This class takes in the form data and uses dictionarys to build an array that can be sent to the flask api
+    /// </summary>
     class PredictViewModel
     {
         PredictModelApi predict;

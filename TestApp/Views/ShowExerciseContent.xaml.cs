@@ -1,4 +1,9 @@
-﻿using MediaManager;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://github.com/Baseflow/XamarinMediaManager
+ */
+using MediaManager;
 using System;
 using TestApp.ViewModels;
 using Xamarin.Forms;

@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
+ */
+using System.Collections.Generic;
 using TestApp.models;
 using TestApp.ViewModels;
 using Xunit;
@@ -8,10 +13,6 @@ namespace UnitTestProject
     public class RegisterPatientViewModelTest
     {
         RegisterPatientViewModel patientVm = new RegisterPatientViewModel();
-        /// <summary>
-        /// This method checks if the SendPatientEmail is called can not open an xamarin essentails email from a test 
-        /// so test does fail
-        /// </summary>
         [Fact]
         public async void SendPatientEmailTest()
         {
@@ -32,8 +33,6 @@ namespace UnitTestProject
                 Exercise1 = "Heel and calf stretch",
                 Exercise2 = "Hamstring stretch",
                 Exercise3 = "Prisoner Squats",
-                exerciseDescription = "",
-                exerciseInfo = "",
                 exerciseListKey = "",
                 exerciseName = "Knee Pain",
                 Image = "",

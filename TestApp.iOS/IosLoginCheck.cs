@@ -1,4 +1,8 @@
-﻿using Firebase.Auth;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://www.py4u.net/discuss/1541967
+ */
 using System;
 using System.Threading.Tasks;
 using TestApp.iOS;
@@ -42,7 +46,6 @@ namespace TestApp.iOS
          /// <param name="email"></param>
          /// <param name="password"></param>
          /// <returns></returns>
-        //https://www.py4u.net/discuss/1541967
         public async Task<string> SignupWithEmailPassword(string email, string password)
         {
             return "true";

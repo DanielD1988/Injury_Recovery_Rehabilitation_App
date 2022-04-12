@@ -4,7 +4,14 @@
              x:Class="TestApp.Views.UpdatePatientExerciseAmount">
     <ContentPage.Content>
         <StackLayout>
-            <Label TextColor="Black" BackgroundColor="SkyBlue" FontSize="Large" FontFamily="Arial"  HorizontalTextAlignment="Center" Text="Update Exercises"/>
+            <Label
+            Text="Update Exercises"
+            HorizontalOptions="Center"
+            TextColor="SteelBlue"
+            FontAttributes="Bold"
+            FontSize="35"
+            Margin="0, 40"
+            />
             <Grid Margin="10,15,5,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.20*" />

@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -8,6 +12,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page displays the physio menu
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PhysioMenuScreen : ContentPage
     {

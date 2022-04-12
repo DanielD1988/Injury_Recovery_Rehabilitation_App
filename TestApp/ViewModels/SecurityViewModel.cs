@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://riptutorial.com/csharp/example/9341/md5
+ */
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -42,7 +47,7 @@ namespace TestApp.ViewModels
         /// <param name="salt"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public string md5HashAndSaltThePassword(string salt, string password)//https://riptutorial.com/csharp/example/9341/md5
+        public string md5HashAndSaltThePassword(string salt, string password)
         {
             var sourceBytes = Encoding.UTF8.GetBytes(salt + password);
             var md5Hash = MD5.Create();
@@ -138,7 +143,6 @@ namespace TestApp.ViewModels
             string plainText = Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
             return plainText;
         }
-       
         /// <summary>
         /// This method returns a list of patient uids and encryption keys
         /// </summary>

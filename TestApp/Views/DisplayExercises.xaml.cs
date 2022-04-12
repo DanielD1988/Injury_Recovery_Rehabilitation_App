@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TestApp.models;
@@ -11,15 +15,15 @@ using Xamarin.Forms.Xaml;
 namespace TestApp.views
 {
     /// <summary>
-    /// This view class is used to display a list of exercises to a mobile screen
+    /// This page is used to display a list of exercises in a picker
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayExercises : ContentPage
     {
         private DisplayExercisePlansViewModel viewModel;
         private List<PatientList> details = new List<PatientList>();
-        private string physioUid = ""
-;       /// <summary>
+        private string physioUid = "";
+        /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
         public DisplayExercises(string physioUid,List<PatientList> details)
@@ -60,6 +64,5 @@ namespace TestApp.views
             string exerciseKey = button.CommandParameter.ToString().Replace("\"", "");
             Navigation.PushModalAsync(new ExerciseDetail(exerciseKey, physioUid, details));
         }
-
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -7,6 +11,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page displays a patients progress with calender
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DisplayProgress : ContentPage
     {

@@ -1,10 +1,15 @@
-﻿using Stripe;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using Stripe;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TestApp.Services
 {
+    /// <summary>
+    /// This class takes in payment details with a form and allows a payment to take place using the stripe api
+    /// </summary>
     class StripeApi
     {
         public StripeApi()

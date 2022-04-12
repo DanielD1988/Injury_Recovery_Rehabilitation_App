@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
 using Foundation;
 using UIKit;
-using TestApp;
 using MediaManager;
 
 namespace TestApp.iOS

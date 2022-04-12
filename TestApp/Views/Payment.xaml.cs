@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.ViewModels;
 using Xamarin.Forms;
@@ -7,7 +11,7 @@ using Xamarin.Forms.Xaml;
 namespace TestApp.Views
 {
     /// <summary>
-    /// This class does validation for the xaml form and calls methods from the PaymentViewModal to get the conversion rates 
+    /// This page does validation for the xaml form and calls methods from the PaymentViewModal to get the conversion rates 
     /// to euro
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]

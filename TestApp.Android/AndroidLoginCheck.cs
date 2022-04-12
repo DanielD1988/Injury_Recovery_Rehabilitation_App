@@ -1,4 +1,9 @@
-﻿using Android.Gms.Extensions;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
+ */
+using Android.Gms.Extensions;
 using Firebase.Auth;
 using System.Threading.Tasks;
 using TestApp.Droid;
@@ -21,7 +26,6 @@ namespace TestApp.Droid
         /// <param name="password"></param>
         /// <returns></returns>
         /// </summary>
-        //https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
         public async Task<string> LoginWithEmailPassword(string email, string password)
         {
             try

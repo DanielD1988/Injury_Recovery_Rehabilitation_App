@@ -1,8 +1,15 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System.Collections.Generic;
 using TestApp.Services;
 
 namespace TestApp.ViewModels
 {
+    /// <summary>
+    /// This class sends the form data to the stripe api and retives the current exchange rates to euro
+    /// </summary>
     class PaymentViewModel
     {
         private bool isPaid = false;

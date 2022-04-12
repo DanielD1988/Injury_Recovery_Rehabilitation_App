@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://docs.microsoft.com/en-us/xamarin/essentials/email?tabs=ios
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.services;
 using System.Threading.Tasks;
@@ -187,7 +192,6 @@ namespace TestApp.ViewModels
         /// <param name="recipients"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        //https://docs.microsoft.com/en-us/xamarin/essentials/email?tabs=ios
         public async Task<bool> SendPatientEmail(List<string> recipients, string password,string body,string subject)
         {
             try

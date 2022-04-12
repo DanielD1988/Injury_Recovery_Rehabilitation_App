@@ -1,10 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://app.exchangerate-api.com/
+ */
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using TestApp.Models;
 
 namespace TestApp.Services
 {
+    /// <summary>
+    /// This class returns the currency conversion rates to euro from exchangerateapi
+    /// </summary>
     class CallToExcangeRateApi
     {
         private ExchangeRateModel Test;
@@ -17,7 +25,7 @@ namespace TestApp.Services
         /// This method calls a exchange rate api so the membership prices can reflect what the user should be paying in their currency
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, double> getCurrentExchangeRate()//https://app.exchangerate-api.com/
+        public Dictionary<string, double> getCurrentExchangeRate()
         {
             String URLString = "https://v6.exchangerate-api.com/v6/a050309c53399e5e5f400366/latest/EUR";
             using (var webClient = new System.Net.WebClient())

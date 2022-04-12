@@ -1,10 +1,18 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using TestApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page gives a form that can be used to try and predict the 
+    /// type of injury a patient might get when performing an activity
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PredictInjuryType : ContentPage
     {

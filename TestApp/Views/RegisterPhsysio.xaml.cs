@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using TestApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -1,10 +1,17 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TestApp.Models;
 using TestApp.services;
 
 namespace TestApp.ViewModels
 {
+    /// <summary>
+    /// This class returns the patient plan progress and patient names and user ids
+    /// </summary>
     class PlanProgressViewModel
     {
         private FirebaseMethods fire;

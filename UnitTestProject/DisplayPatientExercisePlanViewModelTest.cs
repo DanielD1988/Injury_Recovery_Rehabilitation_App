@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ * looked at https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test
+ */
+using System.Collections.Generic;
 using TestApp.Models;
 using TestApp.ViewModels;
 using Xunit;
@@ -8,18 +13,12 @@ namespace UnitTestProject
     public class DisplayPatientExercisePlanViewModelTest
     {
         private DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
-        /// <summary>
-        /// This test checks to see if a list of exercises is returned
-        /// </summary>
         [Fact]
         public void getPatientExercisesTest()
         {
             List<Exercise> result = display.getPatientExercises("squat", "hamstring stretch", "heel and calf stretch", true).Result;
             Assert.NotEmpty(result);
         }
-        /// <summary>
-        /// This test checks to see if the time is removed from the date
-        /// </summary>
         [Fact]
         public void removeTimeFromDateTest()
         {
@@ -46,9 +45,6 @@ namespace UnitTestProject
             List<Exercise> result = display.getPatientsExercisePlan("1acdg456we", true).Result;
             Assert.NotEmpty(result);
         }
-        /// <summary>
-        /// This test checks if a exercise state is saved for a patient
-        /// </summary>
         [Fact]
         public void saveStateOfExercisePlanTest()
         {

@@ -1,8 +1,9 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestApp.models;
 using TestApp.Models;
 using TestApp.ViewModels;
@@ -11,6 +12,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page view allows the physio to select from a list of created exercise plans 
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SelectPlans : ContentPage
     {
@@ -26,6 +30,9 @@ namespace TestApp.Views
             this.exerciseList = exerciseList;
             this.physioPlans = physioPlans;
         }
+        /// <summary>
+        /// This method fills the picker with exercise plan names
+        /// </summary>
         protected async override void OnAppearing()
         {
             base.OnAppearing();
@@ -36,6 +43,11 @@ namespace TestApp.Views
             }
             namesPicker.ItemsSource = names;
         }
+        /// <summary>
+        /// Button goes to AddPlan page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void editPlan(object sender, EventArgs args)
         {
             if (getExercisePlanFromPicker())
@@ -43,6 +55,11 @@ namespace TestApp.Views
                 await Navigation.PushModalAsync(new AddPlan(physiouId, exerciseList, selectdPlan, "Edit Plan"));
             }
         }
+        /// <summary>
+        /// Button goes to deletePlanToDb page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private async void deletePlan(object sender, EventArgs args)
         {
             if (getExercisePlanFromPicker())
@@ -52,7 +69,7 @@ namespace TestApp.Views
             }
         }
         /// <summary>
-        /// This method assigns an exercise plan from a list of exercise plans
+        /// This method assigns an exercise plan object from a list of exercise plans
         /// </summary>
         /// <returns></returns>
         public bool getExercisePlanFromPicker()

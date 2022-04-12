@@ -1,4 +1,8 @@
-﻿using Plugin.FirebasePushNotification;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using Plugin.FirebasePushNotification;
 using System;
 using System.Globalization;
 using TestApp.ViewModels;
@@ -35,7 +39,7 @@ namespace TestApp
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
-            Navigation.PushModalAsync(new PhysioMenuScreen("wReLTtb9SdZXpYOTbFTQDSacas93"));
+            //Navigation.PushModalAsync(new PhysioMenuScreen("wReLTtb9SdZXpYOTbFTQDSacas93"));
             //Navigation.PushModalAsync(new PatientMenuScreen("Xmy0ofjszSe9DohrrH1uezsfbmz1"));
             /////////////////////////////////////////////////////////////////////
         }

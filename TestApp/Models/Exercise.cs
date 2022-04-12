@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
-
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using Newtonsoft.Json;
 
 namespace TestApp.Models
 {

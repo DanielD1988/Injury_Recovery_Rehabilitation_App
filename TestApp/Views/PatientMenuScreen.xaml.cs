@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Student Name Daniel Dinelli
+ * Student Number C00242741
+ */
+using System;
 using System.Collections.Generic;
 using TestApp.ViewModels;
 using Xamarin.Forms;
@@ -6,6 +10,9 @@ using Xamarin.Forms.Xaml;
 
 namespace TestApp.Views
 {
+    /// <summary>
+    /// This page displays the menu for the patient
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PatientMenuScreen : ContentPage
     {
@@ -24,6 +31,11 @@ namespace TestApp.Views
             base.OnAppearing();
             imgageDisplay.Source = "danLogo.png";
         }
+        /// <summary>
+        /// This button goes to the ShowPatientExercisePlan page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         async void goToExercisePlan(object sender, EventArgs args)
         {
             today = DateTime.Today;
@@ -32,13 +44,18 @@ namespace TestApp.Views
             bool isCompleteForToday = await model.checkIfExercisePlanCompleteForToday(date, patientId,false);
             if (isCompleteForToday)
             {
-                await DisplayAlert("Error", "You have already completed your exercise for today", "OK");
+                await DisplayAlert("Error", "You have already completed your exercise for today or your plan is finished", "OK");
             }
             else
             {
                 await Navigation.PushModalAsync(new ShowPatientExercisePlan(patientId));
             }
         }
+        /// <summary>
+        /// This button goes to the DisplayProgress page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         async void goToPatientProgress(object sender, EventArgs args)
         {
             progressPlan = await plan.getPatientProgress(patientId);
