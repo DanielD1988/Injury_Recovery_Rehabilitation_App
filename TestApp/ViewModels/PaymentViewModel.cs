@@ -1,6 +1,7 @@
 ﻿/*
  * Student Name Daniel Dinelli
  * Student Number C00242741
+ * Looked at security
  */
 using System.Collections.Generic;
 using TestApp.Services;
@@ -39,7 +40,7 @@ namespace TestApp.ViewModels
         /// This method calls exchange rate api to return other currency exchnage rates to euro in a dictionary structure
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, double> getCurrentExchangeRate()//https://app.exchangerate-api.com/
+        public Dictionary<string, double> getCurrentExchangeRate()
         {
             return rateApi.getCurrentExchangeRate();
         }

@@ -22,7 +22,7 @@ namespace TestApp.Views
         List<Exercise> exerciseList;
         List<ExercisePlan> physioPlans;
         ExercisePlan selectdPlan;
-        ExerciseViewModel vm = new ExerciseViewModel();
+        ExerciseViewModel exercise = new ExerciseViewModel();
         public SelectPlans(string physiouid, List<Exercise> exerciseList, List<ExercisePlan> physioPlans)
         {
             InitializeComponent();
@@ -64,7 +64,7 @@ namespace TestApp.Views
         {
             if (getExercisePlanFromPicker())
             {
-                await vm.deletePlanToDb(physiouId,selectdPlan.exerciseName);
+                await exercise.deletePlanToDb(physiouId,selectdPlan.exerciseName);
                 await Navigation.PopModalAsync();
             }
         }

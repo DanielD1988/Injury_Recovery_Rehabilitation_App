@@ -161,7 +161,7 @@ namespace TestApp.ViewModels
         public async Task<DateTime> getPhysioMembership(bool isMocked, string physioUid)
         {
             CultureInfo objcul = new CultureInfo("en-GB");
-            var physioDetails = await fire.checkPhysioMembership(isMocked, physioUid);
+            Membership physioDetails = await fire.checkPhysioMembership(isMocked, physioUid);
             string membershipDate = physioDetails.MembershipDate.Replace("-", "/");
             membershipDate = membershipDate.Substring(0, membershipDate.IndexOf("T"));
             DateTime currentDate = DateTime.ParseExact(membershipDate, "yyyy/MM/dd", objcul);

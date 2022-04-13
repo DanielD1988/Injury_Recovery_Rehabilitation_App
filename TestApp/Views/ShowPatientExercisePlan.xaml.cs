@@ -17,7 +17,7 @@ namespace TestApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ShowPatientExercisePlan : ContentPage
     {
-        private static DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
+        private static DisplayPatientExercisePlanViewModel model = new DisplayPatientExercisePlanViewModel();
         private string downLoadLink1 = "";
         private string downLoadLink2 = "";
         private string downLoadLink3 = "";
@@ -44,33 +44,33 @@ namespace TestApp.Views
         /// </summary>
         protected async override void OnAppearing()
         {
-            details = await display.getpatientDetails(patientUid, false);
+            details = await model.getpatientDetails(patientUid, false);
             base.OnAppearing();
             date = dateTime.ToString();
-            date = display.removeTimeFromDate(date);
+            date = model.removeTimeFromDate(date);
             currentDate.Text = "Todays Date " + date;
             imgageDisplay.Source = "danLogo.png";
             if (patientExerciselist.Count == 0)
             {
-                patientExerciselist = await display.getPatientsExercisePlan(patientUid, false);
+                patientExerciselist = await model.getPatientsExercisePlan(patientUid, false);
             }
             exer1.Text = patientExerciselist[0].ExerciseName;
             exer2.Text = patientExerciselist[1].ExerciseName;
             exer3.Text = patientExerciselist[2].ExerciseName;
             
-            if (display.ExerciseCompletedNumber == 1)
+            if (model.ExerciseCompletedNumber == 1)
             {
                 progress.Progress += 0.33;
                 exer1.IsEnabled = false;
                 exercise1Complete = true;
             }
-            else if (display.ExerciseCompletedNumber == 2)
+            else if (model.ExerciseCompletedNumber == 2)
             {
                 progress.Progress += 0.33;
                 exer2.IsEnabled = false;
                 exercise2Complete = true;
             }
-            else if (display.ExerciseCompletedNumber == 3)
+            else if (model.ExerciseCompletedNumber == 3)
             {
                 progress.Progress += 0.34;
                 exer3.IsEnabled = false;
@@ -86,10 +86,10 @@ namespace TestApp.Views
         {
             videoFile = "";
             videoFile = patientExerciselist[0].VideoLink;
-            downLoadLink1 = await display.getExerciseVideoLink(videoFile, false);
+            downLoadLink1 = await model.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[0].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[0].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink1, exerciseName, videoCopyRight, patientUid,display,1,details.minExercise1,details.maxExercise1));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink1, exerciseName, videoCopyRight, patientUid,model,1,details.minExercise1,details.maxExercise1));
         }
         /// <summary>
         /// This button gets the necessary exercise data ready for the second exercise so it can be passed to the next page
@@ -100,10 +100,10 @@ namespace TestApp.Views
         {
             videoFile = "";
             videoFile = patientExerciselist[1].VideoLink;
-            downLoadLink2 = await display.getExerciseVideoLink(videoFile, false);
+            downLoadLink2 = await model.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[1].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[1].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink2, exerciseName, videoCopyRight, patientUid,display,2, details.minExercise2,details.maxExercise2));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink2, exerciseName, videoCopyRight, patientUid,model,2, details.minExercise2,details.maxExercise2));
         }
         /// <summary>
         /// This button gets the necessary exercise data ready for the third exercise so it can be passed to the next page
@@ -114,10 +114,10 @@ namespace TestApp.Views
         {
             videoFile = "";
             videoFile = patientExerciselist[2].VideoLink;
-            downLoadLink3 = await display.getExerciseVideoLink(videoFile, false);
+            downLoadLink3 = await model.getExerciseVideoLink(videoFile, false);
             exerciseName = patientExerciselist[2].ExerciseName;
             videoCopyRight = "Video Copyright " + patientExerciselist[2].exerciseVideoCopyright;
-            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink3, exerciseName, videoCopyRight, patientUid, display,3,details.minExercise3,details.maxExercise3));
+            await Navigation.PushModalAsync(new ShowExerciseContent(downLoadLink3, exerciseName, videoCopyRight, patientUid, model,3,details.minExercise3,details.maxExercise3));
         }
         /// <summary>
         /// This button saves the state of the current exercise plan when all exercises are completed for th
@@ -130,7 +130,7 @@ namespace TestApp.Views
             {
                 string date = dateTime.ToString("dd/MM/yyyy");
                 date = date.Replace("/", "-");
-                bool isComplete =  await display.saveStateOfExercisePlan(patientUid, date,false);
+                bool isComplete =  await model.saveStateOfExercisePlan(patientUid, date,false);
                 await DisplayAlert("Message", "Exercise Plan Saved", "OK");
                 await Application.Current.MainPage.Navigation.PopModalAsync(true);
             }

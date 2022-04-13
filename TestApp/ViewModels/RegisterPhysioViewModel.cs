@@ -14,7 +14,7 @@ namespace TestApp.ViewModels
     class RegisterPhysioViewModel
     {
         private IFirebaseAuthenticator auth;
-        private FirebaseMethods fireBase;
+        private FirebaseMethods fire;
         private SecurityViewModel security = new SecurityViewModel();
         private string salt = "";
         private string saltedPassword = "";
@@ -22,14 +22,14 @@ namespace TestApp.ViewModels
         public RegisterPhysioViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
-            fireBase = FirebaseMethods.GetInstance();
+            fire = FirebaseMethods.GetInstance();
         }
         /// <summary>
         /// This constructor used for testing  - IFirebaseAuthenticator can not be run in unit test
         /// </summary>
         public RegisterPhysioViewModel()
         {
-            fireBase = FirebaseMethods.GetInstance();
+            fire = FirebaseMethods.GetInstance();
         }
         /// <summary>
         /// This function creates a record in the database for the newly signed up physio
@@ -56,10 +56,10 @@ namespace TestApp.ViewModels
                     salt = security.generateSaltOrPasswordOrUid(32);
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
                     physioUid = security.generateSaltOrPasswordOrUid(10);
-                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, physioUid, isMocked);
+                    await fire.iOSSignupWithEmailPassword(email, salt, saltedPassword, physioUid, isMocked);
                 }
-                await fireBase.AddPhysio(physioUid, name, physioIdNumber, email, membership, isMocked);
-                await fireBase.addUserType(physioUid, "physio", isMocked);
+                await fire.AddPhysio(physioUid, name, physioIdNumber, email, membership, isMocked);
+                await fire.addUserType(physioUid, "physio", isMocked);
                 return true;
             }
             catch (Exception e)

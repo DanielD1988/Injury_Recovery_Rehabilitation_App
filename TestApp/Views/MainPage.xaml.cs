@@ -1,6 +1,7 @@
 ﻿/*
  * Student Name Daniel Dinelli
  * Student Number C00242741
+ * Looked at https://github.com/xamarin/GooglePlayServicesComponents/issues/391
  */
 using Plugin.FirebasePushNotification;
 using System;
@@ -35,11 +36,11 @@ namespace TestApp
                 CrossFirebasePushNotification.Current.OnNotificationReceived += Current_OnNotificationReceived;
             }
             secuirty = new SecurityViewModel();
-            auth = DependencyService.Get<IFirebaseAuthenticator>();//https://github.com/xamarin/GooglePlayServicesComponents/issues/391
+            auth = DependencyService.Get<IFirebaseAuthenticator>();
             //Navigation.PushModalAsync(new DisplayExercises("CL7a2BcjGKgKdkBFhWYGndw5Xz63"));
             //Navigation.PushModalAsync(new ShowPatientExercisePlan("tNiEslj2QdWvOz0HU4xJvOev5K32"));
             //Navigation.PushModalAsync(new DisplayProgress("tNiEslj2QdWvOz0HU4xJvOev5K32"));
-            Navigation.PushModalAsync(new PhysioMenuScreen("wReLTtb9SdZXpYOTbFTQDSacas93"));
+            //Navigation.PushModalAsync(new PhysioMenuScreen("wReLTtb9SdZXpYOTbFTQDSacas93"));
             //Navigation.PushModalAsync(new PatientMenuScreen("Xmy0ofjszSe9DohrrH1uezsfbmz1"));
             /////////////////////////////////////////////////////////////////////
         }
