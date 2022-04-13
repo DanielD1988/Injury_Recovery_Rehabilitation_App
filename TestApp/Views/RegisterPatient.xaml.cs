@@ -41,7 +41,6 @@ namespace TestApp.Views
         private RadioButton button;
         private RegisterPatientViewModel patientVm;
         private IFirebaseAuthenticator auth = DependencyService.Get<IFirebaseAuthenticator>();
-        private DisplayPatientExercisePlanViewModel display = new DisplayPatientExercisePlanViewModel();
         private int min1 = 0;
         private int min2 = 0;
         private int min3 = 0;

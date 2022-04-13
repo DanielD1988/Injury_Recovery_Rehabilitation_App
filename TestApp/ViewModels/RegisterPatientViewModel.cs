@@ -21,7 +21,7 @@ namespace TestApp.ViewModels
     {
         private string password = "";
         private IFirebaseAuthenticator auth;
-        private FirebaseMethods fireBase;
+        private FirebaseMethods fire;
         private List<string> patientEmailList;
         private SecurityViewModel security = new SecurityViewModel();
         private string salt = "";
@@ -31,12 +31,12 @@ namespace TestApp.ViewModels
         public RegisterPatientViewModel(IFirebaseAuthenticator auth)
         {
             this.auth = auth;
-            fireBase = FirebaseMethods.GetInstance();
+            fire = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
         public RegisterPatientViewModel()//used for testing IFirebaseAuthenticator can not be run in unit test
         {
-            fireBase = FirebaseMethods.GetInstance();
+            fire = FirebaseMethods.GetInstance();
             patientEmailList = new List<string>();
         }
         /// <summary>
@@ -86,18 +86,17 @@ namespace TestApp.ViewModels
                     salt = security.generateSaltOrPasswordOrUid(32);
                     saltedPassword = security.md5HashAndSaltThePassword(salt, password);
                     patientUid = security.generateSaltOrPasswordOrUid(10);
-                    await fireBase.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid, isMocked);
+                    await fire.iOSSignupWithEmailPassword(email, salt, saltedPassword, patientUid, isMocked);
                 }
 
                 encryptionKey = security.generateSaltOrPasswordOrUid(32);
                 string hashedName = security.encryptData(name, encryptionKey);
                 string hashedEmail = security.encryptData(email, encryptionKey);
-                await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1,min2,min3,max1,max2,max3, isMocked);
-                await fireBase.AddPatientUIDToPatientList(physioUid, patientUid, hashedName, isMocked);
-                await fireBase.recordPatientProgress(patientUid, planDates, isMocked);
-                await fireBase.addUserType(patientUid,"patient", isMocked);
-
-                await fireBase.AddEncryptionKeyToUserId(patientUid,encryptionKey, isMocked);
+                await fire.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity,exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1,min2,min3,max1,max2,max3, isMocked);
+                await fire.AddPatientUIDToPatientList(physioUid, patientUid, hashedName, isMocked);
+                await fire.recordPatientProgress(patientUid, planDates, isMocked);
+                await fire.addUserType(patientUid,"patient", isMocked);
+                await fire.AddEncryptionKeyToUserId(patientUid,encryptionKey, isMocked);
 
                 string body = "Please find attached login details,\n Use this email and here is the password " + password;
                 string subject = "Injury Recovery Login Details";
@@ -149,10 +148,10 @@ namespace TestApp.ViewModels
             patientEmailList.Add(email);
             string hashedName = security.encryptData(name, encryptKey);
             string hashedEmail = security.encryptData(email, encryptKey);
-            await fireBase.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1, min2, min3, max1, max2, max3, false);
-            await fireBase.recordPatientProgress(patientUid, planDates, false);
+            await fire.AddPatient(patientUid, hashedName, gender, injuryType, injuryOccurred, age, injurySeverity, exerPlan.Exercise1, exerPlan.Exercise2, exerPlan.Exercise3, hashedEmail, min1, min2, min3, max1, max2, max3, false);
+            await fire.recordPatientProgress(patientUid, planDates, false);
 
-            await fireBase.AddEncryptionKeyToUserId(patientUid, encryptKey, false);
+            await fire.AddEncryptionKeyToUserId(patientUid, encryptKey, false);
 
             string body = "Your exercise plan has been updated please login with your old email and password";
             string subject = "Injury Recovery App";
@@ -182,7 +181,7 @@ namespace TestApp.ViewModels
         /// <returns></returns>
         public async Task<bool> updatePatientRecord(string name, string gender, string email, string injuryType, string injuryOccurred, int age, int injurySeverity,int min1, int min2, int min3, int max1, int max2, int max3,string exer1,string exer2,string exer3, string patientUid)
         {
-            bool tf = await fireBase.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, exer1, exer2, exer3, email, min1, min2, min3, max1, max2, max3, false);
+            bool tf = await fire.AddPatient(patientUid, name, gender, injuryType, injuryOccurred, age, injurySeverity, exer1, exer2, exer3, email, min1, min2, min3, max1, max2, max3, false);
             return tf;
         }
         /// <summary>
