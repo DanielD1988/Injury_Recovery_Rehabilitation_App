@@ -216,6 +216,6 @@ namespace TestApp.ViewModels
                 Console.WriteLine(value);
                 return false;
             }
-        }///////////////////////////////////////////////////////////////////////////////////
+        }
     }
 }

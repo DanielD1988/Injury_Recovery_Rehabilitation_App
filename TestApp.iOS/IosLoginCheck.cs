@@ -2,6 +2,7 @@
  * Student Name Daniel Dinelli
  * Student Number C00242741
  * looked at https://www.py4u.net/discuss/1541967
+ * looked at https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
  */
 using System;
 using System.Threading.Tasks;
@@ -25,7 +26,6 @@ namespace TestApp.iOS
         /// <param name="password"></param>
         /// <returns></returns>
         /// </summary>
-        //https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
         public async Task<string> LoginWithEmailPassword(string email, string password)
         {
             try

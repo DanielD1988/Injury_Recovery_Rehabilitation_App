@@ -92,6 +92,11 @@ namespace TestApp.Views
             exerciseList = await exercise.getExercises();
             await Navigation.PushModalAsync(new YourPlans(physioId, exerciseList));
         }
+        /// <summary>
+        /// This button goes to the to update a patients exercise plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         public async void updatePatientExercisePlan(object sender, EventArgs args)
         {
             if (details.Count != 0)

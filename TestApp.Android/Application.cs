@@ -34,7 +34,7 @@ namespace XFFCMPushNotificationsSample.Droid
                 FirebasePushNotificationManager.DefaultNotificationChannelImportance = NotificationImportance.Max;
             }
 
-            //If debug you should reset the token each time.
+            
 #if DEBUG
             FirebasePushNotificationManager.Initialize(this, false);
 #else

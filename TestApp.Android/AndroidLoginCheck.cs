@@ -2,6 +2,7 @@
  * Student Name Daniel Dinelli
  * Student Number C00242741
  * looked at https://medium.com/firebase-developers/firebase-auth-on-xamarin-forms-171432aa3d76
+ * looked at https://www.py4u.net/discuss/1541967
  */
 using Android.Gms.Extensions;
 using Firebase.Auth;
@@ -48,14 +49,13 @@ namespace TestApp.Droid
                 e.PrintStackTrace();
                 return "";
             }
-        }////////////////////////////////////////////////////////////////////
+        }
         /// <summary>
         /// This method allows a user to register with the application through firebase Auth
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        //https://www.py4u.net/discuss/1541967
         public async Task<string> SignupWithEmailPassword(string email, string password)
         {
             var user = await FirebaseAuth.Instance.CreateUserWithEmailAndPasswordAsync(email, password);

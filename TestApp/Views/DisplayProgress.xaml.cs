@@ -68,7 +68,7 @@ namespace TestApp.Views
             }
         }
         /// <summary>
-        /// This bu
+        /// This button returns the user to the menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

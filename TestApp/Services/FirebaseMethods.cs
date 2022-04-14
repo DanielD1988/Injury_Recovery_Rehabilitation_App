@@ -1,6 +1,7 @@
 ﻿/*
  * Student Name Daniel Dinelli
  * Student Number C00242741
+ * Looked at this https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
  */
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,6 @@ namespace TestApp.services
         /// </summary>
         /// <param name="isMocked"></param>
         /// <returns></returns>
-        //https://xamarinmonkeys.blogspot.com/2019/01/xamarinforms-working-with-firebase.html
         public async Task<List<ExercisePlan>> GetAllExercises(bool isMocked)
         {
 

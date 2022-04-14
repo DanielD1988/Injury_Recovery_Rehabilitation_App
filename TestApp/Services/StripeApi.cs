@@ -1,6 +1,7 @@
 ﻿/*
  * Student Name Daniel Dinelli
  * Student Number C00242741
+ * Looked at this video to learn how to use stripe https://www.youtube.com/watch?v=_b8kNxoGW3k
  */
 using Stripe;
 using System;
@@ -28,7 +29,7 @@ namespace TestApp.Services
         /// <param name="amountPaid"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
-        public bool makePayment(string cardNumber, long yearExpires, long monthExpires, string cvcNumber, string cardName, string email, long amountPaid, string currency)//https://www.youtube.com/watch?v=_b8kNxoGW3k used this video to learn how to use stripe
+        public bool makePayment(string cardNumber, long yearExpires, long monthExpires, string cvcNumber, string cardName, string email, long amountPaid, string currency)
         {
             try
             {
