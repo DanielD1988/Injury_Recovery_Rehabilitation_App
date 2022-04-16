@@ -24,7 +24,7 @@
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="skill" Title="Select" SelectedIndexChanged="skillLevel">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>Amature</x:String>
+                            <x:String>Amateur</x:String>
                             <x:String>Casual</x:String>
                             <x:String>Professional</x:String>
                         </x:Array>
