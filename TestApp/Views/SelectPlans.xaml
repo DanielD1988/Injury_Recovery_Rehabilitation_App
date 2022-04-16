@@ -13,7 +13,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Select Patient" FontSize="Large"/>
+                <Label Grid.Row="0" Grid.Column="0" Text="Select Plan" FontSize="Large"/>
                 <Picker Grid.Row="0" Grid.Column="1" x:Name="namesPicker" Title="Select"  ItemsSource="{Binding planNames}">
                 </Picker>
             </Grid>

@@ -49,9 +49,9 @@ namespace TestApp.ViewModels
         /// </summary>
         public void setDicts()
         {
-            skillDict.Add("amatur", 0);
+            skillDict.Add("Amateur", 0);
             skillDict.Add("Casual", 1);
-            skillDict.Add("professional", 2);
+            skillDict.Add("Professional", 2);
             injuredDict.Add("Yes", 1);
             injuredDict.Add("No", 0);
             ageDict.Add("0-18", 0);
