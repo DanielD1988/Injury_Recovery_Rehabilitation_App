@@ -6,10 +6,10 @@
         <ScrollView BackgroundColor="AliceBlue">
             <StackLayout>
                 <Label
-                    Text="Patient Register"
+                    Text="Add Plan to Current Patient"
                     HorizontalOptions="Center"
                     TextColor="SteelBlue"
-                    FontSize="35"
+                    FontSize="25"
                     Margin="0, 10"
                 />
 
