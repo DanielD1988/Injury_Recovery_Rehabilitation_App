@@ -78,7 +78,7 @@ namespace TestApp.Views
                 {
                     await exercise.updatePlanToDb(id, planName.Text, exer1, exer2, exer3, image, categor, orginalPlanName);
                 }
-                await DisplayAlert("Alert", "Plan has been added", "OK");
+                await DisplayAlert("Alert", "Success", "OK");
                 await Navigation.PopModalAsync();
             }
             else
