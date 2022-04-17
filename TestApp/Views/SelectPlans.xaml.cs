@@ -64,7 +64,9 @@ namespace TestApp.Views
         {
             if (getExercisePlanFromPicker())
             {
+                string message = "Your plan " + selectdPlan.exerciseName + " has been deleted";
                 await exercise.deletePlanToDb(physiouId,selectdPlan.exerciseName);
+                await DisplayAlert("Alert", message, "OK");
                 await Navigation.PopModalAsync();
             }
         }
