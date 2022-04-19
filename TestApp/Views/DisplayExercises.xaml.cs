@@ -23,6 +23,8 @@ namespace TestApp.views
         private DisplayExercisePlansViewModel viewModel;
         private List<PatientList> details = new List<PatientList>();
         private string physioUid = "";
+        private static bool alreadyAdded = false;
+        List<ExercisePlan> physioPlanList;
         /// <summary>
         /// This constructor creates an instance of DisplayExercisesViewModel to call the FirebaseMethods methods
         /// </summary>
@@ -45,9 +47,10 @@ namespace TestApp.views
             MyListView.ItemsSource = null;
             List<ExercisePlan> physioPlanList = await viewModel.getPhysioPlans(physioUid);
             List<ExercisePlan> exercises = await viewModel.getExerciseList(false);
-            if (physioPlanList != null)
+            if (physioPlanList != null && alreadyAdded == false)
             {
                 exercises.AddRange(physioPlanList);
+                alreadyAdded = true;
             }
             var sortedByCategorys = exercises.GroupBy(val => val.Category);
             MyListView.ItemsSource = sortedByCategorys;
